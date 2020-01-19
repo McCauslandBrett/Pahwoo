@@ -3,20 +3,30 @@ import { Platform, StyleSheet, Text, View,
          SafeAreaView,ScrollView,Dimensions, Image
 } from 'react-native';
 
-
-//added imports
-import { createAppContainer} from 'react-navigation'
-import {createDrawerNavigator,DrawerItems } from 'react-navigation-drawer';
-import {createStackNavigator, StackNavigator} from 'react-navigation-stack';
-
 // prject files
 import HomeScreen from './screens/HomeScreen';
 import SettingScreen from './screens/SettingScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 
+// Redux
+import reducer from './reducers'
 import AuthStackNavigator from './navigation/AuthStackNavigator';
 import AuthSwitchNavigator from './navigation/AuthSwitchNavigator';
+
+//added imports
+import { createAppContainer} from 'react-navigation'
+import {createDrawerNavigator,DrawerItems } from 'react-navigation-drawer';
+import {createStackNavigator, StackNavigator} from 'react-navigation-stack';
+
+// - Redux
+import {createStore,applyMiddleware} from 'redux'
+import{Provider} from 'react-redux'
+import thunkMiddleware from 'redux-thunk';
+// import logger from 'redux-logger';
+
+const middleware = applyMiddleware(thunkMiddleware)
+const store = createStore(reducer,middleware);
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
@@ -25,40 +35,15 @@ const instructions = Platform.select({
 export default class App extends Component {
   render() {
     return (
-
-    <AuthSwitchNavigator/>
-    // <AppDrawerNavigator/>
+       <Provider store={store}>
+          <AuthSwitchNavigator/>
+        </Provider>
     );
   }
 }
 
 
-const CustomDrawerComponent = (props) => (
-  <SafeAreaView style = {{flex: 1}}>
-    <View style = {{height:150,backgroundColor:'white',alignItems:'center',justifyContent:'center'}}>
-    <Image source ={require('./assets/elephant.png')}style = {{height:120,width:120,borderRadius:60}}/>
-    </View>
-    <ScrollView>
-      <DrawerItems {...props} />
-    </ScrollView>
-  </SafeAreaView>
-)
 
-const AppDrawerNavigator = createAppContainer(createDrawerNavigator(
-  {
-    Home:HomeScreen,
-    Settings:SettingScreen
-  },
-  {
-    contentComponent:CustomDrawerComponent,
-    contentOptions:{
-      activeTintColor:'blue'
-    }
-  },
-  {
-    initialRouteName:'Home'
-  }
-))
 
 const styles = StyleSheet.create({
   container: {
