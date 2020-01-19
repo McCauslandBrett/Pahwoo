@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 import {Header, Left, Right, Icon} from 'native-base';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 class HomeScreen extends Component{
   static navigationOptions = {
@@ -31,4 +33,12 @@ const syles = StyleSheet.create({
     justifyContent:'center'
   }
 });
-export default HomeScreen;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({},dispatch)
+  }
+  const mapStateToProps = (state) => {
+    return {
+      counter: state
+    }
+  }
+  export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)

@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet,Button} from 'react-native';
 import HomeScreen from './HomeScreen';
+// dependecies
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {updateEmail,updatePassword} from '../actions/user.js'
 
 class LoginScreen extends Component{
   static navigationOptions = {
@@ -18,7 +22,6 @@ class LoginScreen extends Component{
     );
   }
 }
-export default LoginScreen;
 
 const syles = StyleSheet.create({
   container:{
@@ -27,3 +30,15 @@ const syles = StyleSheet.create({
     justifyContent:'center'
   }
 });
+
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({updateEmail,updatePassword},dispatch)
+  }
+  const mapStateToProps = (state) => {
+    return {
+      user:state
+    }
+  }
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(LoginScreen)
