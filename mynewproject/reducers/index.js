@@ -20,7 +20,7 @@ const user = (state = {},action) => {
   }
 }
 const rootReducer = combineReducers({
- user
+ user,
 })
 
 export default rootReducer

@@ -21,12 +21,13 @@ class HomeScreen extends Component{
 
       <View>
           <Text> HomeScreen</Text>
+          <Text> {this.props.user.username}</Text>
       </View>
   </View>
     );
   }
 }
-const syles = StyleSheet.create({
+const styles = StyleSheet.create({
   container:{
     flex:1,
     alignItems:'center',
@@ -38,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
   }
   const mapStateToProps = (state) => {
     return {
-      counter: state
+      user: state.user
     }
   }
   export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)

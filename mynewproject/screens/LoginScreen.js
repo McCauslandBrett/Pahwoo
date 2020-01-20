@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet,Button} from 'react-native';
+import { View, Text, StyleSheet,Button,TextInput} from 'react-native';
 import HomeScreen from './HomeScreen';
 // dependecies
 import {bindActionCreators} from 'redux'
@@ -12,9 +12,17 @@ class LoginScreen extends Component{
   }
   render(){
     return(
-      <View style={syles.container}>
-        <Text> username</Text>
-        <Text> password</Text>
+      <View style={styles.container}>
+      <TextInput
+          value = {this.props.user.email}
+          onChangeText = {input => this.props.updateEmail(input)}
+          placeholder = 'Email'
+       />
+       <TextInput
+          value = {this.props.user.password}
+          onChangeText = {input => this.props.updatePassword(input)}
+          placeholder = 'password'
+        />
         <Button title ="login" onPress = {()=> this.props.navigation.navigate('SignedIn')} />
         <Text> or </Text>
         <Button title ="SignUp" onPress = {()=> this.props.navigation.navigate('SignUp')} />
@@ -23,7 +31,7 @@ class LoginScreen extends Component{
   }
 }
 
-const syles = StyleSheet.create({
+const styles = StyleSheet.create({
   container:{
     flex:1,
     alignItems:'center',
@@ -37,8 +45,8 @@ const mapDispatchToProps = (dispatch) => {
   }
   const mapStateToProps = (state) => {
     return {
-      user:state
+      user:state.user
     }
   }
-  
+
   export default connect(mapStateToProps,mapDispatchToProps)(LoginScreen)
