@@ -23,7 +23,7 @@ class SettingScreen extends Component{
     );
   }
 }
-const syles = StyleSheet.create({
+const styles = StyleSheet.create({
   container:{
     flex:1,
     alignItems:'center',

@@ -7,7 +7,7 @@ import { createAppContainer,createSwitchNavigator} from 'react-navigation'
 // import {createSwitchNavigator} from 'react-navigation-switch';
 
 import AuthStackNavigator from './AuthStackNavigator';
-import AppDrawerNavigator from './AppDrawerNavigator'
+import ProjStackNavigator from './AppDrawerNavigator'
 
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
@@ -15,7 +15,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 const AuthSwitchNavigator = createAppContainer(createSwitchNavigator(
   {
   Auth: {screen: AuthStackNavigator},
-  SignedIn:{screen: AppDrawerNavigator},
+  SignedIn:{screen: ProjStackNavigator},
 
 }));
 
