@@ -7,12 +7,22 @@ import { Platform, StyleSheet, Text, View,
 //added imports
 import { createAppContainer} from 'react-navigation'
 import {createDrawerNavigator,DrawerItems } from 'react-navigation-drawer';
-
+import {createStackNavigator, StackNavigator} from 'react-navigation-stack';
 // prject files
 import HomeScreen from '../screens/HomeScreen';
 import SettingScreen from '../screens/SettingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+
+import CustomCardScreen from '../screens/CustomCardScreen';
+import ContactScreen from '../screens/ContactScreen';
+import CardScreen from '../screens/CardScreen';
+import InvitationScreen from '../screens/InvitationScreen';
+import TemplateCardScreen from '../screens/TemplateCardScreen';
+import FreshCardScreen from '../screens/FreshCardScreen';
+import GiftCardScreen from '../screens/GiftCardScreen';
+import NotificationScreen from '../screens/NotificationScreen';
+import EventScreen from '../screens/EventScreen';
 
 const CustomDrawerComponent = (props) => (
   <SafeAreaView style = {{flex: 1}}>
@@ -28,7 +38,11 @@ const CustomDrawerComponent = (props) => (
 const AppDrawerNavigator = createAppContainer(createDrawerNavigator(
   {
     Home:HomeScreen,
-    Settings:SettingScreen
+    Settings:SettingScreen,
+    Gifts: GiftCardScreen,
+    Notifications:NotificationScreen,
+    Personalize: CustomCardScreen,
+    Contacts:ContactScreen
   },
   {
     contentComponent:CustomDrawerComponent,
@@ -40,4 +54,24 @@ const AppDrawerNavigator = createAppContainer(createDrawerNavigator(
     initialRouteName:'Home'
   }
 ))
-export default AppDrawerNavigator;
+
+const ProjStackNavigator = createAppContainer(createStackNavigator(
+  {
+    AppDrawerNavigator:{
+      screen:AppDrawerNavigator,
+      navigationOptions: () => ({
+        header:null,
+      }),
+    },
+    Events:EventScreen,
+    Cards:CardScreen,
+    Invitations:InvitationScreen,
+    CardTemplates:TemplateCardScreen,
+    FreshCards: FreshCardScreen,
+},
+{
+  initialRouteName:"AppDrawerNavigator",
+}
+));
+
+export default ProjStackNavigator;
