@@ -15,6 +15,7 @@ import AuthStackNavigator from './navigation/AuthStackNavigator';
 import AuthSwitchNavigator from './navigation/AuthSwitchNavigator';
 
 //added imports
+import firebase from './config/firebase'
 import { createAppContainer} from 'react-navigation'
 import {createDrawerNavigator,DrawerItems } from 'react-navigation-drawer';
 import {createStackNavigator, StackNavigator} from 'react-navigation-stack';
