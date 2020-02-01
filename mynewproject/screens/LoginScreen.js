@@ -4,26 +4,20 @@ import HomeScreen from './HomeScreen';
 // dependecies
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateEmail,updatePassword} from '../actions/user.js'
+import {updateEmail,updatePassword,login} from '../actions/user.js'
 import firebase from 'firebase';
 
 class LoginScreen extends Component{
   static navigationOptions = {
     header:null
   }
-  
+
   login(){
-    console.log('firebase instance: ')
-    // console.log(db)
-    
-    firebase.auth().createUserWithEmailAndPassword(this.props.user.email, this.props.user.password).catch(function(error) {
-            alert(error)
-        });
-    
-    
-    this.props.navigation.navigate('SignedIn')
-  }
-  
+    this.props.login()
+      this.props.navigation.navigate('SignedIn')
+
+    }
+
   render(){
     return(
       <View style={styles.container}>
@@ -55,7 +49,7 @@ const styles = StyleSheet.create({
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({updateEmail,updatePassword},dispatch)
+    return bindActionCreators({updateEmail,updatePassword,login},dispatch)
   }
   const mapStateToProps = (state) => {
     return {
