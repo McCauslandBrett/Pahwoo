@@ -1,7 +1,9 @@
 import{combineReducers} from 'redux'
-
+const usersDefaultState = [];
 const user = (state = {},action) => {
   switch (action.type) {
+    case 'LOGOUT':
+      return usersDefaultState;
     case 'LOGIN':
       return action.payload
     case 'SIGNUP':

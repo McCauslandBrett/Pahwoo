@@ -3,8 +3,15 @@ import { View, Text, StyleSheet,TextInput,TouchableOpacity} from 'react-native';
 // dependecies
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateEmail,updatePassword,updateUsername,updateBirthday} from '../actions/user.js'
+import {updateEmail,updatePassword,updateUsername,updateBirthday, signup} from '../actions/user.js'
 class SignUpScreen extends Component{
+  
+  
+  signup = () => {
+    this.props.signup()
+    this.props.navigation.navigate('SignedIn')
+  }
+  
   render(){
     return(
       <View style = {styles.container}>
@@ -32,15 +39,15 @@ class SignUpScreen extends Component{
           onChangeText = {input => this.props.updateBirthday(input)}
           placeholder = 'Birthday'
       />
-      <TouchableOpacity style ={styles.button} onPress = {()=> this.props.navigation.navigate('SignedIn')}>
-        <Text> SignUp </Text>
+      <TouchableOpacity style ={styles.button} onPress = {()=> this.signup()}>
+        <Text> Sign Up </Text>
       </TouchableOpacity>
       </View>
     );
   }
 }
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({updateEmail,updatePassword,updateUsername,updateBirthday},dispatch)
+    return bindActionCreators({updateEmail, updatePassword, updateUsername, updateBirthday, signup}, dispatch)
   }
   const mapStateToProps = (state) => {
     return {
@@ -65,4 +72,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     textAlign:'center'
   },
+  button: {
+    marginTop:20,
+    paddingVertical:10,
+    alignItems:'center',
+    borderColor:'#d3d3d3',
+    borderWidth:1,
+    borderRadius:5,
+    width:200
+  }
 });
