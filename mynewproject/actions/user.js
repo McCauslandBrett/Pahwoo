@@ -1,5 +1,10 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
+
+
+export const logout = () => {
+    return {type:'LOGOUT'}
+}
 export const updateEmail = (email) => {
   return {type:'UPDATE_EMAIL', payload:email}
 }
@@ -29,8 +34,6 @@ export const login = () => {
       console.log(email)
       console.log(password)
       const response = await firebase.auth().signInWithEmailAndPassword(email,password)
-      // dispatch({type:'LOGIN',payload:response.user})
-      console,log("you shouldnt see me")
       dispatch(getUser(response.user.uid))
 
     } catch(e) {
@@ -39,3 +42,32 @@ export const login = () => {
     }
   }
 }
+
+
+export const signup = () => {
+    return async (dispatch,getState) => {
+      try{
+          const {email,password,username,birthday} = getState().user
+          console.log(email)
+          const response = await firebase.auth().createUserWithEmailAndPassword(email,password)
+          const id = response.user.uid
+          console.log(id)
+          console.log(email)
+          console.log(username)
+          console.log(birthday)
+          if(id){
+            const user = {
+            uid:id,
+            email:email,
+            username:username,
+            birthday:birthday,
+  
+          }
+          db.collection("users").doc(id).set(user)
+          dispatch({type:'SIGNUP',payload:user})
+        }
+      } catch(e) {
+        alert(e)
+      }
+    }
+  }
