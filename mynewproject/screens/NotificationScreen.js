@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet,SafeAreaView,ScrollView} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Icon  from "../components/icons.js"
+import Icon  from "../components/icons.js";
+import {Ionicons} from "@expo/vector-icons";
+
+import styles from '../styles.js'
 
 
 class NotificationScreen extends Component{
@@ -14,17 +17,20 @@ class NotificationScreen extends Component{
   }
   render(){
     return(
-      <View >
-        <Header>
-          <Left>
-             <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-          </Left>
-        </Header>
+      <SafeAreaView >
+          <ScrollView showsVerticalScrollIndicator={false}>
 
-      <View>
-          <Text> NotificationScreen </Text>
+             <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+             <Ionicons name="md-more" size={24} style = {styles.mdmore} />
+
+
+             <View style = {{marginTop:60, alignItems:"center"}}>
+                 <Text> NotificationScreen</Text>
+
+
       </View>
-  </View>
+      </ScrollView>
+      </SafeAreaView>
     );
   }
 }
