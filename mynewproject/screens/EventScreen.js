@@ -8,6 +8,15 @@ import Icon  from "../components/icons.js"
 
 class EventScreen extends Component{
 
+  static navigationOptions = {
+  headerTintColor: 'black',
+  headerBackTitle: null,
+  headerStyle: {
+    borderBottomColor:'transparent',
+    borderBottomWidth: 0,
+  },
+}
+
   render(){
     return(
       <View >
@@ -18,19 +27,13 @@ class EventScreen extends Component{
     );
   }
 }
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  }
-});
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
-    counter: state.user
+    user: state.user
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(EventScreen)

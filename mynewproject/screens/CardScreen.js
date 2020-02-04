@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+// global
+import { View, Text, StyleSheet, Button,SafeAreaView,ScrollView} from 'react-native';
 import {Header, Left, Right} from 'native-base';
+import Icon  from "../components/icons.js";
+import {Ionicons} from "@expo/vector-icons";
+import styles from '../styles.js'
+
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Icon  from "../components/icons.js";
+
 
 
 class CardScreen extends Component{
@@ -18,19 +23,12 @@ class CardScreen extends Component{
     );
   }
 }
-const syles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  }
-});
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
-    counter: state
+    user: state.user
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CardScreen)

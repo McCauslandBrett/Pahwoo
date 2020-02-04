@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+
+// global
+import { View, Text, StyleSheet, Button,SafeAreaView,ScrollView} from 'react-native';
+import Icon  from "../components/icons.js";
+import {Ionicons} from "@expo/vector-icons";
+import styles from '../styles.js'
+
 import {Container,Header, Left, Right, Content, List, ListItem } from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Icon  from "../components/icons.js"
+
 
 class ContactScreen extends Component{
   static navigationOptions = {
@@ -47,13 +53,7 @@ class ContactScreen extends Component{
     }
   }
 
-const syles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  }
-});
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({},dispatch)
 }

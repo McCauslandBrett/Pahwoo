@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet,Button} from 'react-native';
+import { View, Text,SafeAreaView,ScrollView, StyleSheet,Button} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Icon  from "../components/icons.js"
+import Icon  from "../components/icons.js";
+import {Ionicons} from "@expo/vector-icons";
+
+import styles from '../styles.js'
 
 
 class CustomCardScreen extends Component{
@@ -14,29 +17,20 @@ class CustomCardScreen extends Component{
   }
   render(){
     return(
-      <View >
-        <Header>
-          <Left>
-             <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-          </Left>
-        </Header>
-
-      <View>
-          <Text> CustomCardScreen</Text>
-          <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
-          <Button title ="Cards" onPress = {()=> this.props.navigation.navigate('FreshCards')} />
-      </View>
-  </View>
+      <SafeAreaView >
+          <ScrollView showsVerticalScrollIndicator={false}>
+             <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+             <Ionicons name="md-more" size={24} style = {styles.mdmore} />
+             <View style = {{marginTop:60, alignItems:"center"}}>
+                 <Text> NotificationScreen</Text>
+                 <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
+                 <Button title ="Cards" onPress = {()=> this.props.navigation.navigate('FreshCards')} />
+             </View>
+      </ScrollView>
+    </SafeAreaView>
     );
   }
 }
-const syles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  }
-});
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({},dispatch)
 }
