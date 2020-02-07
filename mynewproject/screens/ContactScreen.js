@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, SafeAreaView, SectionList} from 'react-native';
+// global
+import { View, Text, StyleSheet, Button, SafeAreaView, ScrollView, SectionList} from 'react-native';
+import Icon  from "../components/icons.js";
+import {Ionicons} from "@expo/vector-icons";
+import styles from '../styles.js'
+
 import {Container,Header, Left, Right, Content, List, ListItem } from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Icon  from "../components/icons.js"
+
 
 
 // might want to fetch the user's contacts in the ComponentDidMount function
@@ -16,8 +21,8 @@ import Icon  from "../components/icons.js"
 
 function Item({ title }) {
     return (
-      <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
+      <View style={styles.contactsItem}>
+        <Text style={styles.contactsTitle}>{title}</Text>
       </View>
     );
 }
@@ -94,13 +99,13 @@ class ContactScreen extends Component{
             </Left>
         </Header>   
         </View>
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.contactsContainer}>
         <SectionList
             sections={this.contactData}
             keyExtractor={(item, index) => item + index}
             renderItem={({ item }) => <Item title={item} />}
             renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.header}>{title}</Text>
+            <Text style={styles.contactsHeader}>{title}</Text>
             )}
         />
         
@@ -110,27 +115,6 @@ class ContactScreen extends Component{
     }
   }
 
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center',
-    alignSelf: 'stretch',
-    flexDirection: 'row'
-  },
-  item: {
-    backgroundColor: 'lightgreen',
-    padding: 20,
-    marginVertical: 8,
-    justifyContent: 'center'
-  },
-  header: {
-    fontSize: 32,
-  },
-  title: {
-    fontSize: 24,
-  }
-});
 
 
 const mapDispatchToProps = (dispatch) => {
