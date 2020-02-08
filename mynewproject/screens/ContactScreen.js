@@ -31,8 +31,18 @@ class ContactScreen extends Component{
     }
     // when we sort the contacts alphabetically, I will use a hashtable where each key is 
     // a letter of the alpbabet and each value is an array of users that start with that letter
+    // this is how you to format the contacts:
+    // newTempData.push(
+    //     {
+    //         title: 'B',
+    //         data: [tempData[i].username]
+    //     }
+    // )
     componentDidMount = async () => {
         let tempData = []
+        let dictionary = {
+            
+        }
         // for loop with async calls
         for (var i = 0; i < this.props.user.contacts.length; i++){
             const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
@@ -40,18 +50,34 @@ class ContactScreen extends Component{
                 tempData.push(response.data())
             })
         }
-        console.log(tempData)
+        // at this point I have an array of user objects from the current user's contact array
         // this.setState({contactData: tempData})
         let newTempData = []
+        let startLetter = ""
         for (var i = 0; i < tempData.length; i++){
-            newTempData.push(
+            
+            startLetter = tempData[i].username.charAt(0)
+            if (dictionary.startLetter != null){
+                // add the username to the array of the letter
+                dictionary[startLetter].push(tempData[i].username)
+            }
+            else {
+                //create an array, add the username, and set the array to the value of the startLetter key
+                let letterArray = [tempData[i].username]
+                dictionary[startLetter] = letterArray
+            }
+        }
+        let finalContactData = []
+        for (var key in dictionary){
+            finalContactData.push(
                 {
-                    title: 'B',
-                    data: [tempData[i].username]
+                    title: key,
+                    data: dictionary[key]
                 }
             )
-            this.setState({contactData: newTempData})
         }
+        
+        this.setState({contactData: finalContactData})
     }
 
   
