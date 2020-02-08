@@ -61,7 +61,7 @@ export const signup = () => {
             email:email,
             username:username,
             birthday:birthday,
-  
+            contacts: []
           }
           db.collection("users").doc(id).set(user)
           dispatch({type:'SIGNUP',payload:user})

@@ -25,24 +25,14 @@ class ContactScreen extends Component{
         <Icon.FontAwesome name= "address-book" style = {{fontSize:24, color:tintColor}}/>
         )
     }
-  
+    
     state = {
         contactData: []
     }
-    // when we sort the contacts alphabetically, I will use a hashtable where each key is 
-    // a letter of the alpbabet and each value is an array of users that start with that letter
-    // this is how you to format the contacts:
-    // newTempData.push(
-    //     {
-    //         title: 'B',
-    //         data: [tempData[i].username]
-    //     }
-    // )
+    
     componentDidMount = async () => {
         let tempData = []
-        let dictionary = {
-            
-        }
+        let dictionary = {}
         // for loop with async calls
         for (var i = 0; i < this.props.user.contacts.length; i++){
             const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
@@ -51,12 +41,12 @@ class ContactScreen extends Component{
             })
         }
         // at this point I have an array of user objects from the current user's contact array
-        // this.setState({contactData: tempData})
         let newTempData = []
         let startLetter = ""
+        let string = ""
         for (var i = 0; i < tempData.length; i++){
-            
-            startLetter = tempData[i].username.charAt(0)
+            string = tempData[i].username.toUpperCase()
+            startLetter = string.charAt(0)
             if (dictionary.startLetter != null){
                 // add the username to the array of the letter
                 dictionary[startLetter].push(tempData[i].username)
@@ -67,6 +57,7 @@ class ContactScreen extends Component{
                 dictionary[startLetter] = letterArray
             }
         }
+        // final organization of the contacts
         let finalContactData = []
         for (var key in dictionary){
             finalContactData.push(
@@ -76,11 +67,11 @@ class ContactScreen extends Component{
                 }
             )
         }
-        
+        // sort objects in finalContactData by the title field
+        finalContactData.sort((a, b) => (a.color > b.color) ? -1 : 1)
         this.setState({contactData: finalContactData})
     }
-
-  
+    
     render() {
       return (
         <Container>
