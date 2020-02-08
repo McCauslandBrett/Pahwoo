@@ -1,22 +1,12 @@
 import React, {Component} from 'react';
-// global
 import { View, Text, StyleSheet, Button, SafeAreaView, ScrollView, SectionList} from 'react-native';
 import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
 import styles from '../styles.js'
-
 import {Container,Header, Left, Right, Content, List, ListItem } from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
-
-
-// might want to fetch the user's contacts in the ComponentDidMount function
-// that way they are loaded when the ContactScreen Component loads
-// What features/functionality should the contact screen have? 
-// What should the contact screen look like?
-
-
+import db from '../config/firebase.js';
 
 
 function Item({ title }) {
@@ -27,67 +17,43 @@ function Item({ title }) {
     );
 }
 
+
+
 class ContactScreen extends Component{
-  static navigationOptions = {
-    drawerIcon : ({tintColor}) => (
-      <Icon.FontAwesome name= "address-book" style = {{fontSize:24, color:tintColor}}/>
-    )
-  }
-  
-  componentDidMount(){
-      this.loadContacts()
-  }
-//   contactData = []
-  contactData = [
-    {
-        title: 'A', 
-        data: ['Ben Aberdeen', 'Range Alexis', 'Covalt Azure']
-    },
-
-    {
-        title: 'B', 
-        data: ['Tommy Benson', 'Billy Blanks', 'Andy Bolton']
-    },
-
-    {
-        title: 'C', 
-        data: ['Thomas Cat', 'Cassidy Christopher', 'CC Cephala']
-    },
-
-    {
-        title: 'D', 
-        data: ['Dan Daily', 'Guy Dorman', 'Gigi Dozophere']
+    static navigationOptions = {
+        drawerIcon : ({tintColor}) => (
+        <Icon.FontAwesome name= "address-book" style = {{fontSize:24, color:tintColor}}/>
+        )
     }
-  ]
-  loadContacts(){
-    // initialize data
-    this.contactData = []
-    this.contactData.push(
-        {
-            title: 'A', 
-            data: ['Ben Aberdeen', 'Range Alexis', 'Covalt Azure']
+  
+    state = {
+        contactData: []
+    }
+    // when we sort the contacts alphabetically, I will use a hashtable where each key is 
+    // a letter of the alpbabet and each value is an array of users that start with that letter
+    componentDidMount = async () => {
+        let tempData = []
+        // for loop with async calls
+        for (var i = 0; i < this.props.user.contacts.length; i++){
+            const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
+            query.forEach((response) => {
+                tempData.push(response.data())
+            })
         }
-    )
-    this.contactData.push(
-        {
-            title: 'B', 
-            data: ['Tommy Benson', 'Billy Blanks', 'Andy Bolton']
+        console.log(tempData)
+        // this.setState({contactData: tempData})
+        let newTempData = []
+        for (var i = 0; i < tempData.length; i++){
+            newTempData.push(
+                {
+                    title: 'B',
+                    data: [tempData[i].username]
+                }
+            )
+            this.setState({contactData: newTempData})
         }
-    )
-    this.contactData.push(
-        {
-            title: 'C', 
-            data: ['Thomas Cat', 'Cassidy Christopher', 'CC Cephala']
-        }
-    )
-    this.contactData.push(
-        {
-            title: 'D', 
-            data: ['Dan Daily', 'Guy Dorman', 'Gigi Dozophere']
-        }
-    )
-    // More things needed here
-  }
+    }
+
   
     render() {
       return (
@@ -101,7 +67,7 @@ class ContactScreen extends Component{
         </View>
         <SafeAreaView style={styles.contactsContainer}>
         <SectionList
-            sections={this.contactData}
+            sections={this.state.contactData}
             keyExtractor={(item, index) => item + index}
             renderItem={({ item }) => <Item title={item} />}
             renderSectionHeader={({ section: { title } }) => (
@@ -113,7 +79,7 @@ class ContactScreen extends Component{
         </Container>
       );
     }
-  }
+}
 
 
 
