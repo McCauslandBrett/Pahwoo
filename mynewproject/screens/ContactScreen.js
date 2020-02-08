@@ -68,7 +68,7 @@ class ContactScreen extends Component{
             )
         }
         // sort objects in finalContactData by the title field
-        finalContactData.sort((a, b) => (a.color > b.color) ? -1 : 1)
+        finalContactData.sort((a, b) => (a.title > b.title) ? 1 : -1)
         this.setState({contactData: finalContactData})
     }
     
