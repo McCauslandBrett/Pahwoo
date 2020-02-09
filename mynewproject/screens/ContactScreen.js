@@ -1,24 +1,13 @@
 import React, {Component} from 'react';
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Image} from 'react-native';
+import { Modal, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image} from 'react-native';
 import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
 import styles from '../styles.js'
-import {Container,Header, Left, Right, Content, List, ListItem } from 'native-base';
+import {Container,Header, Left} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import db from '../config/firebase.js';
-
-
-function Item({ title }) {
-    return (
-      <View style={styles.contactsItem}>
-        <Text style={styles.contactsTitle}>{title}</Text>
-      </View>
-    );
-}
-
-
-
+import MultiSelect from 'react-native-multiple-select';
 class ContactScreen extends Component{
     static navigationOptions = {
         drawerIcon : ({tintColor}) => (
@@ -27,13 +16,15 @@ class ContactScreen extends Component{
     }
     
     state = {
-        contactData: []
+        contactData: [],
+        modalVisible: false,
+        selectedItems: []
     }
-    
+    setModalVisible = (visible) => {
+        this.setState({modalVisible: visible});
+    }
     componentDidMount = async () => {
         let tempData = []
-        let dictionary = {}
-        let photoDictionary = {}
         // for loop with async calls
         for (var i = 0; i < this.props.user.contacts.length; i++){
             const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
@@ -84,26 +75,72 @@ class ContactScreen extends Component{
             <Text style={styles.thumbnailBold}>{data.item.username}</Text>
             <Text style={styles.thumbnailGray}>{data.item.birthday}</Text>
     </TouchableOpacity>
-    
+    onSelectedItemsChange = selectedItems => {
+        this.setState({selectedItems: selectedItems});
+        console.log(this.state.selectedItems)
+    };
+          
     render() {
+      const { selectedItems } = this.state;
+
       return (
         <Container>
-        <View>
-        <Header>
-            <Left>
-                <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-            </Left>
-        </Header>   
-        </View>
-        <SafeAreaView style={styles.contactsContainer}>
-            <FlatList
-                data={this.state.contactData}
-                ItemSeparatorComponent={this.FlatListItemSeparator}
-                keyExtractor={(item) => JSON.stringify(item.uid)}
-                renderItem={item => this.renderItem(item)}
-            />
-        
-        </SafeAreaView>
+            <View>
+                <Header>
+                    <Left>
+                        <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+                    </Left>
+                </Header>   
+            </View>
+            <SafeAreaView style={styles.contactsContainer}>
+                <FlatList
+                    data={this.state.contactData}
+                    ItemSeparatorComponent={this.FlatListItemSeparator}
+                    keyExtractor={(item) => JSON.stringify(item.uid)}
+                    renderItem={item => this.renderItem(item)}
+                />
+            </SafeAreaView>
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                alert('Modal has been closed.');
+            }}>
+                <SafeAreaView style={{flex: 1}}>
+                    <MultiSelect
+                        hideTags
+                        items={this.state.contactData}
+                        uniqueKey="uid"
+                        // ref={(component) => { this.state.multiSelect = component }}
+                        onSelectedItemsChange={this.onSelectedItemsChange}
+                        selectedItems={this.state.selectedItems}
+                        selectText="Pick Items"
+                        searchInputPlaceholderText="Search Items..."
+                        tagRemoveIconColor="#CCC"
+                        tagBorderColor="#CCC"
+                        tagTextColor="#CCC"
+                        selectedItemTextColor="#CCC"
+                        selectedItemIconColor="#CCC"
+                        itemTextColor="#000"
+                        displayKey="username"
+                        searchInputStyle={{ color: '#CCC' }}
+                        submitButtonColor="#CCC"
+                        submitButtonText="Submit"
+                    />
+                </SafeAreaView>
+                <TouchableOpacity style={styles.button}
+                    onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                    }}>
+                    <Text>Hide Modal</Text>
+                </TouchableOpacity>
+            </Modal>
+
+            <TouchableOpacity style={styles.button}
+                onPress={() => {this.setModalVisible(true)}}>
+                <Text>Select Contacts</Text>
+            </TouchableOpacity>
         </Container>
       );
     }
