@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateEmail,updatePassword,login, getUser} from '../actions/user.js'
 import firebase from 'firebase';
-
+import styles from '../styles.js'
 
 class LoginScreen extends Component{
     // no header since we show the drawer navigation
@@ -54,23 +54,6 @@ class LoginScreen extends Component{
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  },
-  border: { // used above
-    width: '85%',
-    margin: 10,
-    padding:15,
-    fontSize:16,
-    borderColor: '#d3d3d3',
-    borderBottomWidth: 1,
-    textAlign:'center'
-  }
-});
 
 
 const mapDispatchToProps = (dispatch) => {
