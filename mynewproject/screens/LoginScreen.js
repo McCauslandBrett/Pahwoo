@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet,Button,TextInput} from 'react-native';
+import { View, Text,Button,TextInput} from 'react-native';
 import HomeScreen from './HomeScreen';
 // dependecies
 import {bindActionCreators} from 'redux'
