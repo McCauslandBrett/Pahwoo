@@ -26,4 +26,76 @@ export default styles = StyleSheet.create({
       top:10,
       right:20,
   },
+  text: {
+    fontFamily:"HelveticaNeue",
+    color: '#52575D',
+    fontWeight:"200"
+
+  },
+  image: {
+    flex:1,
+    // width:undefined,
+    // height:undefined
+  },
+  profileImage:{
+    width:200,
+    height:200,
+    borderRadius:100,
+    overflow:'hidden'
+  },
+  avatarContainer:{
+    shadowColor:"#151734",
+    shadowRadius:30,
+    shadowOpacity:0.4
+  },
+  avatar:{
+    width:136,
+    height:136,
+    borderRadius:68
+  },
+  name: {
+    marginTop:20,
+    fontSize:16,
+    fontWeight:"600"
+  },
+  statsContainer:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    margin:20
+  },
+  stat:{
+    alignItems:"center",
+    flex: 1,
+
+  },
+  statbox:{
+    alignItems:"center",
+    flex: 1,
+    borderColor:"#DfD8C8",
+    borderLeftWidth:1,
+    borderRightWidth:1
+  },
+  statAmount:{
+    color:'#52575D',
+    fontSize:18,
+    fontWeight:"400",
+
+  },
+  statTitle:{
+    color:"#888a8c",
+    fontSize:12,
+    fontWeight:"500",
+    marginTop:4
+  },
+  add:{
+    backgroundColor:"#52575D",
+    position: "absolute",
+    bottom:0,
+    right:0,
+    width:30,
+    height:30,
+    borderRadius:30,
+    alignItems:"center",
+    justifyContent:"center"
+  }
 });
