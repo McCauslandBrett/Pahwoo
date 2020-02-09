@@ -62,6 +62,7 @@ export const signup = () => {
             username:username,
             birthday:birthday,
             contacts: []
+
           }
           db.collection("users").doc(id).set(user)
           dispatch({type:'SIGNUP',payload:user})
@@ -71,3 +72,37 @@ export const signup = () => {
       }
     }
   }
+export const  updateProfileImage = (image_id) => {
+ return {type:'UPDATE_PROFILE_IMAGE',payload:image_id}
+}
+export const uploadImage = (uri) => {
+  return async (dispatch,getState) => {
+  console.log("uploadImage")
+
+  // get image from phone
+  const response = await fetch(uri);
+
+   // Create a Blob
+  const blob = await response.blob();
+
+ // Create a root reference
+ const storageRef = firebase.storage().ref();
+
+// Create a reference to 'profileImage.jpg'
+ const uploadTask = await storageRef.child("users/"+ getState().user.uid +"/profileImage.jpg").put(blob);
+ const downloadUrl = await uploadTask.ref.getDownloadURL()
+
+const user = {
+   uid:getState().user.uid,
+   email:getState().user.email,
+   username:getState().user.username,
+   birthday:getState().user.birthday,
+   profileImage: downloadUrl
+ }
+
+ db.collection("users").doc(user.uid).update(user)
+ console.log("Update user in db")
+
+}
+
+ }
