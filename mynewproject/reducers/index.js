@@ -23,8 +23,17 @@ const user = (state = {},action) => {
 
   }
 }
+
+const card = (state=null, action) => {
+    switch (action.type) {
+      default:
+        return state
+    }
+  }
+
 const rootReducer = combineReducers({
  user,
+ card
 })
 
 export default rootReducer

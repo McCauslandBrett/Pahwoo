@@ -61,7 +61,9 @@ export const signup = () => {
             email:email,
             username:username,
             birthday:birthday,
-            contacts: []
+            contacts: [],
+            recievedCards: [], // new recieved cards array for CardScreen
+            savedTemplates: [] // saved/sent cards
           }
           db.collection("users").doc(id).set(user)
           dispatch({type:'SIGNUP',payload:user})
@@ -72,12 +74,12 @@ export const signup = () => {
     }
   }
   
-  
+  // why do we need this, are we using this?
 export const  updateProfileImage = (image_id) => {
  return {type:'UPDATE_PROFILE_IMAGE',payload:image_id}
 }
 
-
+// This serves as an example for updating a field in the database
 export const uploadImage = (uri) => {
     return async (dispatch,getState) => {
         console.log("uploadImage")
