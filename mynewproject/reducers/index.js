@@ -17,7 +17,7 @@ const user = (state = {},action) => {
     case 'UPDATE_BIRTHDAY':
       return {...state, birthday: action.payload}
     case 'UPDATE_PROFILE_IMAGE':
-        return {...state, photoURL: action.payload}
+        return {...state, profileImage: action.payload}
   default:
       return state
 
