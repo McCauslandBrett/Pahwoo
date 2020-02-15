@@ -31,8 +31,22 @@ Cd into the Repo project folder /mynewproject and run
   expo start
 ```
 The application should load a barcode that you can scan with your mobile device to run the application on your device.
-
-
+## Dependencies
+ ```
+  npm install --save react-native-multiple-select
+ ```
+ ```
+  npm install --save react-native-picker-select
+ ```
+ ```
+  npm install --save react-native-shapes
+ ```
+ ```
+  npm install --save toggle-switch-react-native
+ ```
+ ```
+  npm install --save react-native-dimension
+ ```
 ## Built With
 
 * [Expo](https://expo.io) - For reliable build infrastructure

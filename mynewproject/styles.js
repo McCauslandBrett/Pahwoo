@@ -1,7 +1,7 @@
 import {StyleSheet,Dimensions} from 'react-native';
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window').height;
-
+import palette from './palette.js'
 // colors
 const ICON_COLOR = "#52575D";
 
@@ -11,6 +11,101 @@ export default styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center'
   },
+  modalViewContainer:{
+   height: palette.MODAL_HEIGHT,
+   width: palette.MODAL_WIDTH,
+   backgroundColor:palette.LIGHT_GRAY,
+   borderRadius:5,
+
+ },
+ modalButtonText:{
+   fontSize:20,
+   color:'blue',
+   fontWeight:'bold',
+ },
+ modalStyle:{
+   justifyContent:'flex-end',
+   height: 500,
+
+ },
+ modalSeperatorLine:{
+  width:'100%',
+  height:StyleSheet.hairlineWidth,
+  backgroundColor:palette.LIGHT_GRAY,
+  bottom:0,
+
+},
+modalSmallContainerView:{
+  // width:'100%',
+  // height: hieght / 3,
+  alignItems:'center',
+  justifyContent:'center'
+},
+modal_top:{
+  flexDirection:"row",
+  flex:1,
+  margin:20,
+},
+modal_title:{
+  marginBottom: 4,
+  marginTop:10,
+  fontSize:16,
+  fontWeight:'bold',
+  alignItems:'center',
+  justifyContent:'center',
+  color:'black',
+},
+iconContainer: {
+  position: 'absolute',
+  right: 0,
+},
+modalViewTop: {
+  flex: 1,
+},
+modalViewMiddle: {
+  height: 44,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingHorizontal: 10,
+  backgroundColor: '#EFF1F2',
+  borderTopWidth: 0.5,
+  borderTopColor: '#919498',
+  zIndex: 2,
+},
+chevronContainer: {
+  flexDirection: 'row',
+},
+chevron: {
+  width: 15,
+  height: 15,
+  backgroundColor: 'transparent',
+  borderColor: '#D0D4DB',
+  borderTopWidth: 1.5,
+  borderRightWidth: 1.5,
+},
+chevronUp: {
+  marginLeft: 11,
+  transform: [{ translateY: 4 }, { rotate: '-45deg' }],
+},
+chevronDown: {
+  marginLeft: 22,
+  transform: [{ translateY: -5 }, { rotate: '135deg' }],
+},
+chevronActive: {
+  borderColor: '#007AFE',
+},
+done: {
+  color: '#007AFE',
+  fontWeight: 'bold',
+  fontSize: 15,
+  paddingTop: 1,
+  paddingRight: 2,
+},
+modalViewBottom: {
+  justifyContent: 'center',
+  backgroundColor: '#D0D4DB',
+},
 
   menuIcon:{
     zIndex:9,
@@ -26,7 +121,108 @@ export default styles = StyleSheet.create({
       top:10,
       right:20,
   },
-  
+  placeholder: {
+    color: '#C7C7CD',
+},
+headlessAndroidPicker: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    color: 'transparent',
+    opacity: 0,
+},
+
+
+  containerI:{
+    flexDirection:"row",
+    flex:2,
+  },
+  cardAttachment:{
+    fontSize:24,
+    color:palette.LIGHT_GRAY,
+  },
+  coverText:{
+    fontSize:32,
+    color:palette.LIGHT_GRAY,
+    alignItems:'center',
+    justifyContent: 'center',
+    margin:20,
+    textAlign: 'center',
+  },
+  bodyoneText:{
+    fontSize:24,
+    color:palette.LIGHT_GRAY,
+    alignItems:'center',
+    justifyContent: 'center',
+    margin:20,
+    textAlign: 'center',
+  },
+  bodytwoText:{
+    fontSize:24,
+    color:palette.LIGHT_GRAY,
+    alignItems:'center',
+    justifyContent: 'center',
+    margin:20,
+    textAlign: 'center',
+  },
+  deliveryContainer:{
+    flexDirection:"row",
+    flex:1,
+    // alignItems:'center',
+    justifyContent: 'center',
+
+  },
+
+  deliveryElement:{
+    // flexDirection:"row",
+    // flex:1,
+    // alignItems:'center',
+    // justifyContent: 'center'
+  },
+  deliveryTitle:{
+    color:"#888a8c",
+    fontSize:12,
+    fontWeight:"500",
+    marginTop:4
+  },
+  menuIcon:{
+    zIndex:9,
+    position:"absolute",
+    top:10,
+    left:20,
+    color:palette.ICON_COLOR
+  },
+  mdmore:{
+      color:palette.ICON_COLOR,
+      zIndex:9,
+      position:"absolute",
+      top:10,
+      right:20,
+  },
+  mdmore3:{
+      color:palette.ICON_COLOR,
+      marginRight:25,
+
+  },
+  mdmore2:{
+      color: palette.ICON_COLOR,
+      zIndex:9,
+      // position:"absolute",
+      top:10,
+      right:20,
+  },
+  text: {
+    fontFamily:"HelveticaNeue",
+    color: palette.LIGHT_GRAY,
+    fontWeight:"200"
+
+  },
+  cardAttachmentContainer:{
+  flexDirection:"row",
+  justifyContent:"space-between",
+  margin:20
+},
+
   contactsContainer:{
     flex:1,
     alignItems:'center',
@@ -34,18 +230,18 @@ export default styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row'
   },
-  
+
   contactsItem: {
     backgroundColor: 'lightgreen',
     padding: 20,
     marginVertical: 8,
     justifyContent: 'center'
   },
-  
+
   contactsHeader: {
     fontSize: 32,
   },
-  
+
   contactsTitle: {
     fontSize: 24,
   },
@@ -154,7 +350,7 @@ export default styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   thumbnailRoundImage: {
-    width: 40, 
+    width: 40,
     height: 40,
     borderRadius: 20,
     margin: 10,
@@ -198,7 +394,7 @@ export default styles = StyleSheet.create({
   contactsHeader: {
     fontSize: 32,
   },
-  
+
   contactsTitle: {
     fontSize: 24,
   },
