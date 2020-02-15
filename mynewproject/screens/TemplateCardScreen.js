@@ -7,13 +7,24 @@ import Icon  from "../components/icons.js";
 import styles from '../styles.js'
 import db from '../config/firebase.js';
 import {createCard} from '../actions/card.js'
-class FreshCardScreen extends Component{
+class TemplateCardScreen extends Component{
   static navigationOptions = {
     drawerIcon : ({tintColor}) => (
         <Icon.FontAwesome name= "gift" style = {{fontSize:24, color:tintColor}}/>
     )
   }
-
+  state = {
+    modalVisible: false,
+    newName: ``
+  }
+  setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
+  }
+  createCard = () => {
+   //   should create a card with just a name for now and add it to the database
+    console.log(this.state.newName)
+    this.props.createCard(this.state.newName)
+  }
 
   render(){
     return(
@@ -64,4 +75,4 @@ const mapStateToProps = (state) => {
     card: state.card
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(FreshCardScreen)
+export default connect(mapStateToProps,mapDispatchToProps)(TemplateCardScreen)
