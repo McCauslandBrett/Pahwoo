@@ -11,6 +11,7 @@ import styles from '../styles.js'
 
 class CustomCardScreen extends Component{
   static navigationOptions = {
+    headerBackTitle: null,
     drawerIcon : ({tintColor}) => (
       <Icon.FontAwesome name= "envelope" style = {{fontSize:24, color:tintColor}}/>
     )

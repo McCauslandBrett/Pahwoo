@@ -16,6 +16,7 @@ import db from '../config/firebase';
 
 class HomeScreen extends Component{
   static navigationOptions = {
+      headerBackTitle: null,
     drawerIcon : ({tintColor}) => (
       <Icon.FontAwesome name= "home" style = {{fontSize:24, color:tintColor}}/>
     )

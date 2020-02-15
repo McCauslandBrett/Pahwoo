@@ -4,9 +4,17 @@ import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js"
-
+import styles from '../styles.js'
 
 class InvitationScreen extends Component{
+  static navigationOptions = {
+    headerTintColor: 'black',
+    headerBackTitle: null,
+    headerStyle: {
+      borderBottomColor:'transparent',
+      borderBottomWidth: 0,
+    },
+  }
 
   render(){
     return(
@@ -18,13 +26,7 @@ class InvitationScreen extends Component{
     );
   }
 }
-const syles = StyleSheet.create({
-  container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  }
-});
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({},dispatch)
 }
