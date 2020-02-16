@@ -24,7 +24,7 @@ const user = (state = {},action) => {
   }
 const card = (state = {},action) => {
   switch (action.type) {
-    case 'SET_CID':
+    case 'SET_ID':
         return {...state, id: action.payload}
     case 'UPDATE_COVER_TEXT':
       return {...state, cover_text: action.payload}
