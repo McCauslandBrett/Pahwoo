@@ -1,7 +1,5 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
-import uuid from 'uuid'
-import { enableExpoCliLogging } from 'expo/build/logs/Logs';
 export const createCard = (newName, recipientsList) => {
 	return async (dispatch, getState) => {
 		try {
@@ -28,7 +26,16 @@ export const createCard = (newName, recipientsList) => {
             await userRef.update({
                 savedTemplates: firebase.firestore.FieldValue.arrayUnion(cardObject.id)
             });
-            dispatch( {type:'SET_CID',payload: cardObject.id})
+            dispatch( {type:'SET_ID',payload: cardObject.id})
+            dispatch( {type:'UPDATE_COVER_TEXT',payload: cardObject.cover_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardObject.body_two_text})
+            dispatch( {type:'UPDATE_COVER_FONT',payload: cardObject.cover_font})
+            dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardObject.cover_text_align})
+            dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardObject.cover_text_bold})
+            dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardObject.cover_text_italic})
+            dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardObject.isCoverModalVisible})
+            dispatch( {type:'SET_RECIPIENTS',payload: cardObject.recipients})
 		} catch (e) {
 			alert(e)
 		}
@@ -53,6 +60,7 @@ export const getCard = (id) => {
             dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardData[0].cover_text_bold})
             dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
             dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
+            dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
             
         } catch (e){
             alert(e)
@@ -64,26 +72,18 @@ export const getCard = (id) => {
 
 
 export const sendCard = (recipients) => {
-    // just a copy paste from createCard, but should be modified to iterate
-    // over the cards recipients and populate their recievedCards array
+    // Iterate over the card's recipients and populate their recievedCards array
 	return async (dispatch, getState) => {
 		try {
-            const { post, user } = getState()
-            const card = {
-                name: newName, 
-                recipients: recipientsList
+            const { card } = getState()
+            for (var i = 0; i < card.recipients.length; i++){
+                // get reference to recipient
+                const recipientUser = db.collection('users').doc(card.recipients[i])
+                //Add card to recipientUser.recievedCards[]
+                await recipientUser.update({
+                    recievedCards: firebase.firestore.FieldValue.arrayUnion(card.id)
+                });
             }
-            // Add card to database
-			const ref = db.collection('cards').doc()
-			card.id = ref.id
-            await ref.set(card)
-
-            //Add card to user.savedTemplates[]
-            var userRef = db.collection('users').doc(user.uid)
-            // for loop
-            await userRef.update({
-                recievedCards: firebase.firestore.FieldValue.arrayUnion(card.id)
-            });
 		} catch (e) {
 			alert(e)
 		}
