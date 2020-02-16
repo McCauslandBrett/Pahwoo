@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
 import uuid from 'uuid'
+import { enableExpoCliLogging } from 'expo/build/logs/Logs';
 export const createCard = (newName, recipientsList) => {
 	return async (dispatch, getState) => {
 		try {
@@ -8,13 +9,14 @@ export const createCard = (newName, recipientsList) => {
             const cardObject = {
                 name: newName, 
                 recipients: recipientsList,
-                cover_text: '',
-                body_one_text: '',
-                body_two_text: '',
+                cover_text: newName,
+                body_one_text: newName,
+                body_two_text: newName,
                 cover_font: '',
                 cover_text_align: '',
-                cover_text_bold: '',
-                cover_text_italic: ''
+                cover_text_bold: false,
+                cover_text_italic: false,
+                isCoverModalVisible: false
             }
             // Add card to database
 			const ref = db.collection('cards').doc()
@@ -32,6 +34,34 @@ export const createCard = (newName, recipientsList) => {
 		}
 	}
 }
+
+
+export const getCard = (id) => {
+    return async (dispatch, getState) => {
+        let cardData = []
+        try{
+            const query = await db.collection('cards').where('id', '==', id).get()
+            query.forEach((response) => {
+                cardData.push(response.data())
+            })
+            dispatch( {type:'SET_CID',payload: cardData[0].id})
+            dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].body_one_text})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].body_two_text})
+            dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
+            dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardData[0].cover_text_align})
+            dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardData[0].cover_text_bold})
+            dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
+            dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
+            
+        } catch (e){
+            alert(e)
+        }
+    }
+}
+
+
+
 
 export const sendCard = (recipients) => {
     // just a copy paste from createCard, but should be modified to iterate
