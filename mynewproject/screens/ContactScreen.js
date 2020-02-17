@@ -40,7 +40,9 @@ class ContactScreen extends Component{
             
             return item;
         })
+        console.log('begin ROGITH log')
         console.log(mappedData)
+        console.log('EEEEEEEEND ROGITH log')
         // at this point I have an array of user objects from the current user's contact array
         
         // tempData.sort((a, b) => (a.username > b.username) ? 1 : -1)
@@ -69,7 +71,7 @@ class ContactScreen extends Component{
             onPress={() => this.selectItem(data)}
         >
         <Image
-            source={{ uri: data.item.photoURL }}
+            source={{ uri: data.item.profileImage }}
             style={styles.thumbnailRoundImage}
         />
             <Text style={styles.thumbnailBold}>{data.item.username}</Text>

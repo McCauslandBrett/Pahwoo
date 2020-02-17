@@ -12,7 +12,7 @@ import styles from '../styles.js'
 // const screenHeight = Dimensions.get("window").height;
 import db from '../config/firebase.js';
 import {updateCoverText,updateBodyoneText,updateBodytwoText} from '../actions/card.js'
-import {createCard} from '../actions/card.js'
+import {createCard, sendCard} from '../actions/card.js'
 
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
@@ -30,7 +30,13 @@ class FreshCardScreen extends Component{
         borderBottomWidth: 0,
       },
     }
-
+  sendCard = async () => {
+      await this.props.sendCard()
+  }
+  
+  saveCard = () => {
+      
+  }
 
   render(){
     return(
@@ -94,6 +100,14 @@ class FreshCardScreen extends Component{
         </TouchableOpacity>
         <Text style= {styles.deliveryTitle}> Deliverd Date June 2, 2020</Text>
       </View>
+      <TouchableOpacity style={styles.button}
+            onPress={() => {this.sendCard()}}>
+            <Text>Send</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button}
+            onPress={() => {}}>
+            <Text>Save</Text>
+      </TouchableOpacity>
          </ScrollView>
       </SafeAreaView>
     );
@@ -101,7 +115,7 @@ class FreshCardScreen extends Component{
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard,updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal},dispatch)
+  return bindActionCreators({createCard, sendCard, updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {

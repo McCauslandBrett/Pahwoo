@@ -24,6 +24,8 @@ const user = (state = {},action) => {
   }
 const card = (state = {},action) => {
   switch (action.type) {
+    case 'SET_ID':
+        return {...state, id: action.payload}
     case 'UPDATE_COVER_TEXT':
       return {...state, cover_text: action.payload}
     case 'UPDATE_BODY_ONE_TEXT':
@@ -40,7 +42,8 @@ const card = (state = {},action) => {
         return {...state, cover_text_italic: action.payload}
      case 'TOGGLE_MODAL_COVER':
         return {...state, isCoverModalVisible: action.payload}
-
+    case 'SET_RECIPIENTS':
+        return {...state, recipients: action.payload}
       default:
           return state
 
