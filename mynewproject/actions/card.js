@@ -51,7 +51,7 @@ export const getCard = (id) => {
             query.forEach((response) => {
                 cardData.push(response.data())
             })
-            dispatch( {type:'SET_CID',payload: cardData[0].id})
+            dispatch( {type:'SET_ID',payload: cardData[0].id})
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
             dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].body_one_text})
             dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].body_two_text})
