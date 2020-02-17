@@ -4,8 +4,9 @@
 
 # Xcode
 #
-/.expo
 package-lock.json
+/.expo
+packager-info.json
 settings.json
 build/
 *.pbxuser
