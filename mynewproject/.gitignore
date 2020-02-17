@@ -4,6 +4,9 @@
 
 # Xcode
 #
+/.expo
+packager-lock.json
+settings.json
 build/
 *.pbxuser
 !default.pbxuser
@@ -53,4 +56,5 @@ buck-out/
 */fastlane/screenshots
 
 # Bundle artifact
+
 *.jsbundle
