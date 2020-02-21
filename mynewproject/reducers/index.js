@@ -24,6 +24,10 @@ const user = (state = {},action) => {
   }
 const card = (state = {},action) => {
   switch (action.type) {
+    case 'ITALIC':
+      return {...state, cover_italic: action.payload}
+     case 'BOLD':
+         return {...state, cover_bold: action.payload}
     case 'SET_ID':
         return {...state, id: action.payload}
     case 'UPDATE_COVER_TEXT':

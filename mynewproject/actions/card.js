@@ -5,7 +5,7 @@ export const createCard = (newName, recipientsList) => {
 		try {
             const { user } = getState()
             const cardObject = {
-                name: newName, 
+                name: newName,
                 recipients: recipientsList,
                 cover_text: newName,
                 body_one_text: newName,
@@ -61,7 +61,7 @@ export const getCard = (id) => {
             dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
             dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
             dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
-            
+
         } catch (e){
             alert(e)
         }
@@ -105,11 +105,34 @@ export const updateCoverFont = (text) => {
 export const updateCoverTextAlignment = (text) => {
   return {type:'UPDATE_COVER_TEXT_ALIGNMENT', payload:text}
 }
+export const updateCoverItalic = (_bool) => {
+  if(_bool){
+  return  {type:'ITALIC',payload:'italic'}
+  }
+  else{
+  return {type:'ITALIC',payload:null}
+  }
+}
+export const updateCoverBold = (_bool) => {
+  if(_bool){
+  return  {type:'BOLD',payload:'bold'}
+  }
+  else{
+  return {type:'BOLD',payload:null}
+  }
+}
 export const updateCoverTextBold = (_bool) => {
-  return {type:'UPDATE_COVER_TEXT_BOLD', payload:_bool}
+  return (dispatch) =>{
+  updateCoverBold(_bool)
+  dispatch( {type:'UPDATE_COVER_TEXT_BOLD', payload:_bool})
+  dispatch(updateCoverBold(_bool))
+}
 }
 export const updateCoverTextItalic = (_bool) => {
-  return {type:'UPDATE_COVER_TEXT_ITALIC', payload:_bool}
+  return (dispatch) =>{
+    dispatch({type:'UPDATE_COVER_TEXT_ITALIC', payload:_bool})
+    dispatch(updateCoverItalic(_bool))
+}
 }
 export const toggleCoverModal = ( isCoverModalVisible) => {
   return {type:'TOGGLE_MODAL_COVER', payload: isCoverModalVisible}

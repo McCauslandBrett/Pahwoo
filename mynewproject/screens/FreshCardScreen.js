@@ -20,6 +20,7 @@ import ToggleSwitch from 'toggle-switch-react-native'
 import EditCoverModal from '../components/EditCoverModal.js'
 import {toggleCoverModal} from '../actions/card.js';
 import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
+import Textin from '../components/Textin.js'
 
 class FreshCardScreen extends Component{
   static navigationOptions = {
@@ -33,9 +34,9 @@ class FreshCardScreen extends Component{
   sendCard = async () => {
       await this.props.sendCard()
   }
-  
+
   saveCard = () => {
-      
+
   }
 
   render(){
@@ -47,11 +48,7 @@ class FreshCardScreen extends Component{
         <EditCoverModal/>
 
            <View >
-              <TextInput multiline = {true} style={styles.coverText}
-              value = {this.props.card.cover_text}
-              onChangeText = {input_cover => this.props.updateCoverText(input_cover)}
-              placeholder = 'Cover'
-              />
+            <Textin/>
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
                   <Ionicons  name="md-more" size={28} style = {styles.cardAttachment}/>
               </TouchableOpacity>
