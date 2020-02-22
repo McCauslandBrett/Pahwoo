@@ -36,10 +36,10 @@ class HomeScreen extends Component{
         }
       }
   };
-
+  
 
   render(){
-      console.log(`props changed, image uri: ${this.props.user.profileImage}`)
+    //   here is a use of the dollar sign: console.log(`props changed, image uri: ${this.props.user.profileImage}`)
     return(
       <SafeAreaView >
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -66,7 +66,7 @@ class HomeScreen extends Component{
                 </TouchableOpacity>
 
                 <TouchableOpacity style = {styles.statbox} onPress = {()=> this.props.navigation.navigate('Cards')}>
-                   <Text style ={styles.statAmount}>79</Text>
+                   <Text style ={styles.statAmount}>{this.props.user.receivedCards.length}</Text>
                    <Text style = {styles.statTitle}>Cards</Text>
                 </TouchableOpacity>
 
@@ -87,7 +87,8 @@ const mapDispatchToProps = (dispatch) => {
   }
   const mapStateToProps = (state) => {
     return {
-      user: state.user
+      user: state.user,
+      card: state.card
     }
   }
   export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)

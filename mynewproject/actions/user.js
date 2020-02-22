@@ -62,7 +62,7 @@ export const signup = () => {
             username:username,
             birthday:birthday,
             contacts: [],
-            recievedCards: [], // new recieved cards array for CardScreen
+            receivedCards: [], // new received cards array for CardScreen
             savedTemplates: [] // saved/sent cards
           }
           db.collection("users").doc(id).set(user)
