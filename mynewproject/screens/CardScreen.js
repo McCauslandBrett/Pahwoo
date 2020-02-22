@@ -26,7 +26,6 @@ class CardScreen extends Component{
     
     onSelect = async (id) => {
         this.setState({selected: id})
-        console.log(this.state.selected)
         await this.props.getCard(id)
         this.setState({cardID: this.props.card.id})
         this.setSelectCardModalVisible(true);
@@ -59,7 +58,6 @@ class CardScreen extends Component{
                 title: cardData[0].name
             });
         }
-        console.log(tempData)
         this.setState({receivedCards: tempData});
     }
     
@@ -89,7 +87,7 @@ class CardScreen extends Component{
                     }}>
                     <SafeAreaView>
                         <Text>
-                            {this.state.cardID}
+                            {this.props.card.id}
                         </Text>
                     </SafeAreaView>
                     <TouchableOpacity style={styles.button}

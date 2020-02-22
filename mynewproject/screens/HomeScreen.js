@@ -39,7 +39,7 @@ class HomeScreen extends Component{
   
 
   render(){
-      console.log(`props changed, image uri: ${this.props.user.profileImage}`)
+    //   here is a use of the dollar sign: console.log(`props changed, image uri: ${this.props.user.profileImage}`)
     return(
       <SafeAreaView >
           <ScrollView showsVerticalScrollIndicator={false}>
