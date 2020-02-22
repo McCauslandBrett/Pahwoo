@@ -46,14 +46,14 @@ class FreshCardScreen extends Component{
 
         <EditCoverModal/>
 
-           <View >
+           <View style = {styles.playContainer}>
               <TextInput multiline = {true} style={styles.coverText}
               value = {this.props.card.cover_text}
               onChangeText = {input_cover => this.props.updateCoverText(input_cover)}
               placeholder = 'Cover'
               />
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
-                  <Ionicons  name="md-more" size={28} style = {styles.cardAttachment}/>
+                  <Ionicons  name="md-more" size={36} />
               </TouchableOpacity>
           </View>
         <View>

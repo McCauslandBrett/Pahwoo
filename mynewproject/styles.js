@@ -114,13 +114,7 @@ modalViewBottom: {
     left:20,
     color:ICON_COLOR
   },
-  mdmore:{
-      color:ICON_COLOR,
-      zIndex:9,
-      position:"absolute",
-      top:10,
-      right:20,
-  },
+  
   placeholder: {
     color: '#C7C7CD',
 },
@@ -137,18 +131,7 @@ headlessAndroidPicker: {
     flexDirection:"row",
     flex:2,
   },
-  cardAttachment:{
-    fontSize:24,
-    color:palette.LIGHT_GRAY,
-  },
-  coverText:{
-    fontSize:32,
-    color:palette.LIGHT_GRAY,
-    alignItems:'center',
-    justifyContent: 'center',
-    margin:20,
-    textAlign: 'center',
-  },
+
   bodyoneText:{
     fontSize:24,
     color:palette.LIGHT_GRAY,
@@ -179,6 +162,12 @@ headlessAndroidPicker: {
     // alignItems:'center',
     // justifyContent: 'center'
   },
+  
+
+  cardAttachment:{
+    fontSize:24,
+    color:palette.LIGHT_GRAY,
+  },
   deliveryTitle:{
     color:"#888a8c",
     fontSize:12,
@@ -192,25 +181,43 @@ headlessAndroidPicker: {
     left:20,
     color:palette.ICON_COLOR
   },
+  
+  coverText:{
+    fontSize:32,
+    color:palette.LIGHT_GRAY,
+    textAlign: 'center',
+    flex: 5,
+    margin: 20,
+    alignSelf: 'center'
+  },
+  
+  playContainer: {
+      flex: 1,
+      flexDirection: 'row'
+  },
+  
   mdmore:{
       color:palette.ICON_COLOR,
-      zIndex:9,
+      zIndex:1,
       position:"absolute",
-      top:10,
-      right:20,
+    //   top:8,
+      right:0,
+      flex: 3,
+      alignSelf: 'flex-end',
+      padding: 20
   },
-  mdmore3:{
-      color:palette.ICON_COLOR,
-      marginRight:25,
+//   mdmore3:{
+//       color:palette.ICON_COLOR,
+//       marginRight:25,
 
-  },
-  mdmore2:{
-      color: palette.ICON_COLOR,
-      zIndex:9,
-      // position:"absolute",
-      top:10,
-      right:20,
-  },
+//   },
+//   mdmore2:{
+//       color: palette.ICON_COLOR,
+//       zIndex:9,
+//       // position:"absolute",
+//       top:10,
+//       right:20,
+//   },
   text: {
     fontFamily:"HelveticaNeue",
     color: palette.LIGHT_GRAY,
