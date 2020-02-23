@@ -11,15 +11,21 @@ import Icon  from "../components/icons.js";
 import styles from '../styles.js'
 // const screenHeight = Dimensions.get("window").height;
 import db from '../config/firebase.js';
-import {updateCoverText,updateBodyoneText,updateBodytwoText} from '../actions/card.js'
-import {createCard, sendCard} from '../actions/card.js'
+import {updateCoverText,updateBodyoneText,
+        updateBodytwoText,createCard,
+        sendCard,toggleCoverModal,toggleBodyoneModal} from '../actions/card.js'
 
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
+
 import ToggleSwitch from 'toggle-switch-react-native'
 import EditCoverModal from '../components/EditCoverModal.js'
-import {toggleCoverModal} from '../actions/card.js';
+import EditBodyoneModal from '../components/EditBodyoneModal.js'
+
 import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
+
+import TextinCover from '../components/TextinCover.js'
+import TextinBodyone from '../components/TextinBodyone.js'
 
 class FreshCardScreen extends Component{
   static navigationOptions = {
@@ -33,9 +39,9 @@ class FreshCardScreen extends Component{
   sendCard = async () => {
       await this.props.sendCard()
   }
-  
+
   saveCard = () => {
-      
+
   }
   
   state = {
@@ -65,25 +71,22 @@ class FreshCardScreen extends Component{
 
 
         <EditCoverModal/>
+        <EditBodyoneModal/>
 
-           <View style = {styles.playContainer}>
-              <TextInput multiline = {true} style={styles.coverText}
-              value = {this.props.card.cover_text}
-              onChangeText = {input_cover => this.props.updateCoverText(input_cover)}
-              placeholder = 'Cover'
-              />
+           <View >
+            <TextinCover/>
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
                   <Ionicons  name="md-more" size={36} />
               </TouchableOpacity>
-          </View>
-        <View>
-          <Ionicons name="md-more" size={28} style = {styles.mdmore} />
-          <TextInput multiline = {true} style={styles.bodyoneText}
-          value = {this.props.card.body_one_text}
-          onChangeText = {input_body_one=> this.props.updateBodyoneText(input_body_one)}
-          placeholder = 'Body One'
-          />
-       </View>
+            </View>
+
+            <View >
+             <TextinBodyone/>
+               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodyoneModal(true)}}>
+                   <Ionicons  name="md-more" size={28} style = {styles.cardAttachment}/>
+               </TouchableOpacity>
+             </View>
+
        <View>
         <Ionicons name="md-more" size={28} style = {styles.mdmore} />
         <TextInput multiline = {true} style={styles.bodytwoText}
@@ -170,7 +173,7 @@ function Item({ id, img }) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, sendCard, updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal},dispatch)
+  return bindActionCreators({createCard, sendCard, updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal,toggleBodyoneModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {

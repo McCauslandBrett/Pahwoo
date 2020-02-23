@@ -47,6 +47,12 @@ The application should load a barcode that you can scan with your mobile device 
  ```
   npm install --save react-native-dimension
  ```
+ ```
+  npm install --save react-native-numeric-input
+ ```
+ ```
+  npm install react-native-color-picker --save
+ ```
 ## Built With
 
 * [Expo](https://expo.io) - For reliable build infrastructure
