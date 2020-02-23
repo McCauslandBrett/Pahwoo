@@ -5,26 +5,29 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updateCoverText,updateBodyoneText,updateBodytwoText,updateCoverItalic} from '../actions/card.js'
 import palette from '../palette.js'
-
-class Textin extends React.Component{
+import * as Font from 'expo-font';
+class TextinCover extends React.Component{
 
 state = {
   align:null,
-  defaultAlign :'left', //default
+  defaultAlign :'center', //default
 
 }
 textA = () => {
-
  return (
    <TextInput multiline = {true}
    style={[
         {
-          fontSize:32, color:palette.LIGHT_GRAY,
+          fontSize: (this.props.card.cover_font_size == null) ?
+          32 : this.props.card.cover_font_size
+          , color:palette.LIGHT_GRAY,
           fontWeight:this.props.card.cover_bold,
           fontStyle:this.props.card.cover_italic,
+          fontFamily:this.props.card.cover_font,
           alignItems:'center',
           justifyContent: 'center',
-          margin:20, textAlign: (this.props.card.cover_text_align== null) ?
+          margin:20,
+          textAlign: (this.props.card.cover_text_align == null) ?
           this.state.defaultAlign :
           this.props.card.cover_text_align
         }
@@ -36,7 +39,7 @@ textA = () => {
 )
 }
  render(){
-         var message = this.textA()
+        var message = this.textA()
         return (<View>{message}</View>);
    }
 
@@ -50,4 +53,4 @@ const mapStateToProps = (state) => {
    card: state.card,
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Textin)
+export default connect(mapStateToProps,mapDispatchToProps)(TextinCover)

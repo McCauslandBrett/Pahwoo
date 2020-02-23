@@ -16,22 +16,22 @@ import { width, height, totalSize } from 'react-native-dimension';
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
 import ToggleSwitch from 'toggle-switch-react-native'
-import {toggleCoverModal,updateCoverTextBold,updateCoverTextItalic,
-        updateCoverTextAlignment,updateCoverFont,updateCoverText,
-        updateBodyoneText,updateBodytwoText,updateCoverTextSize,
-        updateCoverTextColor}
+import {toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,
+        updateBodyoneTextAlignment,updateBodyoneFont,
+        updateBodyoneText,updateBodyoneTextSize,
+        updateBodyoneTextColor}
         from '../actions/card.js'
 import NumericInput from 'react-native-numeric-input'
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker'
 
-class EditCoverModal extends Component{
+class EditBodyoneModal extends Component{
   state = {
     textalignment:{},
     font:{},
     fA:{},
     isOnBoldToggleSwitch: false,
     isOnItalicToggleSwitch:false,
-    defaultTextSize:32,
+    defaultTextSize:24,
   };
 
   render(){
@@ -123,14 +123,14 @@ class EditCoverModal extends Component{
 
   return(
     <View style={{  justifyContent: 'center', alignItems:'center', flex:1}}>
-      <Modal animationType={'slide'} transparent={true} visible={this.props.card.isCoverModalVisible === true}>
+      <Modal animationType={'slide'} transparent={true} visible={this.props.card.isBodyoneModalVisible === true}>
           <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
               <View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: .6 }}/>
               <View style={{ position: 'absolute', width: '100%', height: '50%', backgroundColor: 'white', flex: 1}}>
 
-                 <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.props.toggleCoverModal(false)}}   />
+                 <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.props.toggleBodyoneModal(false)}}   />
                  <View style= {styles.stat}>
-                   <Text style={styles.modal_title}> Edit Cover </Text>
+                   <Text style={styles.modal_title}> Edit Body One </Text>
                  </View>
 
 
@@ -138,7 +138,7 @@ class EditCoverModal extends Component{
                    placeholder={placeholder}
                    items={fontAlignOptions}
                    onValueChange={input => {
-                                  this.props.updateCoverTextAlignment(input);
+                                  this.props.updateBodyoneTextAlignment(input);
                                   this.setState({fA: input});
                                 }
                     }
@@ -157,7 +157,7 @@ class EditCoverModal extends Component{
 
                      items={fontOptions}
                      onValueChange={input => {
-                                    this.props.updateCoverFont(input);
+                                    this.props.updateBodyoneFont(input);
                                     this.setState({font: input});
                                   }
                                 }
@@ -174,8 +174,8 @@ class EditCoverModal extends Component{
 
                      <View style = {styles.statsContainer}>
 
-                     <NumericInput value = {(this.props.card.cover_font_size == null) ? this.state.defaultTextSize:this.props.card.cover_font_size}
-                      onChange={value => this.props.updateCoverTextSize(value)}
+                     <NumericInput value = {(this.props.card.bodyone_font_size == null) ? this.state.defaultTextSize:this.props.card.bodyone_font_size}
+                      onChange={value => this.props.updateBodyoneTextSize(value)}
                       rounded
                       totalWidth={100}
                       totalHeight={40}
@@ -183,15 +183,15 @@ class EditCoverModal extends Component{
                      <ToggleSwitch
                        label="Bold"
                        onColor="#2196F3"
-                       isOn={this.props.card.cover_text_bold}
-                       onToggle={isOnBoldToggleSwitch => this.props.updateCoverTextBold(isOnBoldToggleSwitch)}
+                       isOn={this.props.card.bodyone_text_bold}
+                       onToggle={isOnBoldToggleSwitch => this.props.updateBodyoneTextBold(isOnBoldToggleSwitch)}
 
                      />
                      <ToggleSwitch
                        label="Italic"
                        onColor="#2196F3"
-                       isOn={this.props.card.cover_text_italic}
-                       onToggle={isOnItalicToggleSwitch => this.props.updateCoverTextItalic(isOnItalicToggleSwitch)}
+                       isOn={this.props.card.bodyone_text_italic}
+                       onToggle={isOnItalicToggleSwitch => this.props.updateBodyoneTextItalic(isOnItalicToggleSwitch)}
                      />
 
                      </View>
@@ -204,7 +204,7 @@ class EditCoverModal extends Component{
   }
   }
   const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({toggleCoverModal,updateCoverTextBold,updateCoverTextItalic,updateCoverTextAlignment,updateCoverFont,updateCoverTextSize },dispatch)
+    return bindActionCreators({toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,updateBodyoneTextAlignment,updateBodyoneFont,updateBodyoneTextSize },dispatch)
   }
   const mapStateToProps = (state) => {
     return {
@@ -212,4 +212,4 @@ class EditCoverModal extends Component{
      card: state.card,
     }
   }
-  export default connect(mapStateToProps,mapDispatchToProps)(EditCoverModal)
+  export default connect(mapStateToProps,mapDispatchToProps)(EditBodyoneModal)

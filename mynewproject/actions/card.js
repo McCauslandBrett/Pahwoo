@@ -89,15 +89,12 @@ export const sendCard = (recipients) => {
 		}
 	}
 }
-
+// Cover
 export const updateCoverText = (text) => {
   return {type:'UPDATE_COVER_TEXT', payload:text}
 }
-export const updateBodyoneText = (text) => {
-  return {type:'UPDATE_BODY_ONE_TEXT', payload:text}
-}
-export const updateBodytwoText = (text) => {
-  return {type:'UPDATE_BODY_TWO_TEXT', payload:text}
+export const updateCoverTextSize = (text) => {
+  return {type:'UPDATE_COVER_TEXT_SIZE', payload:text}
 }
 export const updateCoverFont = (text) => {
   return {type:'UPDATE_COVER_FONT', payload:text}
@@ -107,18 +104,21 @@ export const updateCoverTextAlignment = (text) => {
 }
 export const updateCoverItalic = (_bool) => {
   if(_bool){
-  return  {type:'ITALIC',payload:'italic'}
+  return  {type:'COVER_ITALIC',payload:'italic'}
   }
   else{
-  return {type:'ITALIC',payload:null}
+  return {type:'COVER_ITALIC',payload:null}
   }
+}
+export const updateCoverTextColor = (color) => {
+  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color}
 }
 export const updateCoverBold = (_bool) => {
   if(_bool){
-  return  {type:'BOLD',payload:'bold'}
+  return  {type:'COVER_BOLD',payload:'bold'}
   }
   else{
-  return {type:'BOLD',payload:null}
+  return {type:'COVER_BOLD',payload:null}
   }
 }
 export const updateCoverTextBold = (_bool) => {
@@ -136,4 +136,100 @@ export const updateCoverTextItalic = (_bool) => {
 }
 export const toggleCoverModal = ( isCoverModalVisible) => {
   return {type:'TOGGLE_MODAL_COVER', payload: isCoverModalVisible}
+}
+// body One
+export const updateBodyoneText = (text) => {
+  return {type:'UPDATE_BODY_ONE_TEXT', payload:text}
+}
+export const updateBodyoneTextSize = (text) => {
+  return {type:'UPDATE_BODY_ONE_TEXT_SIZE', payload:text}
+}
+export const updateBodyoneFont = (text) => {
+  return {type:'UPDATE_BODY_ONE_FONT', payload:text}
+}
+export const updateBodyoneTextAlignment = (text) => {
+  return {type:'UPDATE_BODY_ONE_TEXT_ALIGNMENT', payload:text}
+}
+export const updateBodyoneItalic = (_bool) => {
+  if(_bool){
+  return  {type:'BODY_ONE_ITALIC',payload:'italic'}
+  }
+  else{
+  return {type:'BODY_ONE_ITALIC',payload:null}
+  }
+}
+export const updateBodyoneTextColor = (color) => {
+  return {type:'UPDATE_BODY_ONE_TEXT_COLOR', payload:color}
+}
+export const updateBodyoneBold = (_bool) => {
+  if(_bool){
+  return  {type:'BODY_ONE_BOLD',payload:'bold'}
+  }
+  else{
+  return {type:'BODY_ONE_BOLD',payload:null}
+  }
+}
+export const updateBodyoneTextBold = (_bool) => {
+  return (dispatch) =>{
+  updateCoverBold(_bool)
+  dispatch( {type:'UPDATE_BODY_ONE_TEXT_BOLD', payload:_bool})
+  dispatch(updateBodyoneBold(_bool))
+}
+}
+export const updateBodyoneTextItalic = (_bool) => {
+  return (dispatch) =>{
+    dispatch({type:'UPDATE_BODY_ONE_TEXT_ITALIC', payload:_bool})
+    dispatch(updateBodyoneItalic(_bool))
+}
+}
+export const toggleBodyoneModal = ( isBodyoneModalVisible) => {
+  return {type:'TOGGLE_MODAL_BODY_ONE', payload: isBodyoneModalVisible}
+}
+// Body Two
+export const updateBodytwoText = (text) => {
+  return {type:'UPDATE_BODY_TWO_TEXT', payload:text}
+}
+export const updateBodytwoTextSize = (text) => {
+  return {type:'UPDATE_BODY_TWO_TEXT_SIZE', payload:text}
+}
+export const updateBodytwoFont = (text) => {
+  return {type:'UPDATE_BODY_TWO_FONT', payload:text}
+}
+export const updateBodytwoTextAlignment = (text) => {
+  return {type:'UPDATE_BODY_TWO_TEXT_ALIGNMENT', payload:text}
+}
+export const updateBodytwoItalic = (_bool) => {
+  if(_bool){
+  return  {type:'BODY_TWO_ITALIC',payload:'italic'}
+  }
+  else{
+  return {type:'BODY_TWO_ITALIC',payload:null}
+  }
+}
+export const updateBodytwoTextColor = (color) => {
+  return {type:'UPDATE_BODY_TWO_TEXT_COLOR', payload:color}
+}
+export const updateBodytwoBold = (_bool) => {
+  if(_bool){
+  return  {type:'BODY_TWO_BOLD',payload:'bold'}
+  }
+  else{
+  return {type:'BODY_TWO_BOLD',payload:null}
+  }
+}
+export const updateBodytwoTextBold = (_bool) => {
+  return (dispatch) =>{
+  updateBodytwoBold(_bool)
+  dispatch( {type:'UPDATE_BODY_TWO_TEXT_BOLD', payload:_bool})
+  dispatch(updateBodytwoBold(_bool))
+}
+}
+export const updateBodytwoTextItalic = (_bool) => {
+  return (dispatch) =>{
+    dispatch({type:'UPDATE_BODY_TWO_TEXT_ITALIC', payload:_bool})
+    dispatch(updateBodytwoItalic(_bool))
+}
+}
+export const toggleBodytwoModal = ( isCoverModalVisible) => {
+  return {type:'TOGGLE_MODAL_BODY_TWO', payload: isCoverModalVisible}
 }
