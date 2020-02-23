@@ -8,8 +8,8 @@ import styles from '../styles.js'
 class SignUpScreen extends Component{
   
   
-  signup = () => {
-    this.props.signup()
+  signup = async () => {
+    await this.props.signup()
     this.props.navigation.navigate('SignedIn')
   }
   

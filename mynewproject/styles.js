@@ -195,7 +195,11 @@ headlessAndroidPicker: {
       flex: 1,
       flexDirection: 'row'
   },
-  
+  contactRowStack: {
+      flex: 1,
+      flexDirection: 'row',
+      alignSelf: 'flex-end'
+  },
   mdmore:{
       color:palette.ICON_COLOR,
       zIndex:1,
@@ -206,18 +210,32 @@ headlessAndroidPicker: {
       alignSelf: 'flex-end',
       padding: 20
   },
-//   mdmore3:{
-//       color:palette.ICON_COLOR,
-//       marginRight:25,
-
-//   },
-//   mdmore2:{
-//       color: palette.ICON_COLOR,
-//       zIndex:9,
-//       // position:"absolute",
-//       top:10,
-//       right:20,
-//   },
+  rowStackImages: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    marginRight: -2,
+    position:"relative",
+    backgroundColor: '#adadad'
+  },
+  addContactButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    margin: 10,
+    marginLeft: -2,
+    backgroundColor: '#adadad'
+  },
+  thumbnailRoundImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    margin: 10,
+    backgroundColor: '#adadad'
+  },
+  
   text: {
     fontFamily:"HelveticaNeue",
     color: palette.LIGHT_GRAY,
@@ -356,13 +374,7 @@ headlessAndroidPicker: {
     flex: 1,
     backgroundColor: '#fff'
   },
-  thumbnailRoundImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    margin: 10,
-    backgroundColor: '#adadad'
-  },
+
   thumbnailSpace: {
     alignItems: 'center',
     justifyContent: 'space-between',

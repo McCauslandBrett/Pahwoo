@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,
         Modal, TextInput,Animated,TouchableHighlight,
         Alert,ColorPropType,Keyboard,
-        Picker,SafeAreaView,ScrollView
+        Picker,SafeAreaView,ScrollView, FlatList, Image
        } from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
@@ -37,7 +37,27 @@ class FreshCardScreen extends Component{
   saveCard = () => {
       
   }
+  
+  state = {
+      recipients: []
+  }
 
+  componentDidMount = async () => {
+    let tempData = []
+    // for loop with async calls
+    for (var i = 0; i < this.props.card.recipients.length; i++){
+        const query = await db.collection('users').where('uid', '==', this.props.card.recipients[i]).get()
+        query.forEach((response) => {
+            tempData.push({
+                id: response.data().uid,
+                thmb: response.data().profileImage
+            })
+        })
+    }
+    this.setState({recipients: tempData});
+    console.log(tempData)
+  }
+  
   render(){
     return(
       <SafeAreaView >
@@ -100,6 +120,29 @@ class FreshCardScreen extends Component{
         </TouchableOpacity>
         <Text style= {styles.deliveryTitle}> Deliverd Date June 2, 2020</Text>
       </View>
+      
+      
+      
+      <SafeAreaView style={styles.contactRowStack}>
+            <FlatList
+                horizontal={true}
+                inverted={true}
+                data={this.state.recipients}
+                renderItem={({ item }) => (
+                <Item
+                    id={item.id}
+                    img={item.thmb}
+                />
+                )}
+                keyExtractor={item => item.id}
+            />
+            <View style={styles.addContactButton}>
+                <TouchableOpacity>
+                    <Ionicons name= "ios-person-add" size={36}/>
+                </TouchableOpacity> 
+          </View>
+      </SafeAreaView>
+      <View style={styles.playContainer}>
       <TouchableOpacity style={styles.button}
             onPress={() => {this.sendCard()}}>
             <Text>Send</Text>
@@ -107,11 +150,23 @@ class FreshCardScreen extends Component{
       <TouchableOpacity style={styles.button}
             onPress={() => {}}>
             <Text>Save</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>    
+      </View>
+      
          </ScrollView>
       </SafeAreaView>
     );
   }
+}
+
+
+function Item({ id, img }) {
+    return (
+        <Image
+            source={{ uri: img }}
+            style={styles.rowStackImages}
+        />
+    );
 }
 
 const mapDispatchToProps = (dispatch) => {

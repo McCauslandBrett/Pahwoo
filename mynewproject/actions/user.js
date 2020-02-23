@@ -61,6 +61,7 @@ export const signup = () => {
             email:email,
             username:username,
             birthday:birthday,
+            profileImage: '',
             contacts: [],
             receivedCards: [], // new received cards array for CardScreen
             savedTemplates: [] // saved/sent cards
