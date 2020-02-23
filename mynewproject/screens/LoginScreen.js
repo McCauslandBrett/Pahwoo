@@ -15,10 +15,10 @@ class LoginScreen extends Component{
   }
   
   // Function called when component loads/reloads
-  componentDidMount = () => {
-    firebase.auth().onAuthStateChanged((user)=>{
+  componentDidMount = async () => {
+    firebase.auth().onAuthStateChanged( async (user)=>{
       if(user){
-        this.props.getUser(user.uid)
+        await this.props.getUser(user.uid)
         if(this.props.user != null){
             this.props.navigation.navigate('SignedIn')
         }

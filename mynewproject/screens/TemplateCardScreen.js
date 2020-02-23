@@ -40,7 +40,8 @@ class TemplateCardScreen extends Component{
    //   should create a card with just a name for now and add it to the database
     // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
     await this.props.createCard(this.state.newName, this.state.selectedItems)
-    console.log(this.props.card.cid)
+    // console.log(this.props.card.cid)
+    console.log(this.props.card.id)
   }
   
   sendCard = () => {

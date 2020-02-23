@@ -81,7 +81,7 @@ export const sendCard = (recipients) => {
                 const recipientUser = db.collection('users').doc(card.recipients[i])
                 //Add card to recipientUser.recievedCards[]
                 await recipientUser.update({
-                    recievedCards: firebase.firestore.FieldValue.arrayUnion(card.id)
+                    receivedCards: firebase.firestore.FieldValue.arrayUnion(card.id)
                 });
             }
 		} catch (e) {
