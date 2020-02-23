@@ -68,7 +68,34 @@ export const getCard = (id) => {
     }
 }
 
+export const saveCard = (id) => {
+    return async (dispatch, getState) => {
+        const { card } = getState()
+        let cardData = []
+        try{
+            // update card in database
+            const ref = await db.collection('cards').doc(card.id)
+            
+            // const query = await db.collection('cards').where('id', '==', id).get()
+            // query.forEach((response) => {
+            //     cardData.push(response.data())
+            // })
+            // dispatch( {type:'SET_ID',payload: cardData[0].id})
+            // dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
+            // dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].body_one_text})
+            // dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].body_two_text})
+            // dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
+            // dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardData[0].cover_text_align})
+            // dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardData[0].cover_text_bold})
+            // dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
+            // dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
+            // dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
 
+        } catch (e){
+            alert(e)
+        }
+    }
+}
 
 
 export const sendCard = (recipients) => {
