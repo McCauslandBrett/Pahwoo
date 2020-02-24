@@ -26,6 +26,7 @@ import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
 
 import TextinCover from '../components/TextinCover.js'
 import TextinBodyone from '../components/TextinBodyone.js'
+import MultiSelect from 'react-native-multiple-select';
 
 class FreshCardScreen extends Component{
   static navigationOptions = {
@@ -45,23 +46,39 @@ class FreshCardScreen extends Component{
   }
   
   state = {
-      recipients: []
-  }
+      recipients: [],
+      selectContactsVisible: false,
+      selectedItems: [],
+      selected: '',
+      contactData: [],
 
+  }
+  setSelectContactsModalVisible = (visible) => {
+    this.setState({selectContactsVisible: visible});
+  }
+  
+  onSelectedItemsChange = selectedItems => {
+    this.setState({selectedItems: selectedItems});
+    console.log(this.state.selectedItems)
+  };
   componentDidMount = async () => {
     let tempData = []
+    let recipientKeys = []
     // for loop with async calls
     for (var i = 0; i < this.props.card.recipients.length; i++){
         const query = await db.collection('users').where('uid', '==', this.props.card.recipients[i]).get()
         query.forEach((response) => {
             tempData.push({
                 id: response.data().uid,
-                thmb: response.data().profileImage
+                thmb: response.data().profileImage,
+                username: response.data().username
             })
+            recipientKeys.push(response.data().uid)
         })
     }
     this.setState({recipients: tempData});
-    console.log(tempData)
+    this.setState({selectedItems: recipientKeys});
+    // console.log(tempData)
   }
   
   render(){
@@ -76,7 +93,7 @@ class FreshCardScreen extends Component{
            <View >
             <TextinCover/>
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
-                  <Ionicons  name="md-more" size={36} />
+                  <Ionicons  name="md-more" size={28} />
               </TouchableOpacity>
             </View>
 
@@ -124,8 +141,50 @@ class FreshCardScreen extends Component{
         <Text style= {styles.deliveryTitle}> Deliverd Date June 2, 2020</Text>
       </View>
       
-      
-      
+      <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.selectContactsVisible}
+            onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+            <SafeAreaView style={{flex: 1}}>
+                <MultiSelect
+                    // hideTags
+                    items={this.state.recipients}
+                    uniqueKey="id"
+                    // ref={(component) => { this.state.multiSelect = component }}
+                    onSelectedItemsChange={this.onSelectedItemsChange}
+                    selectedItems={this.state.selectedItems}
+                    selectText="Pick Items"
+                    searchInputPlaceholderText="Search Items..."
+                    tagRemoveIconColor="#CCC"
+                    tagBorderColor="#CCC"
+                    tagTextColor="#CCC"
+                    selectedItemTextColor="#CCC"
+                    selectedItemIconColor="#CCC"
+                    itemTextColor="#000"
+                    displayKey="username"
+                    searchInputStyle={{ color: '#CCC' }}
+                    submitButtonColor="#CCC"
+                    submitButtonText="Submit"
+                />
+            </SafeAreaView>
+            <TouchableOpacity style={styles.button}
+                onPress={() => {
+                this.setSelectContactsModalVisible(!this.state.selectContactsVisible);
+                // logic to update the recipient avatar rendering on selectedItems change
+                // let update = [];
+                // for (var i = 0; i < this.state.selectedItems; i++){
+                //     if (this.state.selectedItems.includes(this.state.recipients[i].id)){
+                //         update.push(this.state.recipients[i]);
+                //     }
+                // }
+                // this.setState({recipients: update});
+                }}>
+                <Text>Hide Modal</Text>
+            </TouchableOpacity>
+          </Modal>
       <SafeAreaView style={styles.contactRowStack}>
             <FlatList
                 horizontal={true}
@@ -140,7 +199,7 @@ class FreshCardScreen extends Component{
                 keyExtractor={item => item.id}
             />
             <View style={styles.addContactButton}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() =>{this.setSelectContactsModalVisible(true);}}>
                     <Ionicons name= "ios-person-add" size={36}/>
                 </TouchableOpacity> 
           </View>

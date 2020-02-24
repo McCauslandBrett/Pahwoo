@@ -74,22 +74,19 @@ export const saveCard = (id) => {
         let cardData = []
         try{
             // update card in database
-            const ref = await db.collection('cards').doc(card.id)
-            
-            // const query = await db.collection('cards').where('id', '==', id).get()
-            // query.forEach((response) => {
-            //     cardData.push(response.data())
+            const ref = db.collection('cards').doc(card.id);
+            // ref.update({
+            //     recipients: card.recipientsList,
+            //     cover_text: card.cover_text,
+            //     body_one_text: card.body_one_text,
+            //     body_two_text: card.body_two_text,
+            //     cover_font: card.cover_font,
+            //     cover_text_align: card.cover_text_align,
+            //     cover_text_bold: card.cover_text_bold,
+            //     cover_text_italic: card.cover_text_italic,
+            //     isCoverModalVisible: card.isCoverModalVisible
             // })
-            // dispatch( {type:'SET_ID',payload: cardData[0].id})
-            // dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
-            // dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].body_one_text})
-            // dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].body_two_text})
-            // dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
-            // dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardData[0].cover_text_align})
-            // dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardData[0].cover_text_bold})
-            // dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
-            // dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
-            // dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
+            
 
         } catch (e){
             alert(e)
@@ -260,3 +257,70 @@ export const updateBodytwoTextItalic = (_bool) => {
 export const toggleBodytwoModal = ( isCoverModalVisible) => {
   return {type:'TOGGLE_MODAL_BODY_TWO', payload: isCoverModalVisible}
 }
+
+
+
+// 
+// const cardObject = {
+//     name: newName,
+//     recipients: recipientsList,
+//     cover_text: newName,
+//     body_one_text: newName,
+//     body_two_text: newName,
+//     font: {
+//         cover: null,
+//         body1: null,
+//         body2: null
+//     },
+//     text_align: {
+//         cover: null,
+//         body1: null,
+//         body2: null
+//     },
+//     bold: {
+//         cover: false,
+//         body1: false,
+//         body2: false,
+//     },
+//     cover_text_italic: {
+//         cover: false,
+//         body1: false,
+//         body2: false,
+//     },
+//     isCoverModalVisible: {
+//         cover: false,
+//         body1: false,
+//         body2: false,
+//     }
+// }
+
+
+
+// const cardObject = {
+//     name: newName,
+//     recipients: recipientsList,
+//     cover: {
+//         text: newName,
+//         font: null,
+//         align: null,
+//         bold: false,
+//         italic: false,
+//         isModalVisible: false
+//     },
+//     body1: {
+//         text: newName,
+//         font: null,
+//         align: null,
+//         bold: false,
+//         italic: false,
+//         isModalVisible: false
+//     },
+//     body2: {
+//         text: newName,
+//         font: null,
+//         align: null,
+//         bold: false,
+//         italic: false,
+//         isModalVisible: false
+//     }
+// }
