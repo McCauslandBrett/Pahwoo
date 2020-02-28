@@ -18,8 +18,8 @@ export const createCard = (newName, recipientsList) => {
             }
             // Add card to database
 			const ref = db.collection('cards').doc()
-			cardObject.id = ref.id
-            await ref.set(cardObject)
+			cardObject['id'] = ref.id
+            await ref.set(cardObject);
             // we should save the card id here to the card state!!!!!!!
             //Add card to user.savedTemplates[]
             var userRef = db.collection('users').doc(user.uid)

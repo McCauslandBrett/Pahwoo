@@ -50,8 +50,11 @@ class FreshCardScreen extends Component{
       selectContactsVisible: false,
       selectedItems: [],
       selected: '',
-      contactData: [],
-
+      // contactAvatarMapping will be used to store key-value pairs between key: contact's uid, value: contact-profileImage
+      // this is crucial for re-rendering the recipient photo array at the bottom of the card
+      // will be useful to get this mapping during ComponentDidMount() when querying the contacts array
+      contactAvatarMapping: [],
+      contactData: []
   }
   setSelectContactsModalVisible = (visible) => {
     this.setState({selectContactsVisible: visible});
@@ -64,7 +67,10 @@ class FreshCardScreen extends Component{
   componentDidMount = async () => {
     let tempData = []
     let recipientKeys = []
+    let mapping = {}
+    let contacts = []
     // for loop with async calls
+    // get each recipient
     for (var i = 0; i < this.props.card.recipients.length; i++){
         const query = await db.collection('users').where('uid', '==', this.props.card.recipients[i]).get()
         query.forEach((response) => {
@@ -73,12 +79,24 @@ class FreshCardScreen extends Component{
                 thmb: response.data().profileImage,
                 username: response.data().username
             })
+            contacts.push(response.data())
             recipientKeys.push(response.data().uid)
         })
     }
+    
+    // get contact data for avatar mapping needed for recipient list rendering
+
+    for (var i = 0; i < this.props.user.contacts.length; i++){
+        const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
+        query.forEach((response) => {
+            mapping[this.props.user.contacts[i]] = [response.data().profileImage, response.data().username]
+        })
+    }
+    console.log(contacts);
+    this.setState({contactAvatarMapping: mapping});
     this.setState({recipients: tempData});
+    this.setState({contactData: contacts});
     this.setState({selectedItems: recipientKeys});
-    // console.log(tempData)
   }
   
   render(){
@@ -151,8 +169,8 @@ class FreshCardScreen extends Component{
             <SafeAreaView style={{flex: 1}}>
                 <MultiSelect
                     // hideTags
-                    items={this.state.recipients}
-                    uniqueKey="id"
+                    items={this.state.contactData}
+                    uniqueKey="uid"
                     // ref={(component) => { this.state.multiSelect = component }}
                     onSelectedItemsChange={this.onSelectedItemsChange}
                     selectedItems={this.state.selectedItems}
@@ -174,13 +192,15 @@ class FreshCardScreen extends Component{
                 onPress={() => {
                 this.setSelectContactsModalVisible(!this.state.selectContactsVisible);
                 // logic to update the recipient avatar rendering on selectedItems change
-                // let update = [];
-                // for (var i = 0; i < this.state.selectedItems; i++){
-                //     if (this.state.selectedItems.includes(this.state.recipients[i].id)){
-                //         update.push(this.state.recipients[i]);
-                //     }
-                // }
-                // this.setState({recipients: update});
+                let update = [];
+                for (var i = 0; i < this.state.selectedItems.length; i++){
+                    update.push({
+                        id: this.state.selectedItems[i],
+                        thmb: this.state.contactAvatarMapping[this.state.selectedItems[i]][0],
+                        username: this.state.contactAvatarMapping[this.state.selectedItems[i]][1]
+                    })
+                }
+                this.setState({recipients: update});
                 }}>
                 <Text>Hide Modal</Text>
             </TouchableOpacity>

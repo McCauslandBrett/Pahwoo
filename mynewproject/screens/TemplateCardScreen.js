@@ -56,50 +56,43 @@ class TemplateCardScreen extends Component{
   
   componentDidMount = async () => {
     let tempData = []
-    // for loop with async calls
-    for (var i = 0; i < this.props.user.contacts.length; i++){
-        const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
-        query.forEach((response) => {
-            tempData.push(response.data())
-        })
-    }
-    let mappedData = tempData.map(item => {
-        // add these to fields to every item in tempData
-        item.isSelect = false;
-        item.selectedClass = styles.list;
-        
-        return item;
-    })
-    // at this point I have an array of user objects from the current user's contact array
-    mappedData.sort((a, b) => (a.username > b.username) ? 1 : -1)
-    this.setState({contactData: mappedData})
-    // get user saved cards/templates
-    tempData = []
-    let userObj = {}
     try{
-        const user =  await db.collection("users").doc(this.props.user.uid).get();
-        if (user != null) {
-            // console.log("Document data:", user.data());
-            userObj = user.data()
-        } else {
-            // user.data() will be undefined in this case
-            console.log("No such document!");
+        // for loop with async calls
+        for (var i = 0; i < this.props.user.contacts.length; i++){
+            const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
+            query.forEach((response) => {
+                tempData.push(response.data())
+            })
         }
-    } catch(e) {
+        let mappedData = tempData.map(item => {
+            // add these to fields to every item in tempData
+            item.isSelect = false;
+            item.selectedClass = styles.list;
+            
+            return item;
+        })
+        // at this point I have an array of user objects from the current user's contact array
+        mappedData.sort((a, b) => (a.username > b.username) ? 1 : -1)
+        this.setState({contactData: mappedData})
+        // get user saved cards/templates
+        tempData = []
+        let userObj = {}
+        const user =  await db.collection("users").doc(this.props.user.uid).get();
+        userObj = user.data()
+        for (var i = 0; i < userObj.savedTemplates.length; i++){
+            let cardData = []
+            const query = await db.collection('cards').where('id', '==', userObj.savedTemplates[i]).get()
+            query.forEach((response) => {
+                cardData.push(response.data())
+            })
+            tempData.push({
+                id: userObj.savedTemplates[i],
+                title: cardData[0].cover_text
+            });
+        }
+    } catch(e){
         alert(e)
     }
-    for (var i = 0; i < userObj.savedTemplates.length; i++){
-        let cardData = []
-        const query = await db.collection('cards').where('id', '==', userObj.savedTemplates[i]).get()
-        query.forEach((response) => {
-            cardData.push(response.data())
-        })
-        tempData.push({
-            id: userObj.savedTemplates[i],
-            title: cardData[0].name
-        });
-    }
-    console.log(tempData)
     this.setState({savedTemplates: tempData});
   }
   
