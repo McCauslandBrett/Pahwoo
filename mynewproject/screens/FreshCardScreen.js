@@ -118,7 +118,7 @@ class FreshCardScreen extends Component{
             <View >
              <TextinBodyone/>
                <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodyoneModal(true)}}>
-                   <Ionicons  name="md-more" size={28} style = {styles.cardAttachment}/>
+                   <Ionicons  name="md-more" size={28} />
                </TouchableOpacity>
              </View>
 
@@ -181,10 +181,11 @@ class FreshCardScreen extends Component{
                     tagTextColor="#CCC"
                     selectedItemTextColor="#CCC"
                     selectedItemIconColor="#CCC"
+                    itemFontSize={20}
                     itemTextColor="#000"
                     displayKey="username"
                     searchInputStyle={{ color: '#CCC' }}
-                    submitButtonColor="#CCC"
+                    submitButtonColor="darkorange"
                     submitButtonText="Submit"
                 />
             </SafeAreaView>
@@ -224,7 +225,7 @@ class FreshCardScreen extends Component{
                 </TouchableOpacity> 
           </View>
       </SafeAreaView>
-      <View style={styles.playContainer}>
+      <SafeAreaView style={styles.playContainer}>
       <TouchableOpacity style={styles.button}
             onPress={() => {this.sendCard()}}>
             <Text>Send</Text>
@@ -233,7 +234,7 @@ class FreshCardScreen extends Component{
             onPress={() => {}}>
             <Text>Save</Text>
       </TouchableOpacity>    
-      </View>
+      </SafeAreaView>
       
          </ScrollView>
       </SafeAreaView>

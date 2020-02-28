@@ -193,7 +193,8 @@ headlessAndroidPicker: {
   
   playContainer: {
       flex: 1,
-      flexDirection: 'row'
+      flexDirection: 'row',
+      justifyContent:'center'
   },
   contactRowStack: {
       flex: 1,
@@ -210,6 +211,13 @@ headlessAndroidPicker: {
       alignSelf: 'flex-end',
       padding: 20
   },
+  
+  mdmore3:{
+    color:palette.ICON_COLOR,
+    marginRight:25
+  },
+
+  
   rowStackImages: {
     width: 40,
     height: 40,
@@ -353,12 +361,15 @@ headlessAndroidPicker: {
   },
   button: {
     marginTop:20,
+    marginRight: 13,
+    marginLeft: 13,
     paddingVertical:10,
     alignItems:'center',
     borderColor:'#d3d3d3',
     borderWidth:1,
     borderRadius:5,
-    width:200
+    width:150,
+    backgroundColor: 'mediumseagreen'
   },
   thumbnailInput: {
     width: width*.90,
