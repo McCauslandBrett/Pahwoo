@@ -71,26 +71,26 @@ const card = (state = {},action) => {
     case 'TOGGLE_MODAL_BODY_ONE':
           return {...state, isBodyoneModalVisible: action.payload}
     //Body two
-    case 'COVER_ITALIC':
+    case 'BODY_TWO_ITALIC':
       return {...state, bodytwo_italic: action.payload}
-     case 'COVER_BOLD':
+     case 'BODY_TWO_BOLD':
          return {...state, bodytwo_bold: action.payload}
-    case 'UPDATE_COVER_TEXT':
+    case 'UPDATE_BODY_TWO_TEXT':
       return {...state, bodytwo_text: action.payload}
-    case 'UPDATE_COVER_FONT':
+    case 'UPDATE_BODY_TWO_FONT':
         return {...state, bodytwo_font: action.payload}
-    case 'UPDATE_COVER_TEXT_SIZE':
+    case 'UPDATE_BODY_TWO_TEXT_SIZE':
         return {...state, bodytwo_font_size: action.payload}
-    case 'UPDATE_COVER_TEXT_COLOR':
+    case 'UPDATE_BODY_TWO_TEXT_COLOR':
         return {...state, bodytwo_text_color: action.payload}
-    case 'UPDATE_COVER_TEXT_ALIGNMENT':
+    case 'UPDATE_BODY_TWO_TEXT_ALIGNMENT':
         return {...state, bodytwo_text_align: action.payload}
-    case 'UPDATE_COVER_TEXT_BOLD':
+    case 'UPDATE_BODY_TWO_TEXT_BOLD':
         return {...state, bodytwo_text_bold: action.payload}
-    case 'UPDATE_COVER_TEXT_ITALIC':
+    case 'UPDATE_BODY_TWO_TEXT_ITALIC':
           return {...state, bodytwo_text_italic: action.payload}
-    case 'TOGGLE_MODAL_COVER':
-          return {...state, isbodytwoModalVisible: action.payload}
+    case 'TOGGLE_MODAL_BODY_TWO':
+          return {...state, isBodytwoModalVisible: action.payload}
 
       default:
           return state
