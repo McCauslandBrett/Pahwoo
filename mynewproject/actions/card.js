@@ -13,10 +13,10 @@ export const createCard = (newName, recipientsList) => {
                 cover_text_align: null,
                 cover_bold: false,
                 cover_italic: false,
-                cover_font_size: 10,
+                cover_font_size: 32,
                 cover_text_color: null,
-                cover_text_bold: false,
-                cover_text_italic: false,
+                cover_text_bold: null,
+                cover_text_italic: null,
                 isCoverModalVisible: false,
                 
                 bodyone_text: newName,
@@ -24,10 +24,10 @@ export const createCard = (newName, recipientsList) => {
                 bodyone_text_align: null,
                 bodyone_bold: false,
                 bodyone_italic: false,
-                bodyone_font_size: 10,
+                bodyone_font_size: 32,
                 bodyone_text_color: null,
-                bodyone_text_bold: false,
-                bodyone_text_italic: false,
+                bodyone_text_bold: null,
+                bodyone_text_italic: null,
                 isBodyoneModalVisible: false,
                 
                 bodytwo_text: newName,
@@ -35,10 +35,10 @@ export const createCard = (newName, recipientsList) => {
                 bodytwo_text_align: null,
                 bodytwo_bold: false,
                 bodytwo_italic: false,
-                bodytwo_font_size: 10,
+                bodytwo_font_size: 32,
                 bodytwo_text_color: null,
-                bodytwo_text_bold: false,
-                bodytwo_text_italic: false,
+                bodytwo_text_bold: null,
+                bodytwo_text_italic: null,
                 isBodytwoModalVisible: false,
             }
             // Add card to database
@@ -103,15 +103,41 @@ export const getCard = (id) => {
                 cardData.push(response.data())
             })
             dispatch( {type:'SET_ID',payload: cardData[0].id})
+            dispatch( {type:'SET_NAME',payload: cardData[0].name})
+            dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
+            
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].body_one_text})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].body_two_text})
             dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
             dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardData[0].cover_text_align})
+            dispatch( {type:'COVER_BOLD',payload: cardData[0].cover_bold})
+            dispatch( {type:'COVER_ITALIC',payload: cardData[0].cover_italic})
+            dispatch( {type:'UPDATE_COVER_TEXT_SIZE',payload: cardData[0].cover_font_size})
+            dispatch( {type:'UPDATE_COVER_TEXT_COLOR',payload: cardData[0].cover_text_color})
             dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardData[0].cover_text_bold})
             dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
             dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
-            dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
+            
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].bodyone_text})
+            dispatch( {type:'UPDATE_BODY_ONE_FONT',payload: cardData[0].bodyone_font})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT_ALIGNMENT',payload: cardData[0].bodyone_text_align})
+            dispatch( {type:'BODY_ONE_BOLD',payload: cardData[0].bodyone_bold})
+            dispatch( {type:'BODY_ONE_ITALIC',payload: cardData[0].bodyone_italic})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT_SIZE',payload: cardData[0].bodyone_font_size})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT_COLOR',payload: cardData[0].bodyone_text_color})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT_BOLD',payload: cardData[0].bodyone_text_bold})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT_ITALIC',payload: cardData[0].bodyone_text_italic})
+            dispatch( {type:'TOGGLE_MODAL_BODY_ONE',payload: cardData[0].isBodyoneModalVisible})
+            
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].bodytwo_text})
+            dispatch( {type:'UPDATE_BODY_TWO_FONT',payload: cardData[0].bodytwo_font})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT_ALIGNMENT',payload: cardData[0].bodytwo_text_align})
+            dispatch( {type:'BODY_TWO_BOLD',payload: cardData[0].bodytwo_bold})
+            dispatch( {type:'BODY_TWO_ITALIC',payload: cardData[0].bodytwo_italic})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT_SIZE',payload: cardData[0].bodytwo_font_size})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT_COLOR',payload: cardData[0].bodytwo_text_color})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT_BOLD',payload: cardData[0].bodytwo_text_bold})
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT_ITALIC',payload: cardData[0].bodytwo_text_italic})
+            dispatch( {type:'TOGGLE_MODAL_BODY_TWO',payload: cardData[0].isBodytwoModalVisible})
 
         } catch (e){
             alert(e)
