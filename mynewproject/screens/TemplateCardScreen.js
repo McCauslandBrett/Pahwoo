@@ -125,8 +125,8 @@ class TemplateCardScreen extends Component{
           placeholder = 'New name'
        />
         <TouchableOpacity style={styles.button}
-            onPress={() => {
-            this.createCard()
+            onPress={async () => {
+            await this.createCard();
             }}>
             <Text>Create</Text>
         </TouchableOpacity>
@@ -223,7 +223,7 @@ class TemplateCardScreen extends Component{
 function Item({ id, title, onSelect }) {
     return (
       <TouchableOpacity
-        onPress={() => onSelect(id)}
+        onPress={ async () => await onSelect(id)}
         style={[
           styles.contactsItem
         ]}

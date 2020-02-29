@@ -139,7 +139,7 @@ class CardScreen extends Component{
                 <View>
 
                  <TextInput multiline = {true} style={styles.bodytwoText}
-                 value = {this.props.card.body_two_text}
+                 value = {this.props.card.bodytwo_text}
                  />
                </View>
                <View style = {styles.cardAttachmentContainer}>

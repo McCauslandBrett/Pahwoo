@@ -145,26 +145,52 @@ export const getCard = (id) => {
     }
 }
 
-export const saveCard = (id) => {
+export const saveCard = (selectedItems) => {
     return async (dispatch, getState) => {
+        dispatch( {type:'SET_RECIPIENTS',payload: selectedItems})
         const { card } = getState()
+        console.log("testing here")
+        console.log(card.recipients);
         let cardData = []
         try{
             // update card in database
             const ref = db.collection('cards').doc(card.id);
-            // ref.update({
-            //     recipients: card.recipientsList,
-            //     cover_text: card.cover_text,
-            //     body_one_text: card.body_one_text,
-            //     body_two_text: card.body_two_text,
-            //     cover_font: card.cover_font,
-            //     cover_text_align: card.cover_text_align,
-            //     cover_text_bold: card.cover_text_bold,
-            //     cover_text_italic: card.cover_text_italic,
-            //     isCoverModalVisible: card.isCoverModalVisible
-            // })
+            await ref.update({
+                recipients: card.recipients,
 
+                cover_text: card.cover_text,
+                cover_font: card.cover_font,
+                cover_text_align: card.cover_text_align,
+                cover_bold: card.cover_bold,
+                cover_italic: card.cover_italic,
+                cover_font_size: card.cover_font_size,
+                cover_text_color: card.cover_text_color,
+                cover_text_bold: card.cover_text_bold,
+                cover_text_italic: card.cover_text_italic,
+                isCoverModalVisible: card.isCoverModalVisible,
 
+                bodyone_text: card.bodyone_text,
+                bodyone_font: card.bodyone_font,
+                bodyone_text_align: card.bodyone_text_align,
+                bodyone_bold: card.bodyone_bold,
+                bodyone_italic: card.bodyone_italic,
+                bodyone_font_size: card.bodyone_font_size,
+                bodyone_text_color: card.bodyone_text_color,
+                bodyone_text_bold: card.bodyone_text_bold,
+                bodyone_text_italic: card.bodyone_text_italic,
+                isBodyoneModalVisible: card.isBodyoneModalVisible,
+
+                bodytwo_text: card.bodytwo_text,
+                bodytwo_font: card.bodytwo_font,
+                bodytwo_text_align: card.bodytwo_text_align,
+                bodytwo_bold: card.bodytwo_bold,
+                bodytwo_italic: card.bodytwo_italic,
+                bodytwo_font_size: card.bodytwo_font_size,
+                bodytwo_text_color: card.bodytwo_text_color,
+                bodytwo_text_bold: card.bodytwo_text_bold,
+                bodytwo_text_italic: card.bodytwo_text_italic,
+                isBodytwoModalVisible: card.isBodytwoModalVisible,
+            });
         } catch (e){
             alert(e)
         }
