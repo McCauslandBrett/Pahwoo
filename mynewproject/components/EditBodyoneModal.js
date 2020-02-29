@@ -37,7 +37,7 @@ class EditBodyoneModal extends Component{
   render(){
 
     const placeholder = {
-    label: 'Select a textAlignment',
+    label: 'Align text',
     value: null,
     color: '#9EA0A4',
     };

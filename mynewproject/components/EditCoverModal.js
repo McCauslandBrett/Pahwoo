@@ -36,7 +36,7 @@ class EditCoverModal extends Component{
   render(){
 
     const placeholder = {
-    label: 'Select a textAlignment',
+    label: 'Align text',
     value: null,
     color: '#9EA0A4',
     };
@@ -132,43 +132,44 @@ class EditCoverModal extends Component{
                    <Text style={styles.modal_title}> Edit Cover </Text>
                  </View>
 
-
-                 <RNPickerSelect
-                   placeholder={placeholder}
-                   items={fontAlignOptions}
-                   onValueChange={input => {
-                                  this.props.updateCoverTextAlignment(input);
-                                  this.setState({fA: input});
-                                }
-                    }
-                   value={this.state.fA}
-                   Icon={() => {
-                     return <Chevron style = {styles.mdmore3} size={2.0} color="gray" />;
-                   }}
-
-
-                   useNativeAndroidPickerStyle={false}
-
-                   />
-                    <View paddingVertical={20} />
-                   <RNPickerSelect
-                     placeholder={placeholderfont}
-
-                     items={fontOptions}
-                     onValueChange={input => {
-                                    this.props.updateCoverFont(input);
-                                    this.setState({font: input});
-                                  }
-                                }
-                     value={this.state.font}
-                     Icon={() => {
-                       return <Chevron style = {styles.mdmore3} size={2.0} color="gray" />;
-                     }}
+                 <SafeAreaView>
+                    <RNPickerSelect
+                    placeholder={placeholder}
+                    items={fontAlignOptions}
+                    onValueChange={input => {
+                                    this.props.updateCoverTextAlignment(input);
+                                    this.setState({fA: input});
+                                    }
+                        }
+                    value={this.state.fA}
+                    Icon={() => {
+                        return <Chevron style = {styles.mdmore3} size={2.0} color="gray" />;
+                    }}
 
 
-                     useNativeAndroidPickerStyle={false}
+                    useNativeAndroidPickerStyle={false}
 
-                     />
+                    />
+                        <View paddingVertical={20} />
+                    <RNPickerSelect
+                        placeholder={placeholderfont}
+
+                        items={fontOptions}
+                        onValueChange={input => {
+                                        this.props.updateCoverFont(input);
+                                        this.setState({font: input});
+                                    }
+                                    }
+                        value={this.state.font}
+                        Icon={() => {
+                        return <Chevron style = {styles.mdmore3} size={2.0} color="gray" />;
+                        }}
+
+
+                        useNativeAndroidPickerStyle={false}
+
+                        />
+                     </SafeAreaView>
                      <View paddingVertical={20} />
 
                      <View style = {styles.statsContainer}>

@@ -18,8 +18,8 @@ export const createCard = (newName, recipientsList) => {
             }
             // Add card to database
 			const ref = db.collection('cards').doc()
-			cardObject.id = ref.id
-            await ref.set(cardObject)
+			cardObject['id'] = ref.id
+            await ref.set(cardObject);
             // we should save the card id here to the card state!!!!!!!
             //Add card to user.savedTemplates[]
             var userRef = db.collection('users').doc(user.uid)
@@ -68,7 +68,31 @@ export const getCard = (id) => {
     }
 }
 
+export const saveCard = (id) => {
+    return async (dispatch, getState) => {
+        const { card } = getState()
+        let cardData = []
+        try{
+            // update card in database
+            const ref = db.collection('cards').doc(card.id);
+            // ref.update({
+            //     recipients: card.recipientsList,
+            //     cover_text: card.cover_text,
+            //     body_one_text: card.body_one_text,
+            //     body_two_text: card.body_two_text,
+            //     cover_font: card.cover_font,
+            //     cover_text_align: card.cover_text_align,
+            //     cover_text_bold: card.cover_text_bold,
+            //     cover_text_italic: card.cover_text_italic,
+            //     isCoverModalVisible: card.isCoverModalVisible
+            // })
+            
 
+        } catch (e){
+            alert(e)
+        }
+    }
+}
 
 
 export const sendCard = (recipients) => {
@@ -233,3 +257,70 @@ export const updateBodytwoTextItalic = (_bool) => {
 export const toggleBodytwoModal = ( isCoverModalVisible) => {
   return {type:'TOGGLE_MODAL_BODY_TWO', payload: isCoverModalVisible}
 }
+
+
+
+// 
+// const cardObject = {
+//     name: newName,
+//     recipients: recipientsList,
+//     cover_text: newName,
+//     body_one_text: newName,
+//     body_two_text: newName,
+//     font: {
+//         cover: null,
+//         body1: null,
+//         body2: null
+//     },
+//     text_align: {
+//         cover: null,
+//         body1: null,
+//         body2: null
+//     },
+//     bold: {
+//         cover: false,
+//         body1: false,
+//         body2: false,
+//     },
+//     cover_text_italic: {
+//         cover: false,
+//         body1: false,
+//         body2: false,
+//     },
+//     isCoverModalVisible: {
+//         cover: false,
+//         body1: false,
+//         body2: false,
+//     }
+// }
+
+
+
+// const cardObject = {
+//     name: newName,
+//     recipients: recipientsList,
+//     cover: {
+//         text: newName,
+//         font: null,
+//         align: null,
+//         bold: false,
+//         italic: false,
+//         isModalVisible: false
+//     },
+//     body1: {
+//         text: newName,
+//         font: null,
+//         align: null,
+//         bold: false,
+//         italic: false,
+//         isModalVisible: false
+//     },
+//     body2: {
+//         text: newName,
+//         font: null,
+//         align: null,
+//         bold: false,
+//         italic: false,
+//         isModalVisible: false
+//     }
+// }
