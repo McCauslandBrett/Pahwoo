@@ -103,18 +103,19 @@ class FreshCardScreen extends Component{
                justifyContent: 'center',
                margin:20,
                textAlign: (this.props.card.bodytwo_text_align == null) ?
-               this.state.defaultAlign :
+               'center' :
                this.props.card.bodytwo_text_align
              }
           ]}
           value = {this.props.card.bodytwo_text}
           onChangeText = {input => this.props.updateBodytwoText(input)}
-          placeholder = 'Body One'
+          placeholder = 'BODY TWO'
           />
           <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodytwoModal(true)}}>
               <Ionicons  name="md-more" size={28} style = {styles.cardAttachment}/>
           </TouchableOpacity>
       </View>
+
       <View style = {styles.cardAttachmentContainer}>
           <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
             <Icon.FontAwesome name= "gift" style = {styles.cardAttachment} color = "#DFD8C8"/>

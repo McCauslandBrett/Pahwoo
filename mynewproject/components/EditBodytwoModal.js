@@ -174,7 +174,7 @@ class EditBodytwoModal extends Component{
 
                      <View style = {styles.statsContainer}>
 
-                     <NumericInput value = {(this.props.card.Bodytwo_font_size == null) ? this.state.defaultTextSize:this.props.card.Bodytwo_font_size}
+                     <NumericInput value = {(this.props.card.bodytwo_font_size == null) ? this.state.defaultTextSize:this.props.card.Bodytwo_font_size}
                       onChange={value => this.props.updateBodytwoTextSize(value)}
                       rounded
                       totalWidth={100}
@@ -183,14 +183,14 @@ class EditBodytwoModal extends Component{
                      <ToggleSwitch
                        label="Bold"
                        onColor="#2196F3"
-                       isOn={this.props.card.Bodytwo_text_bold}
+                       isOn={this.props.card.bodytwo_text_bold}
                        onToggle={isOnBoldToggleSwitch => this.props.updateBodytwoTextBold(isOnBoldToggleSwitch)}
 
                      />
                      <ToggleSwitch
                        label="Italic"
                        onColor="#2196F3"
-                       isOn={this.props.card.Bodytwo_text_italic}
+                       isOn={this.props.card.bodytwo_text_italic}
                        onToggle={isOnItalicToggleSwitch => this.props.updateBodytwoTextItalic(isOnItalicToggleSwitch)}
                      />
 

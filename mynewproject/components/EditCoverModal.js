@@ -23,7 +23,6 @@ import {toggleCoverModal,updateCoverTextBold,updateCoverTextItalic,
         from '../actions/card.js'
 import NumericInput from 'react-native-numeric-input'
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker'
-
 class EditCoverModal extends Component{
   state = {
     textalignment:{},
