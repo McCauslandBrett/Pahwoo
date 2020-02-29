@@ -7,14 +7,39 @@ export const createCard = (newName, recipientsList) => {
             const cardObject = {
                 name: newName,
                 recipients: recipientsList,
+                
                 cover_text: newName,
-                body_one_text: newName,
-                body_two_text: newName,
                 cover_font: null,
                 cover_text_align: null,
+                cover_bold: false,
+                cover_italic: false,
+                cover_text_size: 10,
+                cover_text_color: null,
                 cover_text_bold: false,
                 cover_text_italic: false,
-                isCoverModalVisible: false
+                isCoverModalVisible: false,
+                
+                bodyone_text: newName,
+                bodyone_font: null,
+                bodyone_text_align: null,
+                bodyone_bold: false,
+                bodyone_italic: false,
+                bodyone_text_size: 10,
+                bodyone_text_color: null,
+                bodyone_text_bold: false,
+                bodyone_text_italic: false,
+                isBodyoneisCoverModalVisible: false,
+                
+                bodytwo_text: newName,
+                bodytwo_font: null,
+                bodytwo_text_align: null,
+                bodytwo_bold: false,
+                bodytwo_italic: false,
+                bodytwo_text_size: 10,
+                bodytwo_text_color: null,
+                bodytwo_text_bold: false,
+                bodytwo_text_italic: false,
+                isBodytwoCoverModalVisible: false,
             }
             // Add card to database
 			const ref = db.collection('cards').doc()
@@ -27,15 +52,29 @@ export const createCard = (newName, recipientsList) => {
                 savedTemplates: firebase.firestore.FieldValue.arrayUnion(cardObject.id)
             });
             dispatch( {type:'SET_ID',payload: cardObject.id})
+            dispatch( {type:'SET_NAME',payload: cardObject.name})
+            dispatch( {type:'SET_RECIPIENTS',payload: cardObject.recipients})
+            
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardObject.cover_text})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardObject.body_two_text})
             dispatch( {type:'UPDATE_COVER_FONT',payload: cardObject.cover_font})
             dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardObject.cover_text_align})
             dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardObject.cover_text_bold})
             dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardObject.cover_text_italic})
             dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardObject.isCoverModalVisible})
-            dispatch( {type:'SET_RECIPIENTS',payload: cardObject.recipients})
+            
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            
+            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardObject.body_two_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
+            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.body_one_text})
 		} catch (e) {
 			alert(e)
 		}
