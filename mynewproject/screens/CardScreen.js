@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 // global
-import { View, Text, TouchableOpacity, SafeAreaView, FlatList, Modal} from 'react-native';
+import { View, Text, TouchableOpacity,TextInput,
+  SafeAreaView, FlatList, Modal} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
@@ -9,7 +10,10 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import db from '../config/firebase.js';
 import {getCard} from '../actions/card.js'
+import palette from '../palette.js'
 
+import TextinCover from '../components/TextinCover.js'
+import TextinBodyone from '../components/TextinBodyone.js'
 class CardScreen extends Component{
     state = {
         modalVisible: false,
@@ -23,14 +27,14 @@ class CardScreen extends Component{
     setSelectCardModalVisible = (visible) => {
         this.setState({selectCardVisible: visible});
     }
-    
+
     onSelect = async (id) => {
         this.setState({selected: id})
         await this.props.getCard(id)
         this.setState({cardID: this.props.card.id})
         this.setSelectCardModalVisible(true);
     }
-    
+
     componentDidMount = async () => {
         // get user received cards
         let tempData = []
@@ -60,10 +64,10 @@ class CardScreen extends Component{
         }
         this.setState({receivedCards: tempData});
     }
-    
+
     render(){
         return(
-            <View style={styles.container}> 
+            <View style={styles.container}>
             {/* the style of the view right above added the header bar at the top of the screen */}
                 <SafeAreaView style={styles.container}>
                     <FlatList
@@ -86,9 +90,86 @@ class CardScreen extends Component{
                     alert('Modal has been closed.');
                     }}>
                     <SafeAreaView>
-                        <Text>
-                            {this.props.card.id}
-                        </Text>
+                    <View >
+                    <TextInput multiline = {true}
+                    style={[
+                         {
+                           fontSize: (this.props.card.cover_font_size == null) ?
+                           32 : this.props.card.cover_font_size
+                           , color:palette.LIGHT_GRAY,
+                           fontWeight:this.props.card.cover_bold,
+                           fontStyle:this.props.card.cover_italic,
+                           fontFamily:this.props.card.cover_font,
+                           alignItems:'center',
+                           justifyContent: 'center',
+                           margin:20,
+                           textAlign: (this.props.card.cover_text_align == null) ?
+                           this.state.defaultAlign :
+                           this.props.card.cover_text_align
+                         }
+                      ]}
+                      value = {this.props.card.cover_text}
+                      />
+
+                     </View>
+
+                     <View >
+                     <TextInput multiline = {true}
+                     style={[
+                          {
+                            fontSize: (this.props.card.bodyone_font_size == null) ?
+                            24 : this.props.card.bodyone_font_size
+                            , color:palette.LIGHT_GRAY,
+                            fontWeight:this.props.card.bodyone_bold,
+                            fontStyle:this.props.card.bodyone_italic,
+                            fontFamily:this.props.card.bodyone_font,
+                            alignItems:'center',
+                            justifyContent: 'center',
+                            margin:20,
+                            textAlign: (this.props.card.bodyone_text_align == null) ?
+                            this.state.defaultAlign :
+                            this.props.card.bodyone_text_align
+                          }
+                       ]}
+                       value = {this.props.card.bodyone_text}
+                       />
+
+                      </View>
+
+                <View>
+
+                 <TextInput multiline = {true} style={styles.bodytwoText}
+                 value = {this.props.card.body_two_text}
+                 />
+               </View>
+               <View style = {styles.cardAttachmentContainer}>
+                   <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
+                     <Icon.FontAwesome name= "gift" style = {styles.cardAttachment} color = "#DFD8C8"/>
+                     <Text style = {styles.statTitle}>Gift</Text>
+                   </TouchableOpacity>
+
+                   <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
+                     <Icon.FontAwesome name= "camera" style = {styles.cardAttachment}/>
+                     <Text style = {styles.statTitle}>Photo</Text>
+                   </TouchableOpacity>
+
+                 <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
+                   <Icon.FontAwesome name= "video-camera" style = {styles.cardAttachment}/>
+                   <Text style = {styles.statTitle}>Video</Text>
+                 </TouchableOpacity>
+
+               <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
+                 <Icon.FontAwesome name= "microphone" style = {styles.cardAttachment}/>
+                 <Text style = {styles.statTitle}>Audio</Text>
+               </TouchableOpacity>
+
+               </View>
+               <View  style =  {styles.deliveryContainer}>
+                 <TouchableOpacity style ={styles.deliveryElement} onPress = {()=> this.props.navigation.navigate('Invitations')}>
+                   <Ionicons name= "md-clock" style = {styles.cardAttachment}/>
+                 </TouchableOpacity>
+                 <Text style= {styles.deliveryTitle}> Deliverd Date June 2, 2020</Text>
+               </View>
                     </SafeAreaView>
                     <TouchableOpacity style={styles.button}
                         onPress={() => {
