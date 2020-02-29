@@ -27,7 +27,7 @@ const card = (state = {},action) => {
     case 'SET_ID':
         return {...state, id: action.payload}
     case 'SET_NAME':
-        return {...state, id: action.payload}
+        return {...state, name: action.payload}
     case 'SET_RECIPIENTS':
         return {...state, recipients: action.payload}
     // COVER
