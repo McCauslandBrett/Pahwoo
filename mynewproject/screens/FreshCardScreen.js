@@ -13,14 +13,16 @@ import styles from '../styles.js'
 import db from '../config/firebase.js';
 import {updateCoverText,updateBodyoneText,
         updateBodytwoText,createCard,
-        sendCard,toggleCoverModal,toggleBodyoneModal} from '../actions/card.js'
+        sendCard, saveCard, toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
 
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
+import palette from '../palette.js'
 
 import ToggleSwitch from 'toggle-switch-react-native'
 import EditCoverModal from '../components/EditCoverModal.js'
 import EditBodyoneModal from '../components/EditBodyoneModal.js'
+import EditBodytwoModal from '../components/EditBodytwoModal.js'
 
 import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
 
@@ -41,8 +43,8 @@ class FreshCardScreen extends Component{
       await this.props.sendCard()
   }
 
-  saveCard = () => {
-
+  saveCard = async () => {
+      await this.props.saveCard(this.state.selectedItems);
   }
 
   state = {
@@ -79,7 +81,6 @@ class FreshCardScreen extends Component{
                 thmb: response.data().profileImage,
                 username: response.data().username
             })
-            contacts.push(response.data())
             recipientKeys.push(response.data().uid)
         })
     }
@@ -89,6 +90,7 @@ class FreshCardScreen extends Component{
     for (var i = 0; i < this.props.user.contacts.length; i++){
         const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
         query.forEach((response) => {
+            contacts.push(response.data())
             mapping[this.props.user.contacts[i]] = [response.data().profileImage, response.data().username]
         })
     }
@@ -107,7 +109,7 @@ class FreshCardScreen extends Component{
 
         <EditCoverModal/>
         <EditBodyoneModal/>
-
+        <EditBodytwoModal/>
            <View >
             <TextinCover/>
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
@@ -123,12 +125,37 @@ class FreshCardScreen extends Component{
              </View>
 
        <View>
-        <Ionicons name="md-more" size={28} style = {styles.mdmore} />
+        {/* <Ionicons name="md-more" size={28} style = {styles.mdmore} />
         <TextInput multiline = {true} style={styles.bodytwoText}
-        value = {this.props.card.body_two_text}
+        value = {this.props.card.bodytwo_text}
         onChangeText = {input_body_two => this.props.updateBodytwoText(input_body_two)}
         placeholder = 'Body Two'
-        />
+        /> */}
+            <TextInput multiline = {true}
+                style={[
+                    {
+                    fontSize: (this.props.card.bodytwo_font_size == null) ?
+                    24 : this.props.card.bodytwo_font_size
+                    , 
+                    color:palette.LIGHT_GRAY,
+                    fontWeight:this.props.card.bodytwo_bold,
+                    fontStyle:this.props.card.bodytwo_italic,
+                    fontFamily:this.props.card.bodytwo_font,
+                    alignItems:'center',
+                    justifyContent: 'center',
+                    margin:20,
+                    textAlign: (this.props.card.bodytwo_text_align == null) ?
+                    'center' :
+                    this.props.card.bodytwo_text_align
+                    }
+                ]}
+                    value = {this.props.card.bodytwo_text}
+                    onChangeText = {input => this.props.updateBodytwoText(input)}
+                    placeholder = 'BODY TWO'
+            />
+            <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodytwoModal(true)}}>
+                <Ionicons  name="md-more" size={28}/>
+            </TouchableOpacity>
       </View>
       <View style = {styles.cardAttachmentContainer}>
           <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
@@ -227,11 +254,18 @@ class FreshCardScreen extends Component{
       </SafeAreaView>
       <SafeAreaView style={styles.playContainer}>
       <TouchableOpacity style={styles.button}
-            onPress={() => {this.sendCard()}}>
+            onPress={async () => {
+                await this.sendCard();
+            }}>
             <Text>Send</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}
-            onPress={() => {}}>
+            onPress={async () => {
+                await this.saveCard();
+                // save the recipients (selectedItems) here to state so that state is updated before addint to database
+                // console.log(this.state.selectedItems);
+                
+            }}>
             <Text>Save</Text>
       </TouchableOpacity>
       </SafeAreaView>
@@ -253,7 +287,7 @@ function Item({ id, img }) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, sendCard, updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal,toggleBodyoneModal},dispatch)
+  return bindActionCreators({createCard, sendCard, saveCard, updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
