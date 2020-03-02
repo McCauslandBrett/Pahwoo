@@ -51,10 +51,8 @@ export const signup = () => {
           console.log(email)
           const response = await firebase.auth().createUserWithEmailAndPassword(email,password)
           const id = response.user.uid
-          console.log(id)
           console.log(email)
           console.log(username)
-          console.log(birthday)
           if(id){
             const user = {
             uid:id,
