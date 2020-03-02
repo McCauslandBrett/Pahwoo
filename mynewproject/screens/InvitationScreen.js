@@ -34,99 +34,101 @@ class InvitationScreen extends Component{
       <SafeAreaView >
          <ScrollView showsVerticalScrollIndicator={false}>
          <Modal animationType={'slide'} transparent={true} visible={this.state.isModalVisible === true}>
-             <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-                 <View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: .6 }}/>
-                 <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'white', flex: 1}}>
-                    <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.setModalVisible(false)}}   />
-                  </View>
-                  </View>
+             <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }} />
+                <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'white', flex: 1}}>
+                  <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.setModalVisible(false)}}   />
+                </View>
 
-                <Block flex style={Arstyles.profileCard}>
-                <Block middle style={Arstyles.avatarContainer}>
-                  <Image
-                    source={{ uri: Images.ProfilePicture }}
-                    style={Arstyles.avatar}
-                  />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ width, marginTop: '25%' }}
+          >
+            <Block flex style={Arstyles.profileCard}>
+
+              <Block middle style={Arstyles.avatarContainer}>
+                <Image
+                  source={{ uri: Images.ProfilePicture }}
+                  style={Arstyles.avatar}
+                />
+              </Block>
+
+              <Block style={Arstyles.info}>
+                <Block middle row space="evenly" style={{ marginTop: 20, paddingBottom: 24 }}>
+                  <ArButton small style={{ backgroundColor: argonTheme.COLORS.INFO }}>
+                    CONNECT
+                  </ArButton>
+                  <ArButton small style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}>
+                    MESSAGE
+                  </ArButton>
+                </Block>
+              </Block>
+
+              <Block row space="between">
+
+                <Block middle>
+                  <Text bold size={12} color="#525F7F" style={{ marginBottom: 4 }} >
+                    2K
+                  </Text>
+                  <Text size={12}>Orders</Text>
                 </Block>
 
+                <Block middle>
+                  <Text bold color="#525F7F" size={12} style={{ marginBottom: 4 }}>
+                    10
+                  </Text>
+                  <Text size={12}>Photos</Text>
+                </Block>
 
-      <Block style={Arstyles.info}>
-        <Block middle row space="evenly" style={{ marginTop: 20, paddingBottom: 24 }}>
-          <ArButton small style={{ backgroundColor: argonTheme.COLORS.INFO }}>
-            CONNECT
-          </ArButton>
-          <ArButton small style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}>
-            MESSAGE
-          </ArButton>
-        </Block>
-     </Block>
+                <Block middle>
+                  <Text bold color="#525F7F" size={12} style={{ marginBottom: 4 }}>
+                    89
+                  </Text>
+                  <Text size={12}>Comments</Text>
+                </Block>
 
-    <Block row space="between">
+              </Block>
 
-      <Block middle>
-        <Text bold size={12} color="#525F7F" style={{ marginBottom: 4 }} >
-           2K
-        </Text>
-        <Text size={12}>Orders</Text>
-     </Block>
+              <Block flex>
+                <Block middle style={Arstyles.nameInfo}>
+                  <Text bold size={28} color="#32325D">
+                    Jessica Jones, 27
+                  </Text>
+                  <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
+                    San Francisco, USA
+                  </Text>
+                </Block>
+              </Block>
 
-    <Block middle>
-      <Text bold color="#525F7F" size={12} style={{ marginBottom: 4 }}>
-          10
-       </Text>
-      <Text size={12}>Photos</Text>
-    </Block>
+              <Block style={Arstyles.divider} />
 
-    <Block middle>
-      <Text bold color="#525F7F" size={12} style={{ marginBottom: 4 }}>
-        89
-      </Text>
-      <Text size={12}>Comments</Text>
-    </Block>
-    </Block>
+              <Block middle>
+                <Text size={16} color="#525F7F" style={{ textAlign: "center" }}>
+                  An artist of considerable range, Jessica name taken by
+                  Melbourne …
+                </Text>
+               <ArButton color="transparent"
+                  textStyle={{
+                    color: "#233DD2",
+                    fontWeight: "500",
+                    fontSize: 16
+                  }}
+               >
+                  Show more
+               </ArButton>
+              </Block>
 
-    <Block flex>
-     <Block middle style={Arstyles.nameInfo}>
-       <Text bold size={28} color="#32325D">
-         Jessica Jones, 27
-       </Text>
-       <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-         San Francisco, USA
-       </Text>
-     </Block>
-    </Block>
-    <Block style={Arstyles.divider} />
+              <Block row style={{ paddingVertical: 14, alignItems: "baseline" }}>
+                <Text bold size={16} color="#525F7F">
+                  Album
+                </Text>
+              </Block>
 
-    <Block middle>
-      <Text size={16} color="#525F7F" style={{ textAlign: "center" }}>
-        An artist of considerable range, Jessica name taken by
-        Melbourne …
-      </Text>
-      <ArButton color="transparent"
-        textStyle={{
-          color: "#233DD2",
-          fontWeight: "500",
-          fontSize: 16
-        }}
-      >
-      Show more
-      </ArButton>
-    </Block>
+            </Block>
+            </ScrollView>
 
-    <Block row style={{ paddingVertical: 14, alignItems: "baseline" }}>
-      <Text bold size={16} color="#525F7F">
-        Album
-      </Text>
-    </Block>
-
-  </Block>
+         </Modal>
 
 
-
-
-            <SafeAreaView style={{flex: 1}}>
-            </SafeAreaView>
-          </Modal>
 
           <Block center>
             <Button shadowless color="info"
