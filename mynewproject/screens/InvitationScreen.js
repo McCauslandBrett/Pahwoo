@@ -34,36 +34,35 @@ class InvitationScreen extends Component{
       <SafeAreaView >
          <ScrollView showsVerticalScrollIndicator={false}>
          <Modal animationType={'slide'} transparent={true} visible={this.state.isModalVisible === true}>
-             <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }} />
                 <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'white', flex: 1}}>
                   <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.setModalVisible(false)}}   />
                 </View>
-
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ width, marginTop: '25%' }}
-          >
-            <Block flex style={Arstyles.profileCard}>
+      <Block flex style={Arstyles.profile}>
+        <Block flex>
+          <ScrollView showsVerticalScrollIndicator={false} style={{ width, marginTop: '25%' }}>
+            <Block flex style = {Arstyles.profileCard}>
 
               <Block middle style={Arstyles.avatarContainer}>
                 <Image
-                  source={{ uri: Images.ProfilePicture }}
-                  style={Arstyles.avatar}
+                source={{ uri: Images.ProfilePicture }}
+                style={Arstyles.avatar}
                 />
               </Block>
 
-              <Block style={Arstyles.info}>
-                <Block middle row space="evenly" style={{ marginTop: 20, paddingBottom: 24 }}>
-                  <ArButton small style={{ backgroundColor: argonTheme.COLORS.INFO }}>
-                    CONNECT
-                  </ArButton>
-                  <ArButton small style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}>
-                    MESSAGE
-                  </ArButton>
-                </Block>
-              </Block>
+              <Block flex>
 
-              <Block row space="between">
+                <Block style={Arstyles.info}>
+                  <Block middle row space="evenly" style={{ marginTop: 20, paddingBottom: 24 }}>
+                    <ArButton small style={{ backgroundColor: argonTheme.COLORS.INFO }}>
+                      CONNECT
+                    </ArButton>
+                    <ArButton small style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}>
+                      MESSAGE
+                    </ArButton>
+                  </Block>
+                </Block>
+
+                <Block row space="between">
 
                 <Block middle>
                   <Text bold size={12} color="#525F7F" style={{ marginBottom: 4 }} >
@@ -88,45 +87,65 @@ class InvitationScreen extends Component{
 
               </Block>
 
-              <Block flex>
-                <Block middle style={Arstyles.nameInfo}>
+                <Block flex>
+                  <Block middle style={Arstyles.nameInfo}>
                   <Text bold size={28} color="#32325D">
                     Jessica Jones, 27
                   </Text>
                   <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                     San Francisco, USA
                   </Text>
+                  </Block>
+
+                  <Block middle>
+                  <Text size={16} color="#525F7F" style={{ textAlign: "center" }}>
+                    An artist of considerable range, Jessica name taken by
+                    Melbourne …
+                  </Text>
+                  <ArButton color="transparent"
+                    textStyle={{
+                      color: "#233DD2",
+                      fontWeight: "500",
+                      fontSize: 16
+                      }}
+                  >
+                    Show more
+                 </ArButton>
+                  </Block>
+
+                  <Block row style={{ paddingVertical: 14, alignItems: "baseline" }}>
+                  <Text bold size={16} color="#525F7F">
+                    Album
+                  </Text>
+                  </Block>
+
+                  <Block row style={{ paddingBottom: 20, justifyContent: "flex-end" }}>
+                  <ArButton small color="transparent" textStyle={{ color: "#5E72E4", fontSize: 12 }}>
+                      View all
+                  </ArButton>
+                  </Block>
+
+                  <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
+                    <Block row space="between" style={{ flexWrap: "wrap" }}>
+                      {Images.Viewed.map((img, imgIndex) => (
+                        <Image
+                          source={{ uri: img }}
+                          key={`viewed-${img}`}
+                          resizeMode="cover"
+                          style={Arstyles.thumb}
+                        />
+                      ))}
+                    </Block>
+                  </Block>
                 </Block>
               </Block>
 
-              <Block style={Arstyles.divider} />
-
-              <Block middle>
-                <Text size={16} color="#525F7F" style={{ textAlign: "center" }}>
-                  An artist of considerable range, Jessica name taken by
-                  Melbourne …
-                </Text>
-               <ArButton color="transparent"
-                  textStyle={{
-                    color: "#233DD2",
-                    fontWeight: "500",
-                    fontSize: 16
-                  }}
-               >
-                  Show more
-               </ArButton>
-              </Block>
-
-              <Block row style={{ paddingVertical: 14, alignItems: "baseline" }}>
-                <Text bold size={16} color="#525F7F">
-                  Album
-                </Text>
-              </Block>
-
             </Block>
-            </ScrollView>
 
-         </Modal>
+          </ScrollView>
+        </Block>
+      </Block>
+ </Modal>
 
 
 
