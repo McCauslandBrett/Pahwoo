@@ -13,7 +13,6 @@ import * as Permissions from 'expo-permissions';
 import styles from '../styles.js';
 import uuid from 'uuid';
 import db from '../config/firebase';
-import { Notifications } from 'expo';
 
 class HomeScreen extends Component{
   static navigationOptions = {
@@ -23,31 +22,6 @@ class HomeScreen extends Component{
     )
   }
 
-    componentDidMount = async () => {
-        let userID = this.props.user.uid;
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        // only asks if permissions have not already been determined, because
-        // iOS won't necessarily prompt the user a second time.
-        // On Android, permissions are granted on app installation, so
-        // `askAsync` will never prompt the user    
-        // Stop here if the user did not grant permissions
-        if (status !== 'granted') {
-            alert('No notification permissions!');
-            return;
-        }    
-        // Get the token that identifies this device
-        let token = await Notifications.getExpoPushTokenAsync();
-        const ref = db.collection('users').doc(userID);
-        try {
-            await ref.update({
-                expoToken: token
-            });
-        } catch(e){
-            alert(e);
-        }
-      
-  }
-  
   
   _pickImage = async () => {
     console.log("_pickImage")

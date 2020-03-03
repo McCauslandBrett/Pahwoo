@@ -3,14 +3,18 @@ import { View, Text,TextInput,TouchableOpacity} from 'react-native';
 // dependecies
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateEmail,updatePassword,updateUsername,updateBirthday, signup} from '../actions/user.js'
+import {updateEmail,updatePassword,updateUsername,updateBirthday, signup, getPushPermissions} from '../actions/user.js'
 import styles from '../styles.js'
 class SignUpScreen extends Component{
   
   
   signup = async () => {
-    await this.props.signup()
-    this.props.navigation.navigate('SignedIn')
+    await this.props.signup();
+    await this.props.getPushPermissions(this.props.user.uid);
+    if (this.props.user.uid != null){
+        this.props.navigation.navigate('SignedIn');
+    }
+    
   }
   
   render(){
@@ -48,7 +52,7 @@ class SignUpScreen extends Component{
   }
 }
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({updateEmail, updatePassword, updateUsername, updateBirthday, signup}, dispatch)
+    return bindActionCreators({updateEmail, updatePassword, updateUsername, updateBirthday, signup, getPushPermissions}, dispatch)
   }
   const mapStateToProps = (state) => {
     return {

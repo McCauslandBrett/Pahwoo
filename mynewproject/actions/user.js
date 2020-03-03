@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
-
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 export const logout = () => {
     return {type:'LOGOUT'}
@@ -41,6 +42,34 @@ export const login = () => {
       alert(e)
     }
   }
+}
+
+export const getPushPermissions = (userID) => {
+    return async (dispatch) => {
+        try {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            // only asks if permissions have not already been determined, because
+            // iOS won't necessarily prompt the user a second time.
+            // On Android, permissions are granted on app installation, so
+            // `askAsync` will never prompt the user    
+            // Stop here if the user did not grant permissions
+            if (status !== 'granted') {
+                alert('No notification permissions!');
+                return;
+            }    
+            // Get the token that identifies this device
+            let token = await Notifications.getExpoPushTokenAsync();
+            const ref = db.collection('users').doc(userID);
+            
+            await ref.update({
+                expoToken: token
+            });
+            dispatch({type:'SAVE_TOKEN',payload:token})
+        } catch(e){
+            alert(e);
+        }
+        
+    }
 }
 
 
