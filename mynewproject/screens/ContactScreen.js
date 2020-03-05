@@ -138,7 +138,9 @@ class ContactScreen extends Component{
                     <Text>Hide Modal</Text>
                 </TouchableOpacity>
             </Modal>
-
+            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Search')}>
+                <Text>Search</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.button}
                 onPress={() => {this.setModalVisible(true)}}>
                 <Text>Select Contacts</Text>
@@ -147,7 +149,6 @@ class ContactScreen extends Component{
       );
     }
 }
-
 
 
 const mapDispatchToProps = (dispatch) => {
