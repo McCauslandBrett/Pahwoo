@@ -1,5 +1,5 @@
-import React, {Component,ImageBackground} from 'react';
-import { View, Text, StyleSheet,SafeAreaView,ScrollView,Modal,Dimensions,Image} from 'react-native';
+import React, {Component} from 'react';
+import { View, Text, StyleSheet,SafeAreaView,ScrollView,Modal,Dimensions,Image,ImageBackground} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,10 +7,11 @@ import { Button, Block,theme  } from 'galio-framework';
 import  ArButton from "../components/ArButton.js";
 import styles from '../styles.js'
 import Icon  from "../components/icons.js";
-import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
+import {Ionicons,AntDesign,Entypo,MaterialIcons,MaterialCommunityIcons} from "@expo/vector-icons";
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
+import {callNumber} from "../components/callNumber.js"
 const thumbMeasure = (width - 48 - 32) / 3;
 class InvitationScreen extends Component{
   static navigationOptions = {
@@ -34,11 +35,16 @@ class InvitationScreen extends Component{
       <SafeAreaView >
          <ScrollView showsVerticalScrollIndicator={false}>
          <Modal animationType={'slide'} transparent={true} visible={this.state.isModalVisible === true}>
-                <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'white', flex: 1}}>
-                  <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.setModalVisible(false)}}   />
-                </View>
+            <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'white', flex: 1}}>
+               <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.setModalVisible(false)}}   />
+
       <Block flex style={Arstyles.profile}>
         <Block flex>
+        <ImageBackground
+            source={{uri:Images.ProfileBackground}}
+            style={Arstyles.profileContainer}
+            imageStyle={Arstyles.profileBackground}
+          >
           <ScrollView showsVerticalScrollIndicator={false} style={{ width, marginTop: '25%' }}>
             <Block flex style = {Arstyles.profileCard}>
 
@@ -65,24 +71,27 @@ class InvitationScreen extends Component{
                 <Block row space="between">
 
                 <Block middle>
-                  <Text bold size={12} color="#525F7F" style={{ marginBottom: 4 }} >
-                    2K
-                  </Text>
-                  <Text size={12}>Orders</Text>
+                  <MaterialIcons  name="phone" size={20}
+                    color="#525F7F" style={{ marginBottom: 4 }}
+                    onPress = {() => {callNumber(6198690403)}} >
+                  </MaterialIcons>
+                  <Text size={12}>Call</Text>
                 </Block>
 
                 <Block middle>
-                  <Text bold color="#525F7F" size={12} style={{ marginBottom: 4 }}>
-                    10
-                  </Text>
-                  <Text size={12}>Photos</Text>
+                <MaterialCommunityIcons  name="calendar-multiselect" size={20}
+                  color="#525F7F" style={{ marginBottom: 4 }}
+                  onPress = {() => {}} >
+                </MaterialCommunityIcons>
+                  <Text size={12}>Availablity</Text>
                 </Block>
 
                 <Block middle>
-                  <Text bold color="#525F7F" size={12} style={{ marginBottom: 4 }}>
-                    89
-                  </Text>
-                  <Text size={12}>Comments</Text>
+                <MaterialCommunityIcons  name="calendar-heart" size={20}
+                  color="#525F7F" style={{ marginBottom: 4 }}
+                  onPress = {() => {}} >
+                </MaterialCommunityIcons>
+                  <Text size={12}>Special Dates</Text>
                 </Block>
 
               </Block>
@@ -143,8 +152,10 @@ class InvitationScreen extends Component{
             </Block>
 
           </ScrollView>
+          </ImageBackground>
         </Block>
       </Block>
+      </View>
  </Modal>
 
 
@@ -165,18 +176,19 @@ class InvitationScreen extends Component{
 const Arstyles = StyleSheet.create({
 profile: {
 marginTop: Platform.OS === "android" ? -HeaderHeight : 0,
-// marginBottom: -HeaderHeight * 2,
+ marginBottom: -HeaderHeight * 2,
 flex: 1
 },
 profileContainer: {
 width: width,
 height: height,
 padding: 0,
+
 zIndex: 1
 },
 profileBackground: {
 width: width,
-height: height / 2
+height: height 
 },
 profileCard: {
 // position: "relative",
