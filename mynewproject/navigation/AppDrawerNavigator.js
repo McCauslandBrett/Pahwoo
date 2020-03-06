@@ -23,6 +23,7 @@ import FreshCardScreen from '../screens/FreshCardScreen';
 import GiftCardScreen from '../screens/GiftCardScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import EventScreen from '../screens/EventScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const CustomDrawerComponent = (props) => (
   <SafeAreaView style = {{flex: 1}}>
@@ -68,6 +69,7 @@ const ProjStackNavigator = createAppContainer(createStackNavigator(
     Invitations:InvitationScreen,
     CardTemplates:TemplateCardScreen,
     FreshCards: FreshCardScreen,
+    Search: SearchScreen
 },
 {
   initialRouteName:"AppDrawerNavigator",
