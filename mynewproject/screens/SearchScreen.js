@@ -36,25 +36,38 @@ class SearchScreen extends Component{
             returnKeyType='send'
             placeholder='Search for new friends'
             onSubmitEditing={this.searchUser}/>
-            <FlatList
-            data={this.state.query}
-            keyExtractor={(item) => JSON.stringify(item.uid)}
-            renderItem={({item}) => (
-                <View style={[styles.row, styles.thumbnailSpace]}>
-                    <Image style={styles.thumbnailRoundImage} source={{uri: item.profileImage}}/>
-                    <View style={[styles.thumbnailContainer, styles.thumbnailLeft]}>
-                        <Text style={styles.thumbnailBold}>{item.username}</Text>
-                        <Text style={styles.thumbnailGray}>{item.birthday}</Text>
-                    </View>
-                </View>
-                
-            )}/>
+            <SafeAreaView>
+                <FlatList
+                data={this.state.query}
+                keyExtractor={(item) => item.uid}
+                renderItem={({item}) => (
+                    <Item
+                        img={item.profileImage}
+                        username={item.username}
+                        birthday={item.birthday}
+                    />
+                )}/>
+            </SafeAreaView>
         </SafeAreaView>
     
       );
     }
   }
 
+  function Item({ img, username, birthday }) {
+    return (
+
+        <SafeAreaView>
+            <Image style={styles.thumbnailRoundImage} source={{uri: img}}/>
+            <View style={[styles.thumbnailContainer, styles.thumbnailLeft]}>
+                <Text style={styles.thumbnailBold}>{username}</Text>
+                <Text style={styles.thumbnailGray}>{birthday}</Text>
+            </View>
+        </SafeAreaView>
+    );
+}
+  
+  
   const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({},dispatch)
   }
