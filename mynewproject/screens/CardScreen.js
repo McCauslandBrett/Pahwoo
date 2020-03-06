@@ -138,9 +138,26 @@ class CardScreen extends Component{
 
                 <View>
 
-                 <TextInput multiline = {true} style={styles.bodytwoText}
-                 value = {this.props.card.bodytwo_text}
-                 />
+            <TextInput multiline = {true}
+                style={[
+                    {
+                    fontSize: (this.props.card.bodytwo_font_size == null) ?
+                    24 : this.props.card.bodytwo_font_size
+                    , 
+                    color:palette.LIGHT_GRAY,
+                    fontWeight:this.props.card.bodytwo_bold,
+                    fontStyle:this.props.card.bodytwo_italic,
+                    fontFamily:this.props.card.bodytwo_font,
+                    alignItems:'center',
+                    justifyContent: 'center',
+                    margin:20,
+                    textAlign: (this.props.card.bodytwo_text_align == null) ?
+                    'center' :
+                    this.props.card.bodytwo_text_align
+                    }
+                ]}
+                    value = {this.props.card.bodytwo_text}
+            />
                </View>
                <View style = {styles.cardAttachmentContainer}>
                    <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
