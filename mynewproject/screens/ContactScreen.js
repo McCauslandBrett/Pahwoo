@@ -7,14 +7,14 @@ import {Container,Header, Left} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import db from '../config/firebase.js';
-
+import {FriendModal} from '../components/FriendModal.js'
 class ContactScreen extends Component{
     static navigationOptions = {
         drawerIcon : ({tintColor}) => (
         <Icon.FontAwesome name= "address-book" style = {{fontSize:24, color:tintColor}}/>
         )
     }
-    
+
     state = {
         contactData: [],
     }
@@ -30,11 +30,11 @@ class ContactScreen extends Component{
         }
 
         // at this point I have an array of user objects from the current user's contact array
-        
+
         tempData.sort((a, b) => (a.username > b.username) ? 1 : -1)
         this.setState({contactData: tempData})
     }
-          
+
     render() {
       return (
         <Container>
@@ -43,7 +43,7 @@ class ContactScreen extends Component{
                     <Left>
                         <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
                     </Left>
-                </Header>   
+                </Header>
             </View>
             <SafeAreaView style={styles.contactsContainer}>
                 <FlatList
@@ -71,12 +71,13 @@ class ContactScreen extends Component{
 
 function Item({ uid, birthday, username, profileImage, userContacts}) {
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             style={styles.list}
             onPress={() => {
-                console.log(uid);
-                console.log(username);
-                console.log(userContacts);
+              <FriendModal
+                p={profileImage}
+                o={true}
+              />
             }}
         >
             <Image
