@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,
-        Modal, TextInput,Animated,TouchableHighlight,
-        Alert,ColorPropType,Keyboard,
-        Picker,SafeAreaView,ScrollView, FlatList, Image
+import { View, Text, TouchableOpacity,
+        Modal, TextInput,SafeAreaView,ScrollView, FlatList, Image
        } from 'react-native';
-import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
@@ -15,16 +12,13 @@ import {updateCoverText,updateBodyoneText,
         updateBodytwoText,createCard,
         sendCard, saveCard, toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
 
-import RNPickerSelect from 'react-native-picker-select';
-import { Chevron } from 'react-native-shapes';
 import palette from '../palette.js'
 
-import ToggleSwitch from 'toggle-switch-react-native'
 import EditCoverModal from '../components/EditCoverModal.js'
 import EditBodyoneModal from '../components/EditBodyoneModal.js'
 import EditBodytwoModal from '../components/EditBodytwoModal.js'
 
-import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons";
 
 import TextinCover from '../components/TextinCover.js'
 import TextinBodyone from '../components/TextinBodyone.js'

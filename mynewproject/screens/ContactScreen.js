@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, SafeAreaView, FlatList, TouchableOpacity, Image} from 'react-native';
 import Icon  from "../components/icons.js";
-import {Ionicons} from "@expo/vector-icons";
 import styles from '../styles.js'
 import {Container,Header, Left} from 'native-base';
 import { connect } from 'react-redux';
@@ -19,12 +18,12 @@ class ContactScreen extends Component{
 
     state = {
         contactData: [],
-        modalVisible: false,
         modalProfileImage: '',
         modalProfileName: ''
     }
 
     componentDidMount = async () => {
+        this.props.getContactProfile(false);
         let tempData = []
         // for loop with async calls
         for (var i = 0; i < this.props.user.contacts.length; i++){
@@ -38,26 +37,18 @@ class ContactScreen extends Component{
 
         tempData.sort((a, b) => (a.username > b.username) ? 1 : -1)
         this.setState({contactData: tempData})
-        this.props.getContactProfile(false);
     }
     
     onSelect = (profileImage, profileName) => {
-        // this.setState({modalVisible: true});
-        // await this.props.getCard(id)
-        // this.setState({cardID: this.props.card.id})
-        // this.setSelectCardModalVisible(true);
         this.setState({modalProfileImage: profileImage});
         this.setState({modalProfileName: profileName});
         this.props.getContactProfile(true);
-        
     }
     
     displayModal() {
-        if (this.props.user.selectedProfileView){
-            return <FriendModal p={this.state.modalProfileImage} o={true} props={this.props} username={this.state.modalProfileName}/>;
-        } else {
-            return <View></View>;
-        }
+        return (this.props.user.selectedProfileView) ? 
+            <FriendModal p={this.state.modalProfileImage} o={true} props={this.props} username={this.state.modalProfileName}/> 
+            : <View></View>;
     }
 
     render() {
@@ -77,11 +68,9 @@ class ContactScreen extends Component{
                     data={this.state.contactData}
                     renderItem={({ item }) => (
                         <Item
-                            uid={item.uid}
                             birthday={item.birthday}
                             username={item.username}
                             profileImage={item.profileImage}
-                            userContacts={this.state.contactData}
                             onSelect={this.onSelect}
                         />
                     )}
@@ -99,7 +88,7 @@ class ContactScreen extends Component{
 
 
 
-function Item({ uid, birthday, username, profileImage, userContacts, onSelect}) {
+function Item({ birthday, username, profileImage, onSelect}) {
     return (
         <TouchableOpacity
             style={styles.list}

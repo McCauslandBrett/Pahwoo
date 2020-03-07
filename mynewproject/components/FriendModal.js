@@ -1,23 +1,18 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet,SafeAreaView,ScrollView,Modal,Dimensions,Image,ImageBackground} from 'react-native';
-import {Header, Left, Right} from 'native-base';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
 import { Button, Block,theme  } from 'galio-framework';
 import  ArButton from "./ArButton.js";
 import styles from '../styles.js'
-import Icon  from "./icons.js";
-import {Ionicons,AntDesign,Entypo,MaterialIcons,MaterialCommunityIcons} from "@expo/vector-icons";
+import {AntDesign,MaterialIcons,MaterialCommunityIcons} from "@expo/vector-icons";
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import {callNumber} from "./callNumber.js";
-import {getContactProfile} from '../actions/card.js';
 
 const thumbMeasure = (width - 48 - 32) / 3;
 
 export function FriendModal ({p, o, props, username}){
-   const [modal,toggleModal] = useState(o);
+//    const [modal,toggleModal] = useState(o);
     return(
       <SafeAreaView >
          <ScrollView showsVerticalScrollIndicator={false}>
