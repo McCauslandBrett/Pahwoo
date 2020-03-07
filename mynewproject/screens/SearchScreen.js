@@ -21,7 +21,6 @@ class SearchScreen extends Component{
         query.forEach((response) => {
             search.push(response.data())
         })
-        console.log(search)
         this.setState({query: search})
     }
     
@@ -56,21 +55,27 @@ class SearchScreen extends Component{
 
   function Item({ img, username, birthday }) {
     return (
-            <TouchableOpacity 
+            <SafeAreaView 
                 style={styles.list}
-                onPress={() => {
-                    console.log(img);
-                    console.log(username);
-                    console.log(birthday);
-                }}
             >
                 <Image
                     source={{ uri: img }}
                     style={styles.thumbnailRoundImage}
                 />
-                <Text style={styles.thumbnailBold}>{username}</Text>
-                <Text style={styles.thumbnailGray}>{birthday}</Text>
-            </TouchableOpacity>
+                <Text style={styles.thumbnailBold}>{username} </Text>
+                <Text style={styles.thumbnailGray}>{birthday} </Text>
+                <TouchableOpacity
+                    style={styles.smallButton}
+                    onPress={() => {
+                        console.log(img);
+                        console.log(username);
+                        console.log(birthday);
+                    }}
+                >
+                    <Text style={styles.lightText}>+</Text>
+
+                </TouchableOpacity>
+            </SafeAreaView>
     );
 }
   

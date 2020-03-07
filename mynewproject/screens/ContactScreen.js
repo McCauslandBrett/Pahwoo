@@ -109,7 +109,7 @@ function Item({ uid, birthday, username, profileImage, userContacts, onSelect}) 
                 source={{ uri: profileImage }}
                 style={styles.thumbnailRoundImage}
             />
-            <Text style={styles.thumbnailBold}>{username}</Text>
+            <Text style={styles.thumbnailBold}>{username} </Text>
             <Text style={styles.thumbnailGray}>{birthday}</Text>
         </TouchableOpacity>
     );

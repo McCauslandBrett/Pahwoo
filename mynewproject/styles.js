@@ -236,13 +236,6 @@ headlessAndroidPicker: {
     marginLeft: -2,
     backgroundColor: '#adadad'
   },
-  thumbnailRoundImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    margin: 10,
-    backgroundColor: '#adadad'
-  },
   
   text: {
     fontFamily:"HelveticaNeue",
@@ -428,21 +421,42 @@ headlessAndroidPicker: {
   contactsTitle: {
     fontSize: 24,
   },
+  
+  thumbnailRoundImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    margin: 10,
+    backgroundColor: '#adadad'
+  },
+  
   list: {
     paddingVertical: 5,
     margin: 3,
+    flex: 1,
     flexDirection: "row",
-    backgroundColor: "#192338",
+    backgroundColor: "cornsilk",
     justifyContent: "flex-start",
     alignItems: "center",
     zIndex: -1
   },
+  
+  smallButton: {
+    height: 35,
+    width: 35,
+    alignSelf:'flex-end',
+    justifyContent:'center',
+    borderColor:'crimson',
+    borderWidth:1,
+    borderRadius:5,
+    backgroundColor: 'mediumseagreen'
+  },
+  
   lightText: {
     color: "#f7f7f7",
-    width: 200,
-    paddingLeft: 15,
-    fontSize: 12
+    fontSize: 30
    },
+   
   line: {
     height: 0.5,
     width: "100%",
