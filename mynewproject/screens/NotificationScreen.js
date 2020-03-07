@@ -24,11 +24,11 @@ class NotificationScreen extends Component{
              <Ionicons name="md-more" size={24} style = {styles.mdmore} />
 
 
-             <View style = {{marginTop:60, alignItems:"center"}}>
-                 <Text> NotificationScreen</Text>
-
-
-      </View>
+            <View style = {{marginTop:60, alignItems:"center"}}>
+                <Text> NotificationScreen</Text>
+                
+                
+            </View>
       </ScrollView>
       </SafeAreaView>
     );

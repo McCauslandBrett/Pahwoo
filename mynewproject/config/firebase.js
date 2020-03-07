@@ -29,7 +29,7 @@ firebase.initializeApp(firebaseConfig);
 
 
 // Enabled google analytics on firebase, might not need this
-// Need to test what will happen if we remove this line and run the project
+// Need to test what will happen if we remove this line and run the project, so far nothing has happend
 // firebase.analytics();
 
 const db = firebase.firestore()

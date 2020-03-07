@@ -386,14 +386,7 @@ headlessAndroidPicker: {
   thumbnailLeft: {
     alignItems: 'flex-start',
   },
-  thumbnailBold: {
-    fontWeight: 'bold',
-    fontSize: 24,
 
-  },
-  thumbnailGray: {
-    color: '#adadad',
-  },
   thumbnailContainer2:{
     flex: 1,
     backgroundColor: 'blue',
@@ -422,6 +415,15 @@ headlessAndroidPicker: {
     fontSize: 24,
   },
   
+  thumbnailBold: {
+    fontWeight: 'bold',
+    fontSize: 24,
+
+  },
+  thumbnailGray: {
+    color: '#adadad',
+  },
+  
   thumbnailRoundImage: {
     width: 40,
     height: 40,
@@ -441,20 +443,35 @@ headlessAndroidPicker: {
     zIndex: -1
   },
   
+  list2: {
+    paddingVertical: 5,
+    margin: 3,
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "cornsilk",
+    alignItems: "center",
+    zIndex: -1
+  },
+  
   smallButton: {
     height: 35,
     width: 35,
-    alignSelf:'flex-end',
-    justifyContent:'center',
+    flex: 1,
+    marginBottom: 2,
+    alignSelf:'center',
+    justifyContent:'flex-end',
+    position: "absolute",
     borderColor:'crimson',
-    borderWidth:1,
+    borderWidth:3,
     borderRadius:5,
     backgroundColor: 'mediumseagreen'
   },
   
   lightText: {
+    flex: 1,
     color: "#f7f7f7",
-    fontSize: 30
+    fontSize: 30,
+    alignItems: "center"
    },
    
   line: {

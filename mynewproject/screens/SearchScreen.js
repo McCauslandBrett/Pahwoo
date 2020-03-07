@@ -55,8 +55,11 @@ class SearchScreen extends Component{
 
   function Item({ img, username, birthday }) {
     return (
-            <SafeAreaView 
-                style={styles.list}
+            <TouchableOpacity
+                style={styles.list2}
+                onPress={() => {
+                    console.log("hello from parant touchable");
+                }}
             >
                 <Image
                     source={{ uri: img }}
@@ -67,15 +70,13 @@ class SearchScreen extends Component{
                 <TouchableOpacity
                     style={styles.smallButton}
                     onPress={() => {
-                        console.log(img);
-                        console.log(username);
-                        console.log(birthday);
+                        console.log("hello from child touchable")
                     }}
                 >
                     <Text style={styles.lightText}>+</Text>
 
                 </TouchableOpacity>
-            </SafeAreaView>
+            </TouchableOpacity>
     );
 }
   
