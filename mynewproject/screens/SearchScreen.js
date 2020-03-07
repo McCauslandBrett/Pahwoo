@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, SafeAreaView, Text, StyleSheet, TextInput, Dimensions, FlatList, Image} from 'react-native';
+import { View, SafeAreaView, Text, TouchableOpacity, TextInput, Dimensions, FlatList, Image} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -56,14 +56,21 @@ class SearchScreen extends Component{
 
   function Item({ img, username, birthday }) {
     return (
-
-        <SafeAreaView>
-            <Image style={styles.thumbnailRoundImage} source={{uri: img}}/>
-            <View style={[styles.thumbnailContainer, styles.thumbnailLeft]}>
+            <TouchableOpacity 
+                style={styles.list}
+                onPress={() => {
+                    console.log(img);
+                    console.log(username);
+                    console.log(birthday);
+                }}
+            >
+                <Image
+                    source={{ uri: img }}
+                    style={styles.thumbnailRoundImage}
+                />
                 <Text style={styles.thumbnailBold}>{username}</Text>
                 <Text style={styles.thumbnailGray}>{birthday}</Text>
-            </View>
-        </SafeAreaView>
+            </TouchableOpacity>
     );
 }
   

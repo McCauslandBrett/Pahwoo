@@ -1,6 +1,9 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
 
+export const getContactProfile = (_bool) => {
+    return {type:'UPDATE_SELECTED_PROFILE_VIEW', payload:_bool}
+}
 
 export const logout = () => {
     return {type:'LOGOUT'}

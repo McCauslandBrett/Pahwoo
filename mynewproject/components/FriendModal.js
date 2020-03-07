@@ -11,17 +11,19 @@ import {Ionicons,AntDesign,Entypo,MaterialIcons,MaterialCommunityIcons} from "@e
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
-import {callNumber} from "./callNumber.js"
+import {callNumber} from "./callNumber.js";
+import {getContactProfile} from '../actions/card.js';
+
 const thumbMeasure = (width - 48 - 32) / 3;
 
-export function FriendModal (p,o){
+export function FriendModal ({p, o, props, username}){
    const [modal,toggleModal] = useState(o);
     return(
       <SafeAreaView >
          <ScrollView showsVerticalScrollIndicator={false}>
-         <Modal animationType={'slide'} transparent={true} visible={modal === true}>
+         <Modal animationType={'slide'} transparent={true} visible={o}>
             <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'white', flex: 1}}>
-               <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {toggleModal(false)}}   />
+               <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {props.getContactProfile(false)}}   />
 
       <Block flex style={Arstyles.profile}>
         <Block flex>
@@ -84,7 +86,7 @@ export function FriendModal (p,o){
                 <Block flex>
                   <Block middle style={Arstyles.nameInfo}>
                   <Text bold size={28} color="#32325D">
-                    Jessica Jones, 27
+                    {username}
                   </Text>
                   <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                     San Francisco, USA
