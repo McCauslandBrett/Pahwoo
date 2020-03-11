@@ -429,7 +429,8 @@ headlessAndroidPicker: {
     height: 40,
     borderRadius: 20,
     margin: 10,
-    backgroundColor: '#adadad'
+    backgroundColor: '#adadad',
+    justifyContent: "flex-start",
   },
   
   list: {
@@ -448,30 +449,35 @@ headlessAndroidPicker: {
     margin: 3,
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "cornsilk",
     alignItems: "center",
+    backgroundColor: "cornsilk",
+    // alignItems: "center",
     zIndex: -1
   },
   
   smallButton: {
     height: 35,
     width: 35,
+    right: 0,
     flex: 1,
-    marginBottom: 2,
-    alignSelf:'center',
-    justifyContent:'flex-end',
+    margin: 17,
+    // flexDirection: "row",
+    // alignSelf:'flex-end',
+    // justifyContent:'center',
     position: "absolute",
     borderColor:'crimson',
-    borderWidth:3,
-    borderRadius:5,
+    alignContent: "center",
+    alignItems: "center",
+    // borderWidth:3,
+    borderRadius:20,
     backgroundColor: 'mediumseagreen'
   },
   
   lightText: {
-    flex: 1,
     color: "#f7f7f7",
+    paddingLeft: 2,
     fontSize: 30,
-    alignItems: "center"
+    bottom: 1.5
    },
    
   line: {
