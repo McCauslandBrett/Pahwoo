@@ -20,6 +20,10 @@ const user = (state = {},action) => {
         return {...state, profileImage: action.payload}
     case 'UPDATE_SELECTED_PROFILE_VIEW':
         return {...state, selectedProfileView: action.payload}
+    case 'UPDATE_REQUESTS':
+        return {...state, requests: action.payload}
+    case 'UPDATE_CONTACTS':
+        return {...state, contacts: action.payload}
   default:
       return state
     }

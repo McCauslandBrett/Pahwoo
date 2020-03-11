@@ -115,5 +115,55 @@ export const uploadImage = (uri) => {
         console.log("Update user in db")
 
     }
+}
 
+export const makeFriends = (accepted, newContactID, newContactUsername) => {
+    return async (dispatch,getState) => {
+        const { user } = getState()
+        var curUserRef = db.collection('users').doc(user.uid)
+        var newUserRef = db.collection('users').doc(newContactID)
+        if (accepted){
+            // TODO: friend request accepted
+            try {
+                await curUserRef.update({
+                    contacts: firebase.firestore.FieldValue.arrayUnion(newContactID)
+                });
+                await newUserRef.update({
+                    contacts: firebase.firestore.FieldValue.arrayUnion(user.uid)
+                });
+                await curUserRef.update({
+                    requests: firebase.firestore.FieldValue.arrayRemove(
+                        {
+                            requestingUser: newContactID,
+                            username: newContactUsername
+                        }
+                    )
+                });
+                // update requests AND contacts arrays in props
+                const updatedUser = await db.collection('users').doc(user.uid).get()
+                dispatch({type:'UPDATE_REQUESTS', payload: updatedUser.data().requests})
+                dispatch({type:'UPDATE_CONTACTS', payload: updatedUser.data().contacts})
+            } catch(e){
+                alert(e)
+            }
+                
+        } else {
+            // TODO: friend request denied
+            try {
+                await curUserRef.update({
+                    requests: firebase.firestore.FieldValue.arrayRemove(
+                        {
+                            requestingUser: newContactID,
+                            username: newContactUsername
+                        }
+                    )
+                });
+                // update requests array in props
+                const updatedUser = await db.collection('users').doc(user.id).get()
+                dispatch({type:'UPDATE_REQUESTS', payload: updatedUser.data().requests})
+            } catch(e){
+                alert(e)
+            }
+        }
+    }
 }
