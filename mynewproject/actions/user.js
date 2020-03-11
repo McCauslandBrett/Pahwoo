@@ -159,7 +159,7 @@ export const makeFriends = (accepted, newContactID, newContactUsername) => {
                     )
                 });
                 // update requests array in props
-                const updatedUser = await db.collection('users').doc(user.id).get()
+                const updatedUser = await db.collection('users').doc(user.uid).get()
                 dispatch({type:'UPDATE_REQUESTS', payload: updatedUser.data().requests})
             } catch(e){
                 alert(e)

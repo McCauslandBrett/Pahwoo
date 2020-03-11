@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js"
 import db from '../config/firebase.js';
+import firebase from 'firebase';
 // import { TextInput } from 'react-native-gesture-handler';
 import styles from '../styles.js'
 const  { width } = Dimensions.get('window');
@@ -22,6 +23,24 @@ class SearchScreen extends Component{
             search.push(response.data())
         })
         this.setState({query: search})
+    }
+    
+    addBtnOnSelect = async (userID) => {
+        console.log("hello from addBtn")
+        try {
+            var newUserRef = db.collection('users').doc(userID)
+            await newUserRef.update({
+                requests: firebase.firestore.FieldValue.arrayUnion(
+                    {
+                        requestingUser: this.props.user.uid,
+                        username: this.props.user.username
+                    }
+                )
+            });
+        } catch(e){
+            alert(e)
+        }
+        
     }
     
     render(){
@@ -42,8 +61,10 @@ class SearchScreen extends Component{
                 renderItem={({item}) => (
                     <Item
                         img={item.profileImage}
+                        userID={item.uid}
                         username={item.username}
                         birthday={item.birthday}
+                        addBtnOnSelect={this.addBtnOnSelect}
                     />
                 )}/>
             </SafeAreaView>
@@ -53,7 +74,7 @@ class SearchScreen extends Component{
     }
   }
 
-  function Item({ img, username, birthday }) {
+  function Item({ img, userID, username, birthday, addBtnOnSelect}) {
     return (
             <TouchableOpacity
                 style={styles.list2}
@@ -69,9 +90,7 @@ class SearchScreen extends Component{
                 <Text style={styles.thumbnailGray}>{birthday} </Text>
                 <TouchableOpacity
                     style={styles.smallButton}
-                    onPress={() => {
-                        console.log("hello from child touchable")
-                    }}
+                    onPress={ async () => addBtnOnSelect(userID)}
                 >
                     <Text style={styles.lightText}>+</Text>
 
