@@ -138,6 +138,8 @@ export const getCard = (id) => {
             dispatch( {type:'UPDATE_BODY_TWO_TEXT_BOLD',payload: cardData[0].bodytwo_text_bold})
             dispatch( {type:'UPDATE_BODY_TWO_TEXT_ITALIC',payload: cardData[0].bodytwo_text_italic})
             dispatch( {type:'TOGGLE_MODAL_BODY_TWO',payload: cardData[0].isBodytwoModalVisible})
+            // We might not have to dispatch every single field. Instead, we could dispatch the 
+            // entire card object from the database, just like how the entire user is dispatched in some of the actions
 
         } catch (e){
             alert(e)
@@ -191,6 +193,9 @@ export const saveCard = (selectedItems) => {
                 bodytwo_text_italic: card.bodytwo_text_italic,
                 isBodytwoModalVisible: card.isBodytwoModalVisible,
             });
+            // this function is missing the dispaches. We might not have to dispatch every single field. 
+            // Instead, we could dispatch the entire card object from the database, just like how the 
+            // entire user is dispatched in some of the actions
         } catch (e){
             alert(e)
         }

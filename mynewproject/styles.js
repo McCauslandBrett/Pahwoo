@@ -236,13 +236,6 @@ headlessAndroidPicker: {
     marginLeft: -2,
     backgroundColor: '#adadad'
   },
-  thumbnailRoundImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    margin: 10,
-    backgroundColor: '#adadad'
-  },
   
   text: {
     fontFamily:"HelveticaNeue",
@@ -393,14 +386,7 @@ headlessAndroidPicker: {
   thumbnailLeft: {
     alignItems: 'flex-start',
   },
-  thumbnailBold: {
-    fontWeight: 'bold',
-    fontSize: 24,
 
-  },
-  thumbnailGray: {
-    color: '#adadad',
-  },
   thumbnailContainer2:{
     flex: 1,
     backgroundColor: 'blue',
@@ -428,21 +414,67 @@ headlessAndroidPicker: {
   contactsTitle: {
     fontSize: 24,
   },
+  
+  thumbnailBold: {
+    fontWeight: 'bold',
+    fontSize: 24,
+
+  },
+  thumbnailGray: {
+    color: '#adadad',
+  },
+  
+  thumbnailRoundImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    margin: 10,
+    backgroundColor: '#adadad',
+    justifyContent: "flex-start",
+  },
+  
   list: {
     paddingVertical: 5,
     margin: 3,
+    flex: 1,
     flexDirection: "row",
-    backgroundColor: "#192338",
+    backgroundColor: "cornsilk",
     justifyContent: "flex-start",
     alignItems: "center",
     zIndex: -1
   },
+  
+  list2: {
+    paddingVertical: 5,
+    margin: 3,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "honeydew",
+    zIndex: -1
+  },
+  
+  smallButton: {
+    height: 35,
+    width: 35,
+    right: 0,
+    flex: 1,
+    margin: 17,
+    position: "absolute",
+    borderColor:'crimson',
+    alignContent: "center",
+    alignItems: "center",
+    borderRadius:20,
+    backgroundColor: 'salmon'
+  },
+  
   lightText: {
     color: "#f7f7f7",
-    width: 200,
-    paddingLeft: 15,
-    fontSize: 12
+    paddingLeft: 1.9,
+    fontSize: 30,
+    bottom: 1.4
    },
+   
   line: {
     height: 0.5,
     width: "100%",
