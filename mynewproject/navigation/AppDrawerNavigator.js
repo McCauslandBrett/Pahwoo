@@ -24,7 +24,8 @@ import GiftCardScreen from '../screens/GiftCardScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import EventScreen from '../screens/EventScreen';
 import SearchScreen from '../screens/SearchScreen';
-
+import { SocialIcon } from 'react-native-elements'
+import { Block } from "galio-framework";
 const CustomDrawerComponent = (props) => (
   <SafeAreaView style = {{flex: 1}}>
     <View style = {{height:150,backgroundColor:'white',alignItems:'center',justifyContent:'center'}}>
@@ -32,7 +33,21 @@ const CustomDrawerComponent = (props) => (
     </View>
     <ScrollView>
       <DrawerItems {...props} />
-    </ScrollView>
+      </ScrollView>
+      <Block row center space="between">
+            <Block flex middle left>
+              <SocialIcon type='twitter'/>
+            </Block>
+            <Block flex middle center>
+              <SocialIcon type='instagram'/>
+            </Block>
+            <Block flex middle right>
+              <SocialIcon type='facebook'/>
+            </Block>
+
+        </Block>
+
+
   </SafeAreaView>
 )
 

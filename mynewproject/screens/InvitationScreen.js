@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Button, Block,theme  } from 'galio-framework';
 import  ArButton from "../components/ArButton.js";
-import styles from '../styles.js'
+import styles from '../styles.js';
 import Icon  from "../components/icons.js";
 import {Ionicons,AntDesign,Entypo,MaterialIcons,MaterialCommunityIcons} from "@expo/vector-icons";
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import {callNumber} from "../components/callNumber.js"
+import { Card, ListItem} from 'react-native-elements'
+
 const thumbMeasure = (width - 48 - 32) / 3;
 class InvitationScreen extends Component{
   static navigationOptions = {
@@ -160,14 +162,6 @@ class InvitationScreen extends Component{
 
 
 
-          <Block center>
-            <Button shadowless color="info"
-            onPress={() => {this.setModalVisible(true)}}
-            style={[styles.button, styles.shadow]}>
-              INFO
-            </Button>
-          </Block>
-
          </ScrollView>
       </SafeAreaView>
     );
@@ -188,7 +182,7 @@ zIndex: 1
 },
 profileBackground: {
 width: width,
-height: height 
+height: height
 },
 profileCard: {
 // position: "relative",
