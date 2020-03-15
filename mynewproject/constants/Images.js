@@ -12,7 +12,7 @@ const androidLogo = require("../assets/imgs/android.png");
 
 const ProfilePicture = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?fit=crop&w=1650&q=80';
 const ProfileBackground = 'https://images.unsplash.com/photo-1530323588099-931c746ab7f7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
-
+const BackgroundCardexample = 'https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
 const Viewed = [
   'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?fit=crop&w=240&q=80',
   'https://images.unsplash.com/photo-1543747579-795b9c2c3ada?fit=crop&w=240&q=80',
@@ -32,6 +32,7 @@ export default {
   LogoOnboarding,
   ProfileBackground,
   ProfilePicture,
+  BackgroundCardexample,
   RegisterBackground,
   Viewed,
   Products,

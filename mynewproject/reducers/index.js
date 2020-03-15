@@ -36,6 +36,8 @@ const card = (state = {},action) => {
         return {...state, name: action.payload}
     case 'SET_RECIPIENTS':
         return {...state, recipients: action.payload}
+    case 'SET_BACKGROUNDIMAGE':
+         return {...state, BackgroundImage: action.payload}
     // COVER
     case 'UPDATE_COVER_TEXT':
         return {...state, cover_text: action.payload}

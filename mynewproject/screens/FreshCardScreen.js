@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity,
-        Modal, TextInput,SafeAreaView,ScrollView, FlatList, Image
+        Modal, TextInput,SafeAreaView,ScrollView,
+        FlatList, Image,ImageBackground,StyleSheet,Dimensions
        } from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -8,12 +9,15 @@ import Icon  from "../components/icons.js";
 import styles from '../styles.js'
 // const screenHeight = Dimensions.get("window").height;
 import db from '../config/firebase.js';
+import {uploadCardBackgroundImage} from '../actions/card.js'
 import {updateCoverText,updateBodyoneText,
         updateBodytwoText,createCard,
         sendCard, saveCard, toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
 
 import palette from '../palette.js'
-
+import { HeaderHeight } from "../constants/utils";
+const { width, height } = Dimensions.get("screen");
+import { Images, argonTheme } from "../constants";
 import EditCoverModal from '../components/EditCoverModal.js'
 import EditBodyoneModal from '../components/EditBodyoneModal.js'
 import EditBodytwoModal from '../components/EditBodytwoModal.js'
@@ -23,7 +27,8 @@ import {Ionicons} from "@expo/vector-icons";
 import TextinCover from '../components/TextinCover.js'
 import TextinBodyone from '../components/TextinBodyone.js'
 import MultiSelect from 'react-native-multiple-select';
-
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 class FreshCardScreen extends Component{
   static navigationOptions = {
       headerTintColor: 'black',
@@ -55,6 +60,19 @@ class FreshCardScreen extends Component{
   setSelectContactsModalVisible = (visible) => {
     this.setState({selectContactsVisible: visible});
   }
+  _pickImage = async () => {
+    console.log("_pickImage")
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+      else {
+        let result = await ImagePicker.launchImageLibraryAsync();
+        if (!result.cancelled) {
+           this.props.uploadCardBackgroundImage(result.uri)
+        }
+      }
+  };
 
   onSelectedItemsChange = selectedItems => {
     this.setState({selectedItems: selectedItems});
@@ -98,6 +116,11 @@ class FreshCardScreen extends Component{
   render(){
     return(
       <SafeAreaView >
+      <ImageBackground
+          source={{uri:this.props.card.BackgroundImage}}
+          style={Arstyles.profileContainer}
+          imageStyle={Arstyles.profileBackground}
+      >
          <ScrollView showsVerticalScrollIndicator={false}>
 
 
@@ -109,28 +132,23 @@ class FreshCardScreen extends Component{
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
                   <Ionicons  name="md-more" size={28} />
               </TouchableOpacity>
-            </View>
+           </View>
 
             <View >
              <TextinBodyone/>
                <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodyoneModal(true)}}>
                    <Ionicons  name="md-more" size={28} />
                </TouchableOpacity>
-             </View>
+            </View>
 
        <View>
-        {/* <Ionicons name="md-more" size={28} style = {styles.mdmore} />
-        <TextInput multiline = {true} style={styles.bodytwoText}
-        value = {this.props.card.bodytwo_text}
-        onChangeText = {input_body_two => this.props.updateBodytwoText(input_body_two)}
-        placeholder = 'Body Two'
-        /> */}
+
             <TextInput multiline = {true}
                 style={[
                     {
                     fontSize: (this.props.card.bodytwo_font_size == null) ?
                     24 : this.props.card.bodytwo_font_size
-                    , 
+                    ,
                     color:palette.LIGHT_GRAY,
                     fontWeight:this.props.card.bodytwo_bold,
                     fontStyle:this.props.card.bodytwo_italic,
@@ -226,7 +244,7 @@ class FreshCardScreen extends Component{
                 }}>
                 <Text>Hide Modal</Text>
             </TouchableOpacity>
-          </Modal>
+      </Modal>
       <SafeAreaView style={styles.contactRowStack}>
             <FlatList
                 horizontal={true}
@@ -258,13 +276,18 @@ class FreshCardScreen extends Component{
                 await this.saveCard();
                 // save the recipients (selectedItems) here to state so that state is updated before addint to database
                 // console.log(this.state.selectedItems);
-                
+
             }}>
             <Text>Save</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button}
+            onPress={()=> this._pickImage()}>
+            <Text>Background</Text>
       </TouchableOpacity>
       </SafeAreaView>
 
          </ScrollView>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
@@ -279,9 +302,25 @@ function Item({ id, img }) {
         />
         );
 }
+const Arstyles = StyleSheet.create({
 
+profileContainer: {
+width: width,
+height: height,
+padding: 0,
+ zIndex: 1
+},
+profileBackground: {
+width: width,
+height: height
+},
+
+});
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, sendCard, saveCard, updateCoverText,updateBodytwoText,updateBodyoneText,toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal},dispatch)
+  return bindActionCreators({createCard, sendCard, saveCard,
+    updateCoverText,updateBodytwoText,updateBodyoneText,
+    toggleCoverModal,toggleBodyoneModal,uploadCardBackgroundImage,
+    toggleBodytwoModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
