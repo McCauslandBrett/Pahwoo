@@ -57,6 +57,8 @@ const card = (state = {},action) => {
           return {...state, cover_text_italic: action.payload}
     case 'TOGGLE_MODAL_COVER':
           return {...state, isCoverModalVisible: action.payload}
+    case 'TOGGLE_MODAL_COVER_COLOR':
+          return {...state, isCoverColorModalVisible: action.payload}
     // BODY ONE
     case 'UPDATE_BODY_ONE_TEXT':
         return {...state, bodyone_text: action.payload}
