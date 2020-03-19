@@ -91,7 +91,7 @@ class CardScreen extends Component{
                     }}>
                     <SafeAreaView>
                     <View >
-                    <TextInput multiline = {true}
+                    <TextInput multiline = {true} editable={false}
                     style={[
                          {
                            fontSize: (this.props.card.cover_font_size == null) ?
@@ -114,7 +114,7 @@ class CardScreen extends Component{
                      </View>
 
                      <View >
-                     <TextInput multiline = {true}
+                     <TextInput multiline = {true} editable={false}
                      style={[
                           {
                             fontSize: (this.props.card.bodyone_font_size == null) ?
@@ -138,12 +138,12 @@ class CardScreen extends Component{
 
                 <View>
 
-            <TextInput multiline = {true}
+            <TextInput multiline = {true} editable={false}
                 style={[
                     {
                     fontSize: (this.props.card.bodytwo_font_size == null) ?
                     24 : this.props.card.bodytwo_font_size
-                    , 
+                    ,
                     color:palette.LIGHT_GRAY,
                     fontWeight:this.props.card.bodytwo_bold,
                     fontStyle:this.props.card.bodytwo_italic,

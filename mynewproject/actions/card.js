@@ -54,6 +54,7 @@ export const createCard = (newName, recipientsList) => {
             dispatch( {type:'SET_ID',payload: cardObject.id})
             dispatch( {type:'SET_NAME',payload: cardObject.name})
             dispatch( {type:'SET_RECIPIENTS',payload: cardObject.recipients})
+					  dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardObject.BackgroundImage})
 
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardObject.cover_text})
             dispatch( {type:'UPDATE_COVER_FONT',payload: cardObject.cover_font})
@@ -105,6 +106,7 @@ export const getCard = (id) => {
             dispatch( {type:'SET_ID',payload: cardData[0].id})
             dispatch( {type:'SET_NAME',payload: cardData[0].name})
             dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
+						dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardData[0].BackgroundImage})
 
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
             dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
@@ -146,18 +148,39 @@ export const getCard = (id) => {
         }
     }
 }
-
+//precondition:
+//postcondition: Card data has been added to database
+//Notes:
+// possible opputunity for optimization, as is , we are uploading everything includeing a image
+// wether or not there are changes we could create some flags to toggle that could prevent unesicarry
+// writes.
+// Errors: Firebase error [code=invalid-argument] db.collection('cards').doc(card.id);
 export const saveCard = (selectedItems) => {
     return async (dispatch, getState) => {
         dispatch( {type:'SET_RECIPIENTS',payload: selectedItems})
         const { card } = getState()
         console.log("testing here")
         console.log(card.recipients);
+			  var downloadUrl = null;
         let cardData = []
         try{
             // update card in database
-            const ref = db.collection('cards').doc(card.id);
+					  const ref = db.collection('cards').doc(card.id);
+
+						// updating background Image
+						//
+						// if(card.BackgroundImage != null){
+						// 	const blob = await card.BackgroundImage.blob();
+						// 	// Create a root reference
+						// 	const imageRef = firebase.storage().ref();
+						// 	// Create a reference to 'profileImage.jpg'
+						// 	const uploadTask = await storageRef.child("cards/"+ card.id +"/BackgroundImage.jpg").put(blob);
+						// 	downloadUrl = await uploadTask.ref.getDownloadURL();
+						// }
+
+						// end updating background Image
             await ref.update({
+							  BackgroundImage: downloadUrl,
                 recipients: card.recipients,
 
                 cover_text: card.cover_text,
@@ -369,69 +392,16 @@ export const toggleBodytwoModal = ( isCoverModalVisible) => {
   return {type:'TOGGLE_MODAL_BODY_TWO', payload: isCoverModalVisible}
 }
 
+// precondition: User selected a card from device
+// postcondition: Photo url has been updated in local redux
+// Note:
+// for the card we dont want to send a change of the photo to the database as this
+// would be very wasteful instead we will save it to the local state as a uri
+// If the user hits save we will upload the image to the database
+export const uploadCardBackgroundImage = (uri) => {
+    return async (dispatch,getState) => {
+        dispatch({type:'SET_BACKGROUNDIMAGE', payload:uri})
+        console.log("Update card image in local state")
 
-
-//
-// const cardObject = {
-//     name: newName,
-//     recipients: recipientsList,
-//     cover_text: newName,
-//     body_one_text: newName,
-//     body_two_text: newName,
-//     font: {
-//         cover: null,
-//         body1: null,
-//         body2: null
-//     },
-//     text_align: {
-//         cover: null,
-//         body1: null,
-//         body2: null
-//     },
-//     bold: {
-//         cover: false,
-//         body1: false,
-//         body2: false,
-//     },
-//     cover_text_italic: {
-//         cover: false,
-//         body1: false,
-//         body2: false,
-//     },
-//     isCoverModalVisible: {
-//         cover: false,
-//         body1: false,
-//         body2: false,
-//     }
-// }
-
-
-
-// const cardObject = {
-//     name: newName,
-//     recipients: recipientsList,
-//     cover: {
-//         text: newName,
-//         font: null,
-//         align: null,
-//         bold: false,
-//         italic: false,
-//         isModalVisible: false
-//     },
-//     body1: {
-//         text: newName,
-//         font: null,
-//         align: null,
-//         bold: false,
-//         italic: false,
-//         isModalVisible: false
-//     },
-//     body2: {
-//         text: newName,
-//         font: null,
-//         align: null,
-//         bold: false,
-//         italic: false,
-//         isModalVisible: false
-//     }
-// }
+    }
+}
