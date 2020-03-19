@@ -23,7 +23,7 @@ import {toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,
         from '../actions/card.js'
 import NumericInput from 'react-native-numeric-input'
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker'
-
+import Options from '../constants/Options.js'
 class EditBodyoneModal extends Component{
   state = {
     textalignment:{},
@@ -35,92 +35,6 @@ class EditBodyoneModal extends Component{
   };
 
   render(){
-
-    const placeholder = {
-    label: 'Align text',
-    value: null,
-    color: '#9EA0A4',
-    };
-
-    const placeholderfont = {
-    label: 'Select a Font',
-    value: null,
-    color: '#9EA0A4',
-    };
-
-    const fontAlignOptions = [
-      {
-        label: 'Center',
-        value: 'center',
-      },
-      {
-        label: 'Right',
-        value: 'right',
-      },
-      {
-        label: 'Left',
-        value: 'left',
-      },
-    ];
-
-  const placeholderFonts = {
-    label: 'Select a font',
-    value: null,
-    color: '#9EA0A4',
-  };
-  const fontOptions = [
-    {
-      label: 'Times New Roman',
-      value: 'Times New Roman',
-
-    },
-    {
-      label: 'American Typewriter',
-      value: 'American Typewriter',
-    },
-    {
-      label: 'Arial',
-      value: 'Arial',
-    },
-    {
-      label: 'Didot',
-      value: 'Didot',
-    },
-    {
-      label: 'Helvetica',
-      value: 'Helvetica',
-    },
-    {
-      label: 'Avenir',
-      value: 'Avenir',
-
-    },
-    {
-      label: 'Baskerville',
-      value: 'Baskerville',
-    },
-    {
-      label: 'Bradley Hand',
-      value: 'Bradley Hand',
-    },
-    {
-      label: 'Chalkboard SE',
-      value: 'Chalkboard SE',
-    },
-    {
-      label: 'Cochin',
-      value: 'Cochin',
-    },
-    {
-      label: 'Snell Roundhand',
-      value: 'Snell Roundhand',
-    },
-    {
-      label: 'Zapfino',
-      value: 'Zapfino',
-    },
-  ];
-
   return(
     <View style={{  justifyContent: 'center', alignItems:'center', flex:1}}>
       <Modal animationType={'slide'} transparent={true} visible={this.props.card.isBodyoneModalVisible === true}>
@@ -135,8 +49,8 @@ class EditBodyoneModal extends Component{
 
 
                  <RNPickerSelect
-                   placeholder={placeholder}
-                   items={fontAlignOptions}
+                   placeholder={Options.placeholder}
+                   items={Options.fontAlignOptions}
                    onValueChange={input => {
                                   this.props.updateBodyoneTextAlignment(input);
                                   this.setState({fA: input});
@@ -153,9 +67,9 @@ class EditBodyoneModal extends Component{
                    />
                     <View paddingVertical={20} />
                    <RNPickerSelect
-                     placeholder={placeholderfont}
+                     placeholder={Options.placeholderfont}
 
-                     items={fontOptions}
+                     items={Options.fontOptions}
                      onValueChange={input => {
                                     this.props.updateBodyoneFont(input);
                                     this.setState({font: input});

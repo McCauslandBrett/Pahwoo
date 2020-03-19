@@ -292,6 +292,9 @@ export const updateCoverTextItalic = (_bool) => {
 export const toggleCoverModal = ( isCoverModalVisible) => {
   return {type:'TOGGLE_MODAL_COVER', payload: isCoverModalVisible}
 }
+export const toggleCoverColorModal = ( isModalVisible) => {
+  return {type:'TOGGLE_MODAL_COVER_COLOR', payload: isModalVisible}
+}
 // body One
 export const updateBodyoneText = (text) => {
   return {type:'UPDATE_BODY_ONE_TEXT', payload:text}
