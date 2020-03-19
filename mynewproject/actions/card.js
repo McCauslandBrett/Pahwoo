@@ -105,7 +105,7 @@ export const getCard = (id) => {
             dispatch( {type:'SET_ID',payload: cardData[0].id})
             dispatch( {type:'SET_NAME',payload: cardData[0].name})
             dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
-						dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardData[0].recipients})
+						dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardData[0].BackgroundImage})
 
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
             dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
