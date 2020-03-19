@@ -54,6 +54,7 @@ export const createCard = (newName, recipientsList) => {
             dispatch( {type:'SET_ID',payload: cardObject.id})
             dispatch( {type:'SET_NAME',payload: cardObject.name})
             dispatch( {type:'SET_RECIPIENTS',payload: cardObject.recipients})
+					  dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardObject.BackgroundImage})
 
             dispatch( {type:'UPDATE_COVER_TEXT',payload: cardObject.cover_text})
             dispatch( {type:'UPDATE_COVER_FONT',payload: cardObject.cover_font})
