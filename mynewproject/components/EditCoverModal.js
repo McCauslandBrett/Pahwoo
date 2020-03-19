@@ -36,6 +36,7 @@ class EditCoverModal extends Component{
     defaultColor:'black'
   };
 
+
   render(){
   return(
     <View style={{  justifyContent: 'center', alignItems:'center', flex:1}}>
@@ -47,18 +48,15 @@ class EditCoverModal extends Component{
               <View style={{ position: 'absolute', width: '100%', height: '50%', backgroundColor: 'white', flex: 1}}>
 
                  <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.props.toggleCoverModal(false)}}   />
-
-
                  <View style= {styles.stat}>
                    <Text style={styles.modal_title}> Edit Cover </Text>
                  </View>
-
                  <SafeAreaView>
-                 <CoverColorPicker />
 
+                 <CoverColorPicker />
                  <TouchableOpacity onPress={() => {this.props.toggleCoverColorModal(true)}} >
                       <View style={localstyles.square}
-                       backgroundColor={this.props.cover_font_color == null ? 'black':this.props.cover_font_color}
+                       backgroundColor={this.props.card.cover_text_color == null ? 'black':this.props.cover_font_color}
                        />
                   </TouchableOpacity>
 

@@ -29,6 +29,7 @@ import TextinBodyone from '../components/TextinBodyone.js'
 import MultiSelect from 'react-native-multiple-select';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+
 class FreshCardScreen extends Component{
   static navigationOptions = {
       headerTintColor: 'black',

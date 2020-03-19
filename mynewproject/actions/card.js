@@ -245,6 +245,9 @@ export const sendCard = (recipients) => {
 	}
 }
 // Cover
+export const updateCoverHue = (hue) => {
+  return {type:'UPDATE_COVER_HUE', payload:hue}
+}
 export const updateCoverText = (text) => {
   return {type:'UPDATE_COVER_TEXT', payload:text}
 }
@@ -265,8 +268,8 @@ export const updateCoverItalic = (_bool) => {
   return {type:'COVER_ITALIC',payload:null}
   }
 }
-export const updateCoverTextColor = (color) => {
-  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color}
+export const updateCoverTextColor = (color_obj) => {
+  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color_obj}
 }
 export const updateCoverBold = (_bool) => {
   if(_bool){

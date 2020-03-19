@@ -39,6 +39,10 @@ const card = (state = {},action) => {
     case 'SET_BACKGROUNDIMAGE':
          return {...state, BackgroundImage: action.payload}
     // COVER
+    case 'UPDATE_COVER_TEXT_HUE':
+        return {...state, cover_text_hue: action.payload}
+    case 'UPDATE_COVER_TEXT_COLOR':
+        return {...state, cover_text_color: action.payload}
     case 'UPDATE_COVER_TEXT':
         return {...state, cover_text: action.payload}
     case 'UPDATE_COVER_FONT':

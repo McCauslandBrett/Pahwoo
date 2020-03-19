@@ -1,8 +1,13 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, View,Text } from 'react-native';
 import HsvColorPicker from 'react-native-hsv-color-picker';
-
-export default class Example extends React.Component {
+import { fromHsv } from 'react-native-color-picker'
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {
+  updateCoverTextColor
+} from '../actions/card.js'
+class InvitationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +24,10 @@ export default class Example extends React.Component {
       sat: saturation,
       val: value,
     });
+    this.props.updateCoverTextColor({
+        sat: saturation,
+        val: value,
+      });
   }
 
   onHuePickerChange({ hue }) {
@@ -31,6 +40,8 @@ export default class Example extends React.Component {
     const { hue, sat, val } = this.state;
     return (
       <View style={styles.container}>
+      <Text style={{color: this.props.card.cover_text_color == null ? 'red':
+        fromHsv({ h: hue, s: sat, v:val })}}> Color </Text>
         <HsvColorPicker
           huePickerHue={hue}
           onHuePickerDragMove={this.onHuePickerChange}
@@ -55,3 +66,13 @@ const styles = StyleSheet.create({
   },
 
 });
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({updateCoverTextColor},dispatch)
+}
+const mapStateToProps = (state) => {
+  return {
+
+   card: state.card,
+  }
+}
+  export default connect(mapStateToProps,mapDispatchToProps)(InvitationScreen )
