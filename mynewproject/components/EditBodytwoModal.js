@@ -16,7 +16,7 @@ import { width, height, totalSize } from 'react-native-dimension';
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
 import ToggleSwitch from 'toggle-switch-react-native'
-import {toggleBodytwoModal,updateBodytwoTextBold,updateBodytwoTextItalic,
+import {toggleBodytwoColorModal,toggleBodytwoModal,updateBodytwoTextBold,updateBodytwoTextItalic,
         updateBodytwoTextAlignment,updateBodytwoFont,
         updateBodytwoText,updateBodytwoTextSize,
         updateBodytwoTextColor}
@@ -24,6 +24,7 @@ import {toggleBodytwoModal,updateBodytwoTextBold,updateBodytwoTextItalic,
 import NumericInput from 'react-native-numeric-input'
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker'
 import Options from '../constants/Options.js'
+import BodytwoColorPicker from './BodytwoColorPicker.js'
 class EditBodytwoModal extends Component{
   state = {
     textalignment:{},
@@ -47,6 +48,12 @@ class EditBodytwoModal extends Component{
                    <Text style={styles.modal_title}> Edit Body Two </Text>
                  </View>
 
+                 <BodytwoColorPicker />
+                 <TouchableOpacity onPress={() => {this.props.toggleBodytwoColorModal(true)}} >
+                      <View style={localstyles.square}
+                       backgroundColor={this.props.card.bodytwo_text_color == null ? 'black':this.props.bodytwo_font_color}
+                       />
+                  </TouchableOpacity>
 
                  <RNPickerSelect
                    placeholder={Options.placeholder}
@@ -117,8 +124,15 @@ class EditBodytwoModal extends Component{
     );
   }
   }
+  const localstyles = StyleSheet.create({
+    square: {
+      width: 30,
+      height: 30,
+      marginLeft: 11,
+    }
+  });
   const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({toggleBodytwoModal,updateBodytwoTextBold,updateBodytwoTextItalic,updateBodytwoTextAlignment,updateBodytwoFont,updateBodytwoTextSize },dispatch)
+    return bindActionCreators({toggleBodytwoColorModal,toggleBodytwoModal,updateBodytwoTextBold,updateBodytwoTextItalic,updateBodytwoTextAlignment,updateBodytwoFont,updateBodytwoTextSize },dispatch)
   }
   const mapStateToProps = (state) => {
     return {

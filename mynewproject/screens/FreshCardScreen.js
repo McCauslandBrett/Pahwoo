@@ -27,6 +27,7 @@ import {Ionicons} from "@expo/vector-icons";
 import TextinCover from '../components/TextinCover.js'
 import TextinBodyone from '../components/TextinBodyone.js'
 import MultiSelect from 'react-native-multiple-select';
+import { fromHsv } from 'react-native-color-picker'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
@@ -150,7 +151,10 @@ class FreshCardScreen extends Component{
                     fontSize: (this.props.card.bodytwo_font_size == null) ?
                     24 : this.props.card.bodytwo_font_size
                     ,
-                    color:palette.LIGHT_GRAY,
+                    color: (this.props.card.bodytwo_text_color== null) ? palette.LIGHT_GRAY:
+                      fromHsv({ h: this.props.card.bodytwo_text_color.hue,
+                                s: this.props.card.bodytwo_text_color.sat,
+                                v:this.props.card.bodytwo_text_color.val }),
                     fontWeight:this.props.card.bodytwo_bold,
                     fontStyle:this.props.card.bodytwo_italic,
                     fontFamily:this.props.card.bodytwo_font,

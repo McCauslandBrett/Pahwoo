@@ -8,6 +8,7 @@ import {
   updateCoverTextColor
 } from '../actions/card.js'
 class InvitationScreen extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +28,7 @@ class InvitationScreen extends Component {
     this.props.updateCoverTextColor({
         sat: saturation,
         val: value,
+        hue: this.state.hue,
       });
   }
 
@@ -34,14 +36,19 @@ class InvitationScreen extends Component {
     this.setState({
       hue,
     });
+    this.props.updateCoverTextColor({
+        sat: this.state.saturation,
+        val: this.state.value,
+        hue: hue,
+      });
   }
 
   render() {
     const { hue, sat, val } = this.state;
     return (
       <View style={styles.container}>
-      <Text style={{color: this.props.card.cover_text_color == null ? 'red':
-        fromHsv({ h: hue, s: sat, v:val })}}> Color </Text>
+      <Text style={{fontSize:30 ,color: this.props.card.cover_text_color == null ? 'red':
+        fromHsv({ h: this.props.card.cover_text_color.hue, s: this.props.card.cover_text_color.sat, v:this.props.card.cover_text_color.val })}}> Color </Text>
         <HsvColorPicker
           huePickerHue={hue}
           onHuePickerDragMove={this.onHuePickerChange}
