@@ -34,8 +34,6 @@ export const login = () => {
   return async (dispatch,getState) => {
     try{
       const {email,password} = getState().user
-      console.log(email)
-      console.log(password)
       const response = await firebase.auth().signInWithEmailAndPassword(email,password)
       dispatch(getUser(response.user.uid))
 
@@ -51,13 +49,8 @@ export const signup = () => {
     return async (dispatch,getState) => {
       try{
           const {email,password,username,birthday} = getState().user
-          console.log(email)
           const response = await firebase.auth().createUserWithEmailAndPassword(email,password)
           const id = response.user.uid
-          console.log(id)
-          console.log(email)
-          console.log(username)
-          console.log(birthday)
           if(id){
             const user = {
             uid:id,
