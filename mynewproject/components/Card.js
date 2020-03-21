@@ -10,11 +10,7 @@ import { argonTheme } from '../constants';
 class Card extends React.Component {
   render() {
     const { navigation, item, horizontal, full, style, ctaColor, imageStyle } = this.props;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> master
     const imageStyles = [
       full ? styles.fullImage : styles.horizontalImage,
       imageStyle
@@ -99,8 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
 export default withNavigation(Card);
-=======
-export default withNavigation(Card);
->>>>>>> master

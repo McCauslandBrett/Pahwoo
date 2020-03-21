@@ -13,7 +13,7 @@ import { Images, argonTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
 import {callNumber} from "../components/callNumber.js"
 const thumbMeasure = (width - 48 - 32) / 3;
-class InvitationScreen extends Component{
+class I extends Component{
   static navigationOptions = {
     headerTintColor: 'black',
     headerBackTitle: null,
@@ -185,4 +185,4 @@ const mapStateToProps = (state) => {
     user: state.user
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(InvitationScreen)
+export default connect(mapStateToProps,mapDispatchToProps)(I)
