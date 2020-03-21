@@ -7,7 +7,8 @@ import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
 
 import styles from '../styles.js'
-
+// Alright, flow needs to be established, so we can accomplish the most at once
+// Do we want to force users to select a card before they edit one? this would make it easy
 
 class CustomCardScreen extends Component{
   static navigationOptions = {
@@ -23,7 +24,7 @@ class CustomCardScreen extends Component{
              <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
              <Ionicons name="md-more" size={24} style = {styles.mdmore} />
              <View style = {{marginTop:60, alignItems:"center"}}>
-                 <Text> NotificationScreen</Text>
+                 <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
                  <Button title ="Cards" onPress = {()=> this.props.navigation.navigate('FreshCards')} />
              </View>
