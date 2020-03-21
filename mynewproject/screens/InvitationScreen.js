@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { StyleSheet, Dimensions,  View, Text,
   Image,TouchableOpacity,
-  ScrollView } from 'react-native';
+  ScrollView, Button ,SafeAreaView} from 'react-native';
+
+import { SocialIcon } from 'react-native-elements'
 import { Block, theme } from 'galio-framework';
 import {Cards} from '../components/Card.js'
 // import { Block} from 'galio-framework';
@@ -11,28 +13,39 @@ import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-const users = [
- {
-    name: 'brynn',
-    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
- },
-]
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import {Ionicons} from "@expo/vector-icons";
+import { Images, argonTheme } from "../constants";
+const thumbMeasure = (width - 48 - 32) / 3;
+import { HeaderHeight } from "../constants/utils";
 class InvitationScreen extends Component {
 
   render() {
     const cardContainer = [localstyles.card, localstyles.shadow,localstyles.verticalStyles];
     const statscardContainer = [localstyles.statscard, localstyles.shadow,localstyles.verticalStyles];
     const imgContainer = [localstyles.imageContainer,localstyles.shadow];
+    const ovalButton = [localstyles.ButtonGuest,localstyles.shadow];
+    const roundButton = [localstyles.addUser,localstyles.shadow];
     return (
        <ScrollView>
       <Block  card style={cardContainer}>
        <Block  style={imgContainer}>
          <Image source={{uri: 'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}} style={localstyles.fullImage} />
+         <TouchableOpacity style = {localstyles.add} >
+            <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"   ></Ionicons>
+          </TouchableOpacity>
        </Block>
        <Block flex space="between" style={localstyles.cardDescription}>
          <Text  style={localstyles.cardTitle}>Guests</Text>
-         <Text  size={12}>Hi </Text>
+      <SafeAreaView style={styles.contactRowStack}>
+
+       <TouchableOpacity style = {ovalButton} >
+            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}}> EDIT </Text>
+       </TouchableOpacity>
+
+       <TouchableOpacity style = {roundButton} >
+            <Ionicons style ={{color:'white'}} name= "ios-person-add" size={25}/>
+       </TouchableOpacity>
+      </SafeAreaView>
        </Block>
       </Block>
 
@@ -60,8 +73,25 @@ class InvitationScreen extends Component {
       <Block flex space="between" style={localstyles.cardDescription}>
       <Text  style={localstyles.cardTitle}>Location</Text>
       </Block>
-
       </Block>
+
+      <Block style = {{marginBottom:20,marginLeft:5}}>
+      <Text  style={localstyles.cardTitle}>Photos</Text>
+      </Block>
+
+      <Block style = {{marginLeft:20,marginRight:20}}>
+        <Block row space="between" style={{ flexWrap: "wrap" }}>
+          {Images.Viewed.map((img, imgIndex) => (
+            <Image
+              source={{ uri: img }}
+              key={`viewed-${img}`}
+              resizeMode="cover"
+              style={localstyles.thumb}
+            />
+          ))}
+        </Block>
+      </Block>
+
       </ScrollView>
 
     );
@@ -77,6 +107,42 @@ const localstyles = StyleSheet.create({
     marginBottom: 10,
 
   },
+  thumb: {
+  borderRadius: 4,
+  marginVertical: 4,
+  alignSelf: "center",
+  width: thumbMeasure,
+  height: thumbMeasure
+},
+  add:{
+    backgroundColor:"blue",
+    position: "absolute",
+    bottom:35,
+    right:10,
+    width:40,
+    height:40,
+    borderRadius:40,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  ButtonGuest: {
+    width: 80,
+    height: 40,
+    borderRadius: 25,
+    backgroundColor: 'blue',
+    justifyContent:'center',
+
+},
+addUser: {
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  backgroundColor: 'blue',
+  justifyContent:'center',
+  alignItems:'center',
+  marginLeft:4
+
+},
   statscard: {
     backgroundColor: 'white',
     marginVertical: 0,

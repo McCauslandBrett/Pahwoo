@@ -23,6 +23,7 @@ export default styles = StyleSheet.create({
    color:'blue',
    fontWeight:'bold',
  },
+ 
  modalStyle:{
    justifyContent:'flex-end',
    height: 500,
@@ -114,7 +115,7 @@ modalViewBottom: {
     left:20,
     color:ICON_COLOR
   },
-  
+
   placeholder: {
     color: '#C7C7CD',
 },
@@ -162,7 +163,7 @@ headlessAndroidPicker: {
     // alignItems:'center',
     // justifyContent: 'center'
   },
-  
+
 
   cardAttachment:{
     fontSize:24,
@@ -181,7 +182,7 @@ headlessAndroidPicker: {
     left:20,
     color:palette.ICON_COLOR
   },
-  
+
   coverText:{
     fontSize:32,
     color:palette.LIGHT_GRAY,
@@ -190,7 +191,7 @@ headlessAndroidPicker: {
     margin: 20,
     alignSelf: 'center'
   },
-  
+
   playContainer: {
       flex: 1,
       flexDirection: 'row',
@@ -211,13 +212,13 @@ headlessAndroidPicker: {
       alignSelf: 'flex-end',
       padding: 20
   },
-  
+
   mdmore3:{
     color:palette.ICON_COLOR,
     marginRight:25
   },
 
-  
+
   rowStackImages: {
     width: 40,
     height: 40,
@@ -236,7 +237,7 @@ headlessAndroidPicker: {
     marginLeft: -2,
     backgroundColor: '#adadad'
   },
-  
+
   text: {
     fontFamily:"HelveticaNeue",
     color: palette.LIGHT_GRAY,
@@ -414,7 +415,7 @@ headlessAndroidPicker: {
   contactsTitle: {
     fontSize: 24,
   },
-  
+
   thumbnailBold: {
     fontWeight: 'bold',
     fontSize: 24,
@@ -423,7 +424,7 @@ headlessAndroidPicker: {
   thumbnailGray: {
     color: '#adadad',
   },
-  
+
   thumbnailRoundImage: {
     width: 40,
     height: 40,
@@ -432,7 +433,7 @@ headlessAndroidPicker: {
     backgroundColor: '#adadad',
     justifyContent: "flex-start",
   },
-  
+
   list: {
     paddingVertical: 5,
     margin: 3,
@@ -443,7 +444,7 @@ headlessAndroidPicker: {
     alignItems: "center",
     zIndex: -1
   },
-  
+
   list2: {
     paddingVertical: 5,
     margin: 3,
@@ -453,7 +454,7 @@ headlessAndroidPicker: {
     backgroundColor: "honeydew",
     zIndex: -1
   },
-  
+
   smallButton: {
     height: 35,
     width: 35,
@@ -467,14 +468,14 @@ headlessAndroidPicker: {
     borderRadius:20,
     backgroundColor: 'salmon'
   },
-  
+
   lightText: {
     color: "#f7f7f7",
     paddingLeft: 1.9,
     fontSize: 30,
     bottom: 1.4
    },
-   
+
   line: {
     height: 0.5,
     width: "100%",
