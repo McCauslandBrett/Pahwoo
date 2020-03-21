@@ -40,54 +40,24 @@ export const createCard = (newName, recipientsList) => {
                 bodytwo_text_bold: false,
                 bodytwo_text_italic: false,
                 isBodytwoModalVisible: false,
+                
+                BackgroundImage: ''
             }
             // Add card to database
-			const ref = db.collection('cards').doc()
-			cardObject['id'] = ref.id
+            const ref = db.collection('cards').doc()
+            //Add the unique ID to the new card object
+            cardObject['id'] = ref.id
+            
+            // add the card to the database
             await ref.set(cardObject);
+            
             // we should save the card id here to the card state!!!!!!!
             //Add card to user.savedTemplates[]
             var userRef = db.collection('users').doc(user.uid)
             await userRef.update({
                 savedTemplates: firebase.firestore.FieldValue.arrayUnion(cardObject.id)
             });
-            dispatch( {type:'SET_ID',payload: cardObject.id})
-            dispatch( {type:'SET_NAME',payload: cardObject.name})
-            dispatch( {type:'SET_RECIPIENTS',payload: cardObject.recipients})
-					  dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardObject.BackgroundImage})
-
-            dispatch( {type:'UPDATE_COVER_TEXT',payload: cardObject.cover_text})
-            dispatch( {type:'UPDATE_COVER_FONT',payload: cardObject.cover_font})
-            dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardObject.cover_text_align})
-            dispatch( {type:'COVER_BOLD',payload: cardObject.cover_bold})
-            dispatch( {type:'COVER_ITALIC',payload: cardObject.cover_italic})
-            dispatch( {type:'UPDATE_COVER_TEXT_SIZE',payload: cardObject.cover_font_size})
-            dispatch( {type:'UPDATE_COVER_TEXT_COLOR',payload: cardObject.cover_text_color})
-            dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardObject.cover_text_bold})
-            dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardObject.cover_text_italic})
-            dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardObject.isCoverModalVisible})
-
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardObject.bodyone_text})
-            dispatch( {type:'UPDATE_BODY_ONE_FONT',payload: cardObject.bodyone_font})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_ALIGNMENT',payload: cardObject.bodyone_text_align})
-            dispatch( {type:'BODY_ONE_BOLD',payload: cardObject.bodyone_bold})
-            dispatch( {type:'BODY_ONE_ITALIC',payload: cardObject.bodyone_italic})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_SIZE',payload: cardObject.bodyone_font_size})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_COLOR',payload: cardObject.bodyone_text_color})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_BOLD',payload: cardObject.bodyone_text_bold})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_ITALIC',payload: cardObject.bodyone_text_italic})
-            dispatch( {type:'TOGGLE_MODAL_BODY_ONE',payload: cardObject.isBodyoneModalVisible})
-
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardObject.bodytwo_text})
-            dispatch( {type:'UPDATE_BODY_TWO_FONT',payload: cardObject.bodytwo_font})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_ALIGNMENT',payload: cardObject.bodytwo_text_align})
-            dispatch( {type:'BODY_TWO_BOLD',payload: cardObject.bodytwo_bold})
-            dispatch( {type:'BODY_TWO_ITALIC',payload: cardObject.bodytwo_italic})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_SIZE',payload: cardObject.bodytwo_font_size})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_COLOR',payload: cardObject.bodytwo_text_color})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_BOLD',payload: cardObject.bodytwo_text_bold})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_ITALIC',payload: cardObject.bodytwo_text_italic})
-            dispatch( {type:'TOGGLE_MODAL_BODY_TWO',payload: cardObject.isBodytwoModalVisible})
+            dispatch( {type:'GET_CARD', payload: cardObject})
 		} catch (e) {
 			alert(e)
 		}
@@ -103,50 +73,13 @@ export const getCard = (id) => {
             query.forEach((response) => {
                 cardData.push(response.data())
             })
-            dispatch( {type:'SET_ID',payload: cardData[0].id})
-            dispatch( {type:'SET_NAME',payload: cardData[0].name})
-            dispatch( {type:'SET_RECIPIENTS',payload: cardData[0].recipients})
-						dispatch( {type:'SET_BACKGROUNDIMAGE',payload: cardData[0].BackgroundImage})
-
-            dispatch( {type:'UPDATE_COVER_TEXT',payload: cardData[0].cover_text})
-            dispatch( {type:'UPDATE_COVER_FONT',payload: cardData[0].cover_font})
-            dispatch( {type:'UPDATE_COVER_TEXT_ALIGNMENT',payload: cardData[0].cover_text_align})
-            dispatch( {type:'COVER_BOLD',payload: cardData[0].cover_bold})
-            dispatch( {type:'COVER_ITALIC',payload: cardData[0].cover_italic})
-            dispatch( {type:'UPDATE_COVER_TEXT_SIZE',payload: cardData[0].cover_font_size})
-            dispatch( {type:'UPDATE_COVER_TEXT_COLOR',payload: cardData[0].cover_text_color})
-            dispatch( {type:'UPDATE_COVER_TEXT_BOLD',payload: cardData[0].cover_text_bold})
-            dispatch( {type:'UPDATE_COVER_TEXT_ITALIC',payload: cardData[0].cover_text_italic})
-            dispatch( {type:'TOGGLE_MODAL_COVER',payload: cardData[0].isCoverModalVisible})
-
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT',payload: cardData[0].bodyone_text})
-            dispatch( {type:'UPDATE_BODY_ONE_FONT',payload: cardData[0].bodyone_font})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_ALIGNMENT',payload: cardData[0].bodyone_text_align})
-            dispatch( {type:'BODY_ONE_BOLD',payload: cardData[0].bodyone_bold})
-            dispatch( {type:'BODY_ONE_ITALIC',payload: cardData[0].bodyone_italic})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_SIZE',payload: cardData[0].bodyone_font_size})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_COLOR',payload: cardData[0].bodyone_text_color})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_BOLD',payload: cardData[0].bodyone_text_bold})
-            dispatch( {type:'UPDATE_BODY_ONE_TEXT_ITALIC',payload: cardData[0].bodyone_text_italic})
-            dispatch( {type:'TOGGLE_MODAL_BODY_ONE',payload: cardData[0].isBodyoneModalVisible})
-
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT',payload: cardData[0].bodytwo_text})
-            dispatch( {type:'UPDATE_BODY_TWO_FONT',payload: cardData[0].bodytwo_font})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_ALIGNMENT',payload: cardData[0].bodytwo_text_align})
-            dispatch( {type:'BODY_TWO_BOLD',payload: cardData[0].bodytwo_bold})
-            dispatch( {type:'BODY_TWO_ITALIC',payload: cardData[0].bodytwo_italic})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_SIZE',payload: cardData[0].bodytwo_font_size})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_COLOR',payload: cardData[0].bodytwo_text_color})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_BOLD',payload: cardData[0].bodytwo_text_bold})
-            dispatch( {type:'UPDATE_BODY_TWO_TEXT_ITALIC',payload: cardData[0].bodytwo_text_italic})
-            dispatch( {type:'TOGGLE_MODAL_BODY_TWO',payload: cardData[0].isBodytwoModalVisible})
-            // We might not have to dispatch every single field. Instead, we could dispatch the
-            // entire card object from the database, just like how the entire user is dispatched in some of the actions
-
+            dispatch( {type:'GET_CARD', payload: cardData[0]})
+            
         } catch (e){
             alert(e)
         }
     }
+    
 }
 //precondition:
 //postcondition: Card data has been added to database
@@ -159,9 +92,6 @@ export const saveCard = (selectedItems) => {
     return async (dispatch, getState) => {
         dispatch( {type:'SET_RECIPIENTS',payload: selectedItems})
         const { card } = getState()
-        console.log("testing here")
-        console.log(card.recipients);
-			  var downloadUrl = null;
         let cardData = []
         try{
             // update card in database
@@ -180,7 +110,7 @@ export const saveCard = (selectedItems) => {
 
 						// end updating background Image
             await ref.update({
-							  BackgroundImage: downloadUrl,
+				BackgroundImage: card.BackgroundImage,
                 recipients: card.recipients,
 
                 cover_text: card.cover_text,
@@ -265,8 +195,8 @@ export const updateCoverItalic = (_bool) => {
   return {type:'COVER_ITALIC',payload:null}
   }
 }
-export const updateCoverTextColor = (color) => {
-  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color}
+export const updateCoverTextColor = (color_obj) => {
+  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color_obj}
 }
 export const updateCoverBold = (_bool) => {
   if(_bool){
@@ -296,6 +226,12 @@ export const toggleCoverColorModal = ( isModalVisible) => {
   return {type:'TOGGLE_MODAL_COVER_COLOR', payload: isModalVisible}
 }
 // body One
+export const toggleBodyoneColorModal = ( isModalVisible) => {
+  return {type:'TOGGLE_MODAL_BODY_ONE_COLOR', payload: isModalVisible}
+}
+export const updateBodyoneTextColor = (color_obj) => {
+  return {type:'UPDATE_BODY_ONE_TEXT_COLOR', payload:color_obj}
+}
 export const updateBodyoneText = (text) => {
   return {type:'UPDATE_BODY_ONE_TEXT', payload:text}
 }
@@ -315,9 +251,6 @@ export const updateBodyoneItalic = (_bool) => {
   else{
   return {type:'BODY_ONE_ITALIC',payload:null}
   }
-}
-export const updateBodyoneTextColor = (color) => {
-  return {type:'UPDATE_BODY_ONE_TEXT_COLOR', payload:color}
 }
 export const updateBodyoneBold = (_bool) => {
   if(_bool){
@@ -344,6 +277,12 @@ export const toggleBodyoneModal = ( isBodyoneModalVisible) => {
   return {type:'TOGGLE_MODAL_BODY_ONE', payload: isBodyoneModalVisible}
 }
 // Body Two
+export const updateBodytwoTextColor = (color) => {
+  return {type:'UPDATE_BODY_TWO_TEXT_COLOR', payload:color}
+}
+export const toggleBodytwoColorModal = ( isModalVisible) => {
+  return {type:'TOGGLE_MODAL_BODY_TWO_COLOR', payload: isModalVisible}
+}
 export const updateBodytwoText = (text) => {
   return {type:'UPDATE_BODY_TWO_TEXT', payload:text}
 }
@@ -363,9 +302,6 @@ export const updateBodytwoItalic = (_bool) => {
   else{
   return {type:'BODY_TWO_ITALIC',payload:null}
   }
-}
-export const updateBodytwoTextColor = (color) => {
-  return {type:'UPDATE_BODY_TWO_TEXT_COLOR', payload:color}
 }
 export const updateBodytwoBold = (_bool) => {
   if(_bool){
@@ -400,6 +336,7 @@ export const toggleBodytwoModal = ( isCoverModalVisible) => {
 // If the user hits save we will upload the image to the database
 export const uploadCardBackgroundImage = (uri) => {
     return async (dispatch,getState) => {
+        
         dispatch({type:'SET_BACKGROUNDIMAGE', payload:uri})
         console.log("Update card image in local state")
 

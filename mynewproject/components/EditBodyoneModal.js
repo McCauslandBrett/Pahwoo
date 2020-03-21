@@ -16,7 +16,7 @@ import { width, height, totalSize } from 'react-native-dimension';
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
 import ToggleSwitch from 'toggle-switch-react-native'
-import {toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,
+import {toggleBodyoneColorModal,toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,
         updateBodyoneTextAlignment,updateBodyoneFont,
         updateBodyoneText,updateBodyoneTextSize,
         updateBodyoneTextColor}
@@ -24,6 +24,7 @@ import {toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,
 import NumericInput from 'react-native-numeric-input'
 import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker'
 import Options from '../constants/Options.js'
+import BodyoneColorPicker from './BodyoneColorPicker.js'
 class EditBodyoneModal extends Component{
   state = {
     textalignment:{},
@@ -47,8 +48,13 @@ class EditBodyoneModal extends Component{
                    <Text style={styles.modal_title}> Edit Body One </Text>
                  </View>
 
-
-                 <RNPickerSelect
+                   <BodyoneColorPicker />
+                   <TouchableOpacity onPress={() => {this.props.toggleBodyoneColorModal(true)}} >
+                        <View style={localstyles.square}
+                         backgroundColor={this.props.card.bodyone_text_color == null ? 'black':this.props.bodyone_font_color}
+                         />
+                    </TouchableOpacity>
+                   <RNPickerSelect
                    placeholder={Options.placeholder}
                    items={Options.fontAlignOptions}
                    onValueChange={input => {
@@ -117,8 +123,17 @@ class EditBodyoneModal extends Component{
     );
   }
   }
+  const localstyles = StyleSheet.create({
+    square: {
+      width: 30,
+      height: 30,
+      marginLeft: 11,
+    }
+  });
   const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({toggleBodyoneModal,updateBodyoneTextBold,updateBodyoneTextItalic,updateBodyoneTextAlignment,updateBodyoneFont,updateBodyoneTextSize },dispatch)
+    return bindActionCreators({toggleBodyoneModal,toggleBodyoneColorModal,updateBodyoneTextBold,
+      updateBodyoneTextItalic,updateBodyoneTextAlignment,
+      updateBodyoneFont,updateBodyoneTextSize,updateBodyoneTextColor },dispatch)
   }
   const mapStateToProps = (state) => {
     return {
