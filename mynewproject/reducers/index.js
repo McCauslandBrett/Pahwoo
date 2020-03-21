@@ -41,6 +41,8 @@ const card = (state = {},action) => {
     case 'SET_BACKGROUNDIMAGE':
          return {...state, BackgroundImage: action.payload}
     // COVER
+    case 'UPDATE_COVER_TEXT_COLOR':
+        return {...state, cover_text_color: action.payload}
     case 'UPDATE_COVER_TEXT':
         return {...state, cover_text: action.payload}
     case 'UPDATE_COVER_FONT':
@@ -53,8 +55,6 @@ const card = (state = {},action) => {
       return {...state, cover_italic: action.payload}
     case 'UPDATE_COVER_TEXT_SIZE':
         return {...state, cover_font_size: action.payload}
-    case 'UPDATE_COVER_TEXT_COLOR':
-        return {...state, cover_text_color: action.payload}
     case 'UPDATE_COVER_TEXT_BOLD':
         return {...state, cover_text_bold: action.payload}
     case 'UPDATE_COVER_TEXT_ITALIC':
@@ -64,6 +64,10 @@ const card = (state = {},action) => {
     case 'TOGGLE_MODAL_COVER_COLOR':
           return {...state, isCoverColorModalVisible: action.payload}
     // BODY ONE
+    case 'TOGGLE_MODAL_BODY_ONE_COLOR':
+          return {...state, isBodyoneColorModalVisible: action.payload}
+    case 'UPDATE_BODY_ONE_TEXT_COLOR':
+        return {...state, bodyone_text_color: action.payload}
     case 'UPDATE_BODY_ONE_TEXT':
         return {...state, bodyone_text: action.payload}
     case 'UPDATE_BODY_ONE_FONT':
@@ -76,8 +80,6 @@ const card = (state = {},action) => {
       return {...state, bodyone_italic: action.payload}
     case 'UPDATE_BODY_ONE_TEXT_SIZE':
         return {...state, bodyone_font_size: action.payload}
-    case 'UPDATE_BODY_ONE_TEXT_COLOR':
-        return {...state, bodyone_text_color: action.payload}
     case 'UPDATE_BODY_ONE_TEXT_BOLD':
         return {...state, bodyone_text_bold: action.payload}
     case 'UPDATE_BODY_ONE_TEXT_ITALIC':
@@ -85,6 +87,8 @@ const card = (state = {},action) => {
     case 'TOGGLE_MODAL_BODY_ONE':
         return {...state, isBodyoneModalVisible: action.payload}
     // BODY TWO
+    case 'TOGGLE_MODAL_BODY_TWO_COLOR':
+          return {...state, isBodytwoColorModalVisible: action.payload}
     case 'UPDATE_BODY_TWO_TEXT':
         return {...state, bodytwo_text: action.payload}
     case 'UPDATE_BODY_TWO_FONT':

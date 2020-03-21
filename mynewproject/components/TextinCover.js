@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {updateCoverText,updateBodyoneText,updateBodytwoText,updateCoverItalic} from '../actions/card.js'
 import palette from '../palette.js'
 import * as Font from 'expo-font';
+import { fromHsv } from 'react-native-color-picker'
 class TextinCover extends React.Component{
 
 state = {
@@ -20,7 +21,8 @@ textA = () => {
         {
           fontSize: (this.props.card.cover_font_size == null) ?
           32 : this.props.card.cover_font_size
-          , color:palette.LIGHT_GRAY,
+          , color: (this.props.card.cover_text_color== null) ? palette.LIGHT_GRAY:
+            fromHsv({ h: this.props.card.cover_text_color.hue, s: this.props.card.cover_text_color.sat, v:this.props.card.cover_text_color.val }),
           fontWeight:this.props.card.cover_bold,
           fontStyle:this.props.card.cover_italic,
           fontFamily:this.props.card.cover_font,

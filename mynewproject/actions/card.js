@@ -195,8 +195,8 @@ export const updateCoverItalic = (_bool) => {
   return {type:'COVER_ITALIC',payload:null}
   }
 }
-export const updateCoverTextColor = (color) => {
-  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color}
+export const updateCoverTextColor = (color_obj) => {
+  return {type:'UPDATE_COVER_TEXT_COLOR', payload:color_obj}
 }
 export const updateCoverBold = (_bool) => {
   if(_bool){
@@ -226,6 +226,12 @@ export const toggleCoverColorModal = ( isModalVisible) => {
   return {type:'TOGGLE_MODAL_COVER_COLOR', payload: isModalVisible}
 }
 // body One
+export const toggleBodyoneColorModal = ( isModalVisible) => {
+  return {type:'TOGGLE_MODAL_BODY_ONE_COLOR', payload: isModalVisible}
+}
+export const updateBodyoneTextColor = (color_obj) => {
+  return {type:'UPDATE_BODY_ONE_TEXT_COLOR', payload:color_obj}
+}
 export const updateBodyoneText = (text) => {
   return {type:'UPDATE_BODY_ONE_TEXT', payload:text}
 }
@@ -245,9 +251,6 @@ export const updateBodyoneItalic = (_bool) => {
   else{
   return {type:'BODY_ONE_ITALIC',payload:null}
   }
-}
-export const updateBodyoneTextColor = (color) => {
-  return {type:'UPDATE_BODY_ONE_TEXT_COLOR', payload:color}
 }
 export const updateBodyoneBold = (_bool) => {
   if(_bool){
@@ -274,6 +277,12 @@ export const toggleBodyoneModal = ( isBodyoneModalVisible) => {
   return {type:'TOGGLE_MODAL_BODY_ONE', payload: isBodyoneModalVisible}
 }
 // Body Two
+export const updateBodytwoTextColor = (color) => {
+  return {type:'UPDATE_BODY_TWO_TEXT_COLOR', payload:color}
+}
+export const toggleBodytwoColorModal = ( isModalVisible) => {
+  return {type:'TOGGLE_MODAL_BODY_TWO_COLOR', payload: isModalVisible}
+}
 export const updateBodytwoText = (text) => {
   return {type:'UPDATE_BODY_TWO_TEXT', payload:text}
 }
@@ -293,9 +302,6 @@ export const updateBodytwoItalic = (_bool) => {
   else{
   return {type:'BODY_TWO_ITALIC',payload:null}
   }
-}
-export const updateBodytwoTextColor = (color) => {
-  return {type:'UPDATE_BODY_TWO_TEXT_COLOR', payload:color}
 }
 export const updateBodytwoBold = (_bool) => {
   if(_bool){
