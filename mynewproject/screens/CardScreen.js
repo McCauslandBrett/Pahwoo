@@ -21,7 +21,8 @@ class CardScreen extends Component{
         selectedItems: [],
         receivedCards: [],
         selected: '',
-        cardID: ''
+        cardID: '',
+        cardHolder: {},
     }
 
     setSelectCardModalVisible = (visible) => {
@@ -30,9 +31,19 @@ class CardScreen extends Component{
 
     onSelect = async (id) => {
         this.setState({selected: id})
-        await this.props.getCard(id)
-        this.setState({cardID: this.props.card.id})
-        this.setSelectCardModalVisible(true);
+        // await this.props.getCard(id)
+        let cardData = []
+        try{
+            const query = await db.collection('cards').where('id', '==', id).get()
+            query.forEach((response) => {
+                cardData.push(response.data())
+            })
+            this.setState({cardID: cardData[0].id})
+            this.setState({cardHolder: cardData[0]})
+            this.setSelectCardModalVisible(true);
+        } catch (e){
+            alert(e)
+        }
     }
 
     componentDidMount = async () => {
@@ -94,21 +105,21 @@ class CardScreen extends Component{
                     <TextInput multiline = {true} editable={false}
                     style={[
                          {
-                           fontSize: (this.props.card.cover_font_size == null) ?
-                           32 : this.props.card.cover_font_size
+                           fontSize: (this.state.cardHolder.cover_font_size == null) ?
+                           32 : this.state.cardHolder.cover_font_size
                            , color:palette.LIGHT_GRAY,
-                           fontWeight:this.props.card.cover_bold,
-                           fontStyle:this.props.card.cover_italic,
-                           fontFamily:this.props.card.cover_font,
+                           fontWeight:this.state.cardHolder.cover_bold,
+                           fontStyle:this.state.cardHolder.cover_italic,
+                           fontFamily:this.state.cardHolder.cover_font,
                            alignItems:'center',
                            justifyContent: 'center',
                            margin:20,
-                           textAlign: (this.props.card.cover_text_align == null) ?
+                           textAlign: (this.state.cardHolder.cover_text_align == null) ?
                            this.state.defaultAlign :
-                           this.props.card.cover_text_align
+                           this.state.cardHolder.cover_text_align
                          }
                       ]}
-                      value = {this.props.card.cover_text}
+                      value = {this.state.cardHolder.cover_text}
                       />
 
                      </View>
@@ -117,21 +128,21 @@ class CardScreen extends Component{
                      <TextInput multiline = {true} editable={false}
                      style={[
                           {
-                            fontSize: (this.props.card.bodyone_font_size == null) ?
-                            24 : this.props.card.bodyone_font_size
+                            fontSize: (this.state.cardHolder.bodyone_font_size == null) ?
+                            24 : this.state.cardHolder.bodyone_font_size
                             , color:palette.LIGHT_GRAY,
-                            fontWeight:this.props.card.bodyone_bold,
-                            fontStyle:this.props.card.bodyone_italic,
-                            fontFamily:this.props.card.bodyone_font,
+                            fontWeight:this.state.cardHolder.bodyone_bold,
+                            fontStyle:this.state.cardHolder.bodyone_italic,
+                            fontFamily:this.state.cardHolder.bodyone_font,
                             alignItems:'center',
                             justifyContent: 'center',
                             margin:20,
-                            textAlign: (this.props.card.bodyone_text_align == null) ?
+                            textAlign: (this.state.cardHolder.bodyone_text_align == null) ?
                             this.state.defaultAlign :
-                            this.props.card.bodyone_text_align
+                            this.state.cardHolder.bodyone_text_align
                           }
                        ]}
-                       value = {this.props.card.bodyone_text}
+                       value = {this.state.cardHolder.bodyone_text}
                        />
 
                       </View>
@@ -141,22 +152,22 @@ class CardScreen extends Component{
             <TextInput multiline = {true} editable={false}
                 style={[
                     {
-                    fontSize: (this.props.card.bodytwo_font_size == null) ?
-                    24 : this.props.card.bodytwo_font_size
+                    fontSize: (this.state.cardHolder.bodytwo_font_size == null) ?
+                    24 : this.state.cardHolder.bodytwo_font_size
                     ,
                     color:palette.LIGHT_GRAY,
-                    fontWeight:this.props.card.bodytwo_bold,
-                    fontStyle:this.props.card.bodytwo_italic,
-                    fontFamily:this.props.card.bodytwo_font,
+                    fontWeight:this.state.cardHolder.bodytwo_bold,
+                    fontStyle:this.state.cardHolder.bodytwo_italic,
+                    fontFamily:this.state.cardHolder.bodytwo_font,
                     alignItems:'center',
                     justifyContent: 'center',
                     margin:20,
-                    textAlign: (this.props.card.bodytwo_text_align == null) ?
+                    textAlign: (this.state.cardHolder.bodytwo_text_align == null) ?
                     'center' :
-                    this.props.card.bodytwo_text_align
+                    this.state.cardHolder.bodytwo_text_align
                     }
                 ]}
-                    value = {this.props.card.bodytwo_text}
+                    value = {this.state.cardHolder.bodytwo_text}
             />
                </View>
                <View style = {styles.cardAttachmentContainer}>
