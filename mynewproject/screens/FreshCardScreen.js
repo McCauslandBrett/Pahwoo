@@ -310,14 +310,14 @@ function Item({ id, img }) {
 const Arstyles = StyleSheet.create({
 
 profileContainer: {
-width: width,
-height: height,
-padding: 0,
- zIndex: 1
+  width: width,
+  height: height,
+  padding: 0,
+  zIndex: 1
 },
 profileBackground: {
-width: width,
-height: height
+  width: width,
+  height: height
 },
 
 });

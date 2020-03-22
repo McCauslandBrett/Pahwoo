@@ -12,7 +12,6 @@ class TextinBodyone extends React.Component{
 state = {
   align:null,
   defaultAlign :'center', //default
-
 }
 textA = () => {
  return (
