@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
+
 import { StyleSheet, Dimensions,  View, Text,
   Image,TouchableOpacity,
   ScrollView, Button ,SafeAreaView} from 'react-native';
@@ -19,52 +19,6 @@ import { Images, argonTheme } from "../constants";
 const thumbMeasure = (width - 48 - 32) / 3;
 import { HeaderHeight } from "../constants/utils";
 class InvitationScreen extends Component {
-=======
-import { StyleSheet, View,Text } from 'react-native';
-import HsvColorPicker from 'react-native-hsv-color-picker';
-import { fromHsv } from 'react-native-color-picker'
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {
-  updateCoverTextColor
-} from '../actions/card.js'
-class InvitationScreen extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      hue: 0,
-      sat: 0,
-      val: 1,
-    };
-    this.onSatValPickerChange = this.onSatValPickerChange.bind(this);
-    this.onHuePickerChange = this.onHuePickerChange.bind(this);
-  }
-
-  onSatValPickerChange({ saturation, value }) {
-    this.setState({
-      sat: saturation,
-      val: value,
-    });
-    this.props.updateCoverTextColor({
-        sat: saturation,
-        val: value,
-        hue: this.state.hue,
-      });
-  }
-
-  onHuePickerChange({ hue }) {
-    this.setState({
-      hue,
-    });
-    this.props.updateCoverTextColor({
-        sat: this.state.saturation,
-        val: this.state.value,
-        hue: hue,
-      });
-  }
->>>>>>> master
-
   render() {
     const cardContainer = [localstyles.card, localstyles.shadow,localstyles.verticalStyles];
     const statscardContainer = [localstyles.statscard, localstyles.shadow,localstyles.verticalStyles];
@@ -72,7 +26,7 @@ class InvitationScreen extends Component {
     const ovalButton = [localstyles.ButtonGuest,localstyles.shadow];
     const roundButton = [localstyles.addUser,localstyles.shadow];
     return (
-<<<<<<< HEAD
+
        <ScrollView>
       <Block  card style={cardContainer}>
        <Block  style={imgContainer}>
@@ -140,22 +94,6 @@ class InvitationScreen extends Component {
       </Block>
 
       </ScrollView>
-=======
-      <View style={styles.container}>
-      <Text style={{fontSize:30 ,color: this.props.card.cover_text_color == null ? 'red':
-        fromHsv({ h: this.props.card.cover_text_color.hue, s: this.props.card.cover_text_color.sat, v:this.props.card.cover_text_color.val })}}> Color </Text>
-        <HsvColorPicker
-          huePickerHue={hue}
-          onHuePickerDragMove={this.onHuePickerChange}
-          onHuePickerPress={this.onHuePickerChange}
-          satValPickerHue={hue}
-          satValPickerSaturation={sat}
-          satValPickerValue={val}
-          onSatValPickerDragMove={this.onSatValPickerChange}
-          onSatValPickerPress={this.onSatValPickerChange}
-        />
-      </View>
->>>>>>> master
 
     );
 }
@@ -262,7 +200,7 @@ articles: {
   paddingVertical: theme.SIZES.BASE,
 },
 });
-<<<<<<< HEAD
+
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({},dispatch)
@@ -274,15 +212,3 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(InvitationScreen)
-=======
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({updateCoverTextColor},dispatch)
-}
-const mapStateToProps = (state) => {
-  return {
-
-   card: state.card,
-  }
-}
-  export default connect(mapStateToProps,mapDispatchToProps)(InvitationScreen )
->>>>>>> master
