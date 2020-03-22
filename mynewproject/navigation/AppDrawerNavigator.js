@@ -23,6 +23,7 @@ import FreshCardScreen from '../screens/FreshCardScreen';
 import GiftCardScreen from '../screens/GiftCardScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import EventScreen from '../screens/EventScreen';
+import EventOwnerScreen from '../screens/EventOwnerScreen';
 import SearchScreen from '../screens/SearchScreen';
 import { SocialIcon } from 'react-native-elements'
 import { Block } from "galio-framework";
@@ -54,6 +55,7 @@ const CustomDrawerComponent = (props) => (
 const AppDrawerNavigator = createAppContainer(createDrawerNavigator(
   {
     Home:HomeScreen,
+    Events:EventScreen,
     Settings:SettingScreen,
     Gifts: GiftCardScreen,
     Notifications:NotificationScreen,
@@ -79,8 +81,8 @@ const ProjStackNavigator = createAppContainer(createStackNavigator(
         header:null,
       }),
     },
-    Events:EventScreen,
     Cards:CardScreen,
+    Event:EventOwnerScreen,
     Invitations:InvitationScreen,
     CardTemplates:TemplateCardScreen,
     FreshCards: FreshCardScreen,
@@ -88,6 +90,7 @@ const ProjStackNavigator = createAppContainer(createStackNavigator(
 },
 {
   initialRouteName:"AppDrawerNavigator",
+
 }
 ));
 
