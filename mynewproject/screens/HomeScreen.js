@@ -36,7 +36,7 @@ class HomeScreen extends Component{
         }
       }
   };
-  
+
 
   render(){
     //   here is a use of the dollar sign: console.log(`props changed, image uri: ${this.props.user.profileImage}`)
@@ -65,15 +65,11 @@ class HomeScreen extends Component{
                    <Text style = {styles.statTitle}>Invitations</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style = {styles.statbox} onPress = {()=> this.props.navigation.navigate('Cards')}>
+                <TouchableOpacity style = {localstyles.statbox} onPress = {()=> this.props.navigation.navigate('Cards')}>
                    <Text style ={styles.statAmount}>{this.props.user.receivedCards.length}</Text>
                    <Text style = {styles.statTitle}>Cards</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Events')}>
-                  <Text style ={styles.statAmount}>3</Text>
-                  <Text style = {styles.statTitle}>Events</Text>
-               </TouchableOpacity>
               </View>
             </View>
       </ScrollView>
@@ -81,7 +77,15 @@ class HomeScreen extends Component{
     );
   }
 }
-
+const localstyles = StyleSheet.create({
+  statbox:{
+    alignItems:"center",
+    flex: 1,
+    borderColor:"#DfD8C8",
+    borderLeftWidth:1,
+    borderRightWidth:0
+  }
+});
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({updateProfileImage,uploadImage},dispatch)
   }
