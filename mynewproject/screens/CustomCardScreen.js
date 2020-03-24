@@ -19,7 +19,7 @@ class CustomCardScreen extends Component{
   }
   render(){
     return(
-      <SafeAreaView >
+    <SafeAreaView >
           <ScrollView showsVerticalScrollIndicator={false}>
              <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
              <Ionicons name="md-more" size={24} style = {styles.mdmore} />

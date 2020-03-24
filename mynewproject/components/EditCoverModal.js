@@ -25,6 +25,7 @@ import {toggleCoverModal,updateCoverTextBold,updateCoverTextItalic,
 import Options from '../constants/Options.js'
 import NumericInput from 'react-native-numeric-input'
 import CoverColorPicker from './CoverColorPicker.js'
+import PropTypes from 'prop-types';
 class EditCoverModal extends Component{
   state = {
     textalignment:{},
@@ -35,13 +36,16 @@ class EditCoverModal extends Component{
     defaultTextSize:32,
     defaultColor:'black'
   };
-
-
   render(){
+    const {toggle,text_color,updateAlignment,
+           updateFont,fontSize,updateTextSize,
+           updateItalic,updateBold} = this.props;
   return(
     <View style={{  justifyContent: 'center', alignItems:'center', flex:1}}>
 
-      <Modal animationType={'slide'} transparent={true} visible={this.props.card.isCoverModalVisible === true}>
+      <Modal animationType = {'slide'}
+             transparent = {true}
+             visible = {this.props.isCoverModalVisible === true}>
 
           <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
               <View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: .6 }}/>
@@ -54,9 +58,9 @@ class EditCoverModal extends Component{
                  <SafeAreaView>
 
                  <CoverColorPicker />
-                 <TouchableOpacity onPress={() => {this.props.toggleCoverColorModal(true)}} >
+                 <TouchableOpacity onPress={() => {this.props.toggle(true)}} >
                       <View style={localstyles.square}
-                       backgroundColor={this.props.card.cover_text_color == null ? 'black':this.props.cover_font_color}
+                       backgroundColor={this.props.text_color == null ? 'black': this.props.text_color}
                        />
                   </TouchableOpacity>
 
@@ -64,7 +68,7 @@ class EditCoverModal extends Component{
                    <RNPickerSelect
                     placeholder={Options.placeholder}
                     items={Options.fontAlignOptions}
-                    onValueChange={input => { this.props.updateCoverTextAlignment(input);
+                    onValueChange={input => { this.props.updateTextAlignment(input);
                                    this.setState({fA: input});
                                   }
                         }
@@ -80,7 +84,7 @@ class EditCoverModal extends Component{
 
                         items={Options.fontOptions}
                         onValueChange={input => {
-                                        this.props.updateCoverFont(input);
+                                        this.props.updateFont(input);
                                         this.setState({font: input});
                                     }
                                     }
@@ -98,8 +102,8 @@ class EditCoverModal extends Component{
 
                      <View style = {styles.statsContainer}>
 
-                     <NumericInput value = {(this.props.card.cover_font_size == null) ? this.state.defaultTextSize:this.props.card.cover_font_size}
-                      onChange={value => this.props.updateCoverTextSize(value)}
+                     <NumericInput value = {(this.props.card.font_size == null) ? this.state.defaultTextSize:this.props.card.font_size}
+                      onChange={value => this.props.updateTextSize(value)}
                       rounded
                       totalWidth={100}
                       totalHeight={40}
@@ -107,15 +111,15 @@ class EditCoverModal extends Component{
                      <ToggleSwitch
                        label="Bold"
                        onColor="#2196F3"
-                       isOn={this.props.card.cover_text_bold}
-                       onToggle={isOnBoldToggleSwitch => this.props.updateCoverTextBold(isOnBoldToggleSwitch)}
+                       isOn={this.props.card.text_bold}
+                       onToggle={isOnBoldToggleSwitch => this.props.updateTextBold(isOnBoldToggleSwitch)}
 
                      />
                      <ToggleSwitch
                        label="Italic"
                        onColor="#2196F3"
-                       isOn={this.props.card.cover_text_italic}
-                       onToggle={isOnItalicToggleSwitch => this.props.updateCoverTextItalic(isOnItalicToggleSwitch)}
+                       isOn={this.props.card.text_italic}
+                       onToggle={isOnItalicToggleSwitch => this.props.updateTextItalic(isOnItalicToggleSwitch)}
                      />
 
                      </View>

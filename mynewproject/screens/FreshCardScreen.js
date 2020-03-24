@@ -125,8 +125,16 @@ class FreshCardScreen extends Component{
       >
          <ScrollView showsVerticalScrollIndicator={false}>
 
-
-        <EditCoverModal/>
+        <EditCoverModal
+          toggle = {() =>{this.props.toggleCoverModal()}}
+          text_color = {this.props.coverText}
+          updateAlignment= {()=>{this.props.updateCoverTextAlignment()}}
+          updateFont= {()=> {this.props.updateCoverFont()}}
+          fontSize= {this.props.coverText}
+          updateTextSize = {()=> {this.props.updateCoverTextSize()}}
+          updateItalic = {() => {this.props.updateItalic()}}
+          updateBold = {() => {this.props.updateCoverBold()}}
+          />
         <EditBodyoneModal/>
         <EditBodytwoModal/>
            <View >
