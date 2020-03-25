@@ -10,15 +10,23 @@ import styles from '../styles.js'
 // const screenHeight = Dimensions.get("window").height;
 import db from '../config/firebase.js';
 import {uploadCardBackgroundImage} from '../actions/card.js'
-import {updateCoverText,updateBodyoneText,
+import {
+        updateCoverText,updateCoverFont,
+        updateCoverTextAlignment,updateCoverBold,
+        updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
+        toggleCoverColorModal,
+
+
+        updateBodyoneText,
         updateBodytwoText,createCard,
-        sendCard, saveCard, toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
+        sendCard, saveCard, toggleCoverModal,
+        toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
 
 import palette from '../palette.js'
 import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
-import EditCoverModal from '../components/EditCoverModal.js'
+import EditModal from '../components/EditModal.js'
 import EditBodyoneModal from '../components/EditBodyoneModal.js'
 import EditBodytwoModal from '../components/EditBodytwoModal.js'
 
@@ -125,15 +133,23 @@ class FreshCardScreen extends Component{
       >
          <ScrollView showsVerticalScrollIndicator={false}>
 
-        <EditCoverModal
-          toggle = {() =>{this.props.toggleCoverModal()}}
-          text_color = {this.props.coverText}
-          updateAlignment= {()=>{this.props.updateCoverTextAlignment()}}
-          updateFont= {()=> {this.props.updateCoverFont()}}
-          fontSize= {this.props.coverText}
-          updateTextSize = {()=> {this.props.updateCoverTextSize()}}
-          updateItalic = {() => {this.props.updateItalic()}}
-          updateBold = {() => {this.props.updateCoverBold()}}
+        <EditModal
+          toggle = {this.props.toggleCoverModal}
+          name = "Cover"
+          isModalVisible ={this.props.card.isCoverModalVisible}
+          text_color = {this.props.card.cover_text_color}
+          updateAlignment= {this.props.updateCoverTextAlignment}
+          updateFont= {this.props.updateCoverFont}
+          fontSize= {this.props.card.cover_font_size}
+          updateTextSize = {this.props.updateCoverTextSize}
+          isBold= {this.props.card.cover_bold}
+          isItalic= {this.props.card.cover_italic}
+          updateItalic = {this.props.updateCoverItalic}
+          updateBold = {this.props.updateCoverBold}
+          toggleColorModal = {this.props.toggleCoverColorModal}
+          isColorModalVisible = {this.props.card.isCoverColorModalVisible}
+          updateTextColor = {this.props.updateCoverTextColor}
+
           />
         <EditBodyoneModal/>
         <EditBodytwoModal/>
@@ -330,10 +346,14 @@ profileBackground: {
 
 });
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, sendCard, saveCard,
-    updateCoverText,updateBodytwoText,updateBodyoneText,
-    toggleCoverModal,toggleBodyoneModal,uploadCardBackgroundImage,
-    toggleBodytwoModal},dispatch)
+  return bindActionCreators({
+          updateCoverText,toggleCoverColorModal,updateCoverFont,
+          updateCoverTextAlignment,updateCoverBold,
+          updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
+          createCard, sendCard, saveCard,
+          updateBodytwoText,updateBodyoneText,
+          toggleCoverModal,toggleBodyoneModal,uploadCardBackgroundImage,
+          toggleBodytwoModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {

@@ -12,21 +12,17 @@ import Icon  from "../components/icons.js";
 import {Ionicons,AntDesign,Entypo} from "@expo/vector-icons";
 import styles from '../styles.js'
 import { width, height, totalSize } from 'react-native-dimension';
-
+import { fromHsv } from 'react-native-color-picker'
 import RNPickerSelect from 'react-native-picker-select';
 import { Chevron } from 'react-native-shapes';
 import ToggleSwitch from 'toggle-switch-react-native'
-import {toggleCoverModal,updateCoverTextBold,updateCoverTextItalic,
-        updateCoverTextAlignment,updateCoverFont,updateCoverText,
-        updateBodyoneText,updateBodytwoText,updateCoverTextSize,
-        updateCoverTextColor,toggleCoverColorModal}
-        from '../actions/card.js'
+
 
 import Options from '../constants/Options.js'
 import NumericInput from 'react-native-numeric-input'
-import CoverColorPicker from './CoverColorPicker.js'
+import ColorPicker from './ColorPicker.js'
 import PropTypes from 'prop-types';
-class EditCoverModal extends Component{
+class EditModal extends Component{
   state = {
     textalignment:{},
     font:{},
@@ -37,30 +33,36 @@ class EditCoverModal extends Component{
     defaultColor:'black'
   };
   render(){
-    const {toggle,text_color,updateAlignment,
-           updateFont,fontSize,updateTextSize,
-           updateItalic,updateBold} = this.props;
+
   return(
     <View style={{  justifyContent: 'center', alignItems:'center', flex:1}}>
 
       <Modal animationType = {'slide'}
              transparent = {true}
-             visible = {this.props.isCoverModalVisible === true}>
+             visible = {this.props.isModalVisible === true}>
 
           <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
               <View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: .6 }}/>
               <View style={{ position: 'absolute', width: '100%', height: '50%', backgroundColor: 'white', flex: 1}}>
 
-                 <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.props.toggleCoverModal(false)}}   />
+                 <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {this.props.toggle(false)}}   />
                  <View style= {styles.stat}>
-                   <Text style={styles.modal_title}> Edit Cover </Text>
+                   <Text style={styles.modal_title}> Edit {this.props.name} </Text>
                  </View>
                  <SafeAreaView>
 
-                 <CoverColorPicker />
-                 <TouchableOpacity onPress={() => {this.props.toggle(true)}} >
+                 <ColorPicker
+                  name = {this.props.name}
+                  toggleColorModal = {this.props.toggleColorModal}
+                  updateTextColor = {this.props.updateTextColor}
+                  text_color = {this.props.text_color}
+                  isVisible = {this.props.isColorModalVisible}
+                  />
+
+                 <TouchableOpacity onPress={() => this.props.toggleColorModal(true)} >
                       <View style={localstyles.square}
-                       backgroundColor={this.props.text_color == null ? 'black': this.props.text_color}
+                       backgroundColor={this.props.text_color == null ? 'black':
+                       fromHsv({ h: this.props.text_color.hue, s: this.props.text_color.sat, v:this.props.text_color.val })}
                        />
                   </TouchableOpacity>
 
@@ -68,7 +70,7 @@ class EditCoverModal extends Component{
                    <RNPickerSelect
                     placeholder={Options.placeholder}
                     items={Options.fontAlignOptions}
-                    onValueChange={input => { this.props.updateTextAlignment(input);
+                    onValueChange={input => { this.props.updateAlignment(input);
                                    this.setState({fA: input});
                                   }
                         }
@@ -102,7 +104,7 @@ class EditCoverModal extends Component{
 
                      <View style = {styles.statsContainer}>
 
-                     <NumericInput value = {(this.props.card.font_size == null) ? this.state.defaultTextSize:this.props.card.font_size}
+                     <NumericInput value = {(this.props.fontSize == null) ? this.state.defaultTextSize:this.props.fontSize}
                       onChange={value => this.props.updateTextSize(value)}
                       rounded
                       totalWidth={100}
@@ -111,15 +113,15 @@ class EditCoverModal extends Component{
                      <ToggleSwitch
                        label="Bold"
                        onColor="#2196F3"
-                       isOn={this.props.card.text_bold}
-                       onToggle={isOnBoldToggleSwitch => this.props.updateTextBold(isOnBoldToggleSwitch)}
+                       isOn={this.props.isBold}
+                       onToggle={isOnBoldToggleSwitch => this.props.updateBold(isOnBoldToggleSwitch)}
 
                      />
                      <ToggleSwitch
                        label="Italic"
                        onColor="#2196F3"
-                       isOn={this.props.card.text_italic}
-                       onToggle={isOnItalicToggleSwitch => this.props.updateTextItalic(isOnItalicToggleSwitch)}
+                       isOn={this.props.isItalic}
+                       onToggle={isOnItalicToggleSwitch => this.props.updateItalic(isOnItalicToggleSwitch)}
                      />
 
                      </View>
@@ -141,9 +143,7 @@ class EditCoverModal extends Component{
   }
 });
   const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({toggleCoverModal,toggleCoverColorModal,updateCoverTextBold,
-      updateCoverTextItalic,updateCoverTextAlignment,updateCoverFont,
-      updateCoverTextSize },dispatch)
+    return bindActionCreators({},dispatch)
   }
   const mapStateToProps = (state) => {
     return {
@@ -151,4 +151,4 @@ class EditCoverModal extends Component{
      card: state.card,
     }
   }
-  export default connect(mapStateToProps,mapDispatchToProps)(EditCoverModal)
+  export default connect(mapStateToProps,mapDispatchToProps)(EditModal)
