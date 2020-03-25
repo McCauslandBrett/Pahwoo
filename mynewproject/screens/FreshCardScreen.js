@@ -16,9 +16,17 @@ import {
         updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
         toggleCoverColorModal,
 
+        updateBodyoneText,updateBodyoneFont,
+        updateBodyoneTextAlignment,updateBodyoneBold,
+        updateBodyoneItalic,updateBodyoneTextSize,updateBodyoneTextColor,
+        toggleBodyoneColorModal,
 
-        updateBodyoneText,
-        updateBodytwoText,createCard,
+        updateBodytwoText,updateBodytwoFont,
+        updateBodytwoTextAlignment,updateBodytwoBold,
+        updateBodytwoItalic,updateBodytwoTextSize,updateBodytwoTextColor,
+        toggleBodytwoColorModal,
+
+        createCard,
         sendCard, saveCard, toggleCoverModal,
         toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
 
@@ -27,8 +35,6 @@ import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
 import EditModal from '../components/EditModal.js'
-import EditBodyoneModal from '../components/EditBodyoneModal.js'
-import EditBodytwoModal from '../components/EditBodytwoModal.js'
 
 import {Ionicons} from "@expo/vector-icons";
 
@@ -130,7 +136,7 @@ class FreshCardScreen extends Component{
           source={{uri:this.props.card.BackgroundImage}}
           style={Arstyles.profileContainer}
           imageStyle={Arstyles.profileBackground}
-      >
+       >
          <ScrollView showsVerticalScrollIndicator={false}>
 
         <EditModal
@@ -151,8 +157,42 @@ class FreshCardScreen extends Component{
           updateTextColor = {this.props.updateCoverTextColor}
 
           />
-        <EditBodyoneModal/>
-        <EditBodytwoModal/>
+        <EditModal
+            toggle = {this.props.toggleBodyoneModal}
+            name = "BODY ONE"
+            isModalVisible ={this.props.card.isBodyoneModalVisible}
+            text_color = {this.props.card.bodyone_text_color}
+            updateAlignment= {this.props.updateBodyoneTextAlignment}
+            updateFont= {this.props.updateBodyoneFont}
+            fontSize= {this.props.card.bodyone_font_size}
+            updateTextSize = {this.props.updateBodyoneTextSize}
+            isBold= {this.props.card.bodyone_bold}
+            isItalic= {this.props.card.bodyone_italic}
+            updateItalic = {this.props.updateBodyoneItalic}
+            updateBold = {this.props.updateBodyoneBold}
+            toggleColorModal = {this.props.toggleBodyoneColorModal}
+            isColorModalVisible = {this.props.card.isBodyoneColorModalVisible}
+            updateTextColor = {this.props.updateBodyoneTextColor}
+
+            />
+        <EditModal
+              toggle = {this.props.toggleBodytwoModal}
+              name = "BODY TWO"
+              isModalVisible ={this.props.card.isBodytwoModalVisible}
+              text_color = {this.props.card.bodytwo_text_color}
+              updateAlignment= {this.props.updateBodytwoTextAlignment}
+              updateFont= {this.props.updateBodytwoFont}
+              fontSize= {this.props.card.bodytwo_font_size}
+              updateTextSize = {this.props.updateBodytwoTextSize}
+              isBold= {this.props.card.bodytwo_bold}
+              isItalic= {this.props.card.bodytwo_italic}
+              updateItalic = {this.props.updateBodytwoItalic}
+              updateBold = {this.props.updateBodytwoBold}
+              toggleColorModal = {this.props.toggleBodytwoColorModal}
+              isColorModalVisible = {this.props.card.isBodytwoColorModalVisible}
+              updateTextColor = {this.props.updateBodytwoTextColor}
+
+              />
            <View >
             <TextinCover/>
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
@@ -347,13 +387,24 @@ profileBackground: {
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-          updateCoverText,toggleCoverColorModal,updateCoverFont,
-          updateCoverTextAlignment,updateCoverBold,
-          updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
-          createCard, sendCard, saveCard,
-          updateBodytwoText,updateBodyoneText,
-          toggleCoverModal,toggleBodyoneModal,uploadCardBackgroundImage,
-          toggleBodytwoModal},dispatch)
+    updateCoverText,updateCoverFont,
+    updateCoverTextAlignment,updateCoverBold,
+    updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
+    toggleCoverColorModal,
+
+    updateBodyoneText,updateBodyoneFont,
+    updateBodyoneTextAlignment,updateBodyoneBold,
+    updateBodyoneItalic,updateBodyoneTextSize,updateBodyoneTextColor,
+    toggleBodyoneColorModal,
+
+    updateBodytwoText,updateBodytwoFont,
+    updateBodytwoTextAlignment,updateBodytwoBold,
+    updateBodytwoItalic,updateBodytwoTextSize,updateBodytwoTextColor,
+    toggleBodytwoColorModal,
+
+    createCard,
+    sendCard, saveCard, toggleCoverModal,
+    toggleBodyoneModal, toggleBodytwoModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
