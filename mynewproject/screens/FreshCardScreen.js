@@ -10,17 +10,31 @@ import styles from '../styles.js'
 // const screenHeight = Dimensions.get("window").height;
 import db from '../config/firebase.js';
 import {uploadCardBackgroundImage} from '../actions/card.js'
-import {updateCoverText,updateBodyoneText,
-        updateBodytwoText,createCard,
-        sendCard, saveCard, toggleCoverModal,toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
+import {
+        updateCoverText,updateCoverFont,
+        updateCoverTextAlignment,updateCoverBold,
+        updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
+        toggleCoverColorModal,
+
+        updateBodyoneText,updateBodyoneFont,
+        updateBodyoneTextAlignment,updateBodyoneBold,
+        updateBodyoneItalic,updateBodyoneTextSize,updateBodyoneTextColor,
+        toggleBodyoneColorModal,
+
+        updateBodytwoText,updateBodytwoFont,
+        updateBodytwoTextAlignment,updateBodytwoBold,
+        updateBodytwoItalic,updateBodytwoTextSize,updateBodytwoTextColor,
+        toggleBodytwoColorModal,
+
+        createCard,
+        sendCard, saveCard, toggleCoverModal,
+        toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
 
 import palette from '../palette.js'
 import { HeaderHeight } from "../constants/utils";
 const { width, height } = Dimensions.get("screen");
 import { Images, argonTheme } from "../constants";
-import EditCoverModal from '../components/EditCoverModal.js'
-import EditBodyoneModal from '../components/EditBodyoneModal.js'
-import EditBodytwoModal from '../components/EditBodytwoModal.js'
+import EditModal from '../components/EditModal.js'
 
 import {Ionicons} from "@expo/vector-icons";
 
@@ -122,13 +136,63 @@ class FreshCardScreen extends Component{
           source={{uri:this.props.card.BackgroundImage}}
           style={Arstyles.profileContainer}
           imageStyle={Arstyles.profileBackground}
-      >
+       >
          <ScrollView showsVerticalScrollIndicator={false}>
 
+        <EditModal
+          toggle = {this.props.toggleCoverModal}
+          name = "Cover"
+          isModalVisible ={this.props.card.isCoverModalVisible}
+          text_color = {this.props.card.cover_text_color}
+          updateAlignment= {this.props.updateCoverTextAlignment}
+          updateFont= {this.props.updateCoverFont}
+          fontSize= {this.props.card.cover_font_size}
+          updateTextSize = {this.props.updateCoverTextSize}
+          isBold= {this.props.card.cover_bold}
+          isItalic= {this.props.card.cover_italic}
+          updateItalic = {this.props.updateCoverItalic}
+          updateBold = {this.props.updateCoverBold}
+          toggleColorModal = {this.props.toggleCoverColorModal}
+          isColorModalVisible = {this.props.card.isCoverColorModalVisible}
+          updateTextColor = {this.props.updateCoverTextColor}
 
-        <EditCoverModal/>
-        <EditBodyoneModal/>
-        <EditBodytwoModal/>
+          />
+        <EditModal
+            toggle = {this.props.toggleBodyoneModal}
+            name = "BODY ONE"
+            isModalVisible ={this.props.card.isBodyoneModalVisible}
+            text_color = {this.props.card.bodyone_text_color}
+            updateAlignment= {this.props.updateBodyoneTextAlignment}
+            updateFont= {this.props.updateBodyoneFont}
+            fontSize= {this.props.card.bodyone_font_size}
+            updateTextSize = {this.props.updateBodyoneTextSize}
+            isBold= {this.props.card.bodyone_bold}
+            isItalic= {this.props.card.bodyone_italic}
+            updateItalic = {this.props.updateBodyoneItalic}
+            updateBold = {this.props.updateBodyoneBold}
+            toggleColorModal = {this.props.toggleBodyoneColorModal}
+            isColorModalVisible = {this.props.card.isBodyoneColorModalVisible}
+            updateTextColor = {this.props.updateBodyoneTextColor}
+
+            />
+        <EditModal
+              toggle = {this.props.toggleBodytwoModal}
+              name = "BODY TWO"
+              isModalVisible ={this.props.card.isBodytwoModalVisible}
+              text_color = {this.props.card.bodytwo_text_color}
+              updateAlignment= {this.props.updateBodytwoTextAlignment}
+              updateFont= {this.props.updateBodytwoFont}
+              fontSize= {this.props.card.bodytwo_font_size}
+              updateTextSize = {this.props.updateBodytwoTextSize}
+              isBold= {this.props.card.bodytwo_bold}
+              isItalic= {this.props.card.bodytwo_italic}
+              updateItalic = {this.props.updateBodytwoItalic}
+              updateBold = {this.props.updateBodytwoBold}
+              toggleColorModal = {this.props.toggleBodytwoColorModal}
+              isColorModalVisible = {this.props.card.isBodytwoColorModalVisible}
+              updateTextColor = {this.props.updateBodytwoTextColor}
+
+              />
            <View >
             <TextinCover/>
               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
@@ -322,10 +386,25 @@ profileBackground: {
 
 });
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, sendCard, saveCard,
-    updateCoverText,updateBodytwoText,updateBodyoneText,
-    toggleCoverModal,toggleBodyoneModal,uploadCardBackgroundImage,
-    toggleBodytwoModal},dispatch)
+  return bindActionCreators({
+    updateCoverText,updateCoverFont,
+    updateCoverTextAlignment,updateCoverBold,
+    updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
+    toggleCoverColorModal,
+
+    updateBodyoneText,updateBodyoneFont,
+    updateBodyoneTextAlignment,updateBodyoneBold,
+    updateBodyoneItalic,updateBodyoneTextSize,updateBodyoneTextColor,
+    toggleBodyoneColorModal,
+
+    updateBodytwoText,updateBodytwoFont,
+    updateBodytwoTextAlignment,updateBodytwoBold,
+    updateBodytwoItalic,updateBodytwoTextSize,updateBodytwoTextColor,
+    toggleBodytwoColorModal,
+
+    createCard,
+    sendCard, saveCard, toggleCoverModal,
+    toggleBodyoneModal, toggleBodytwoModal},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
