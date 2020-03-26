@@ -4,7 +4,7 @@ import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
-import {Ionicons} from "@expo/vector-icons";
+import {AntDesign} from "@expo/vector-icons";
 
 import styles from '../styles.js'
 // Alright, flow needs to be established, so we can accomplish the most at once
@@ -22,7 +22,7 @@ class CustomCardScreen extends Component{
       <SafeAreaView >
           <ScrollView showsVerticalScrollIndicator={false}>
              <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <Ionicons name="md-more" size={24} style = {styles.mdmore} />
+             <AntDesign name="plussquareo" size={24} style = {styles.topRightBtn} onPress = {()=> console.log("new card button press")}/>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />

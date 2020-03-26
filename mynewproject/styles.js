@@ -481,5 +481,14 @@ headlessAndroidPicker: {
     width: "100%",
     backgroundColor:"rgba(255,255,255,0.5)"
   },
-  selected: {backgroundColor: "#FA7B5F"}
+  selected: {backgroundColor: "#FA7B5F"},
+  
+  topRightBtn:{
+    color:palette.ICON_COLOR,
+    zIndex:1,
+    position:"absolute",
+    top:10,
+    right:20
+  }
+  
 });
