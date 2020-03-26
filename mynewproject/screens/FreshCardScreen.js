@@ -207,8 +207,7 @@ class FreshCardScreen extends Component{
                </TouchableOpacity>
             </View>
 
-       <View>
-
+          <View>
             <TextInput multiline = {true}
                 style={[
                     {
@@ -237,7 +236,7 @@ class FreshCardScreen extends Component{
             <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodytwoModal(true)}}>
                 <Ionicons  name="md-more" size={28}/>
             </TouchableOpacity>
-      </View>
+          </View>
       <View style = {styles.cardAttachmentContainer}>
           <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
             <Icon.FontAwesome name= "gift" style = {styles.cardAttachment} color = "#DFD8C8"/>
