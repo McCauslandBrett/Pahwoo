@@ -28,6 +28,16 @@ const user = (state = {},action) => {
       return state
     }
   }
+const invite = (state = {},action) => {
+  switch (action.type) {
+    case 'TOGGLE_ATTENDING':
+      return {...state, isAttending: action.payload}
+    case 'TOGGLE_NOT_ATTENDING':
+      return {...state, isNotAttending: action.payload}
+    default:
+        return state
+      }
+}
 const card = (state = {},action) => {
   switch (action.type) {
     case 'GET_CARD':
@@ -116,6 +126,7 @@ const card = (state = {},action) => {
 const rootReducer = combineReducers({
  user,
  card,
+ invite
 })
 
 export default rootReducer

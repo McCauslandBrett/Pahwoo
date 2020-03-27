@@ -18,14 +18,45 @@ import {Ionicons} from "@expo/vector-icons";
 import { Images, argonTheme } from "../constants";
 const thumbMeasure = (width - 48 - 32) / 3;
 import { HeaderHeight } from "../constants/utils";
+import {toggleAttending,toggleNotAttending} from '../actions/invite.js'
 class InviteScreen extends Component {
+
+  pressAttending(){
+    const isAttending = !this.props.invite.isAttending;
+    this.props.toggleAttending(isAttending);
+    const isNotAttending = this.props.invite.isNotAttending;
+    if (isAttending) {
+      if (isNotAttending) {
+        this.props.toggleNotAttending(!isNotAttending);
+      }
+    }
+  }
+
+
+  pressNotAttending() {
+    const isAttending = this.props.invite.isAttending;
+    const isNotAttending = !this.props.invite.isNotAttending;
+    this.props.toggleNotAttending(isNotAttending);
+        if (isNotAttending) {
+          if (isAttending) {
+            this.props.toggleAttending(!isAttending );
+          }
+       }
+     }
+
+
   render() {
+    const RSVP_A = <Ionicons name = "md-checkbox-outline" size = {35} color = "green"/>;
+    const RSVP_NA = <Ionicons name = "md-checkbox-outline" size = {35} color = "red"/>;
     const cardContainer = [localstyles.card, localstyles.shadow,localstyles.verticalStyles];
     const statscardContainer = [localstyles.statscard, localstyles.shadow,localstyles.verticalStyles];
     const imgContainer = [localstyles.imageContainer,localstyles.shadow];
     const ovalButton = [localstyles.ButtonGuest,localstyles.shadow];
     const roundButton = [localstyles.addUser,localstyles.shadow];
     const stattitle = [styles.statTitle,{marginBottom:5}]
+
+
+
     return (
 
        <ScrollView>
@@ -51,18 +82,17 @@ class InviteScreen extends Component {
            <TouchableOpacity style = {styles.stat}>
            <Text style = {stattitle}>RSV BY</Text>
               <Text style ={styles.statAmount}>7/16/21</Text>
-
            </TouchableOpacity>
 
-           <TouchableOpacity style = {styles.statbox} >
+           <TouchableOpacity style = {styles.statbox} onPress={()=>this.pressAttending()}>
               <Text style = {stattitle}>ATTENDING</Text>
-              <Ionicons name = "md-checkbox-outline" size = {35} color = "green"/>
+              {this.props.invite.isAttending ? RSVP_A:null}
            </TouchableOpacity>
 
-           <TouchableOpacity style = {styles.stat} >
-
+           <TouchableOpacity style = {styles.stat} onPress={()=>this.pressNotAttending()} >
              <Text style = {stattitle}>NOT ATTENDING</Text>
-             <Ionicons name = "md-checkbox-outline" size = {35} color = "red"/>
+             {this.props.invite.isNotAttending ? RSVP_NA:null}
+
           </TouchableOpacity>
          </View>
       </Block>
@@ -206,12 +236,11 @@ articles: {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({},dispatch)
+    return bindActionCreators({toggleAttending,toggleNotAttending},dispatch)
   }
   const mapStateToProps = (state) => {
     return {
-      user: state.user,
-      card: state.card
+      invite: state.invite
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(InviteScreen)
