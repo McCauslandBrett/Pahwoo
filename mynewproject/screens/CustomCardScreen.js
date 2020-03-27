@@ -55,6 +55,7 @@ class CustomCardScreen extends Component{
      let tempObj = this.state.cardObjects
      tempData.push(this.props.card)
      tempObj[this.props.card.id] = this.props.card
+     tempData.sort((a, b) => (a.name > b.name) ? 1 : -1)
      this.setState({savedTemplates: tempData});
      this.setState({cardObjects: tempObj});
      this.setModalVisible(!this.state.modalVisible)
