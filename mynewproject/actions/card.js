@@ -41,17 +41,17 @@ export const createCard = (newName, recipientsList) => {
                 bodytwo_text_bold: false,
                 bodytwo_text_italic: false,
                 isBodytwoModalVisible: false,
-                
+
                 BackgroundImage: ''
             }
             // Add card to database
             const ref = db.collection('cards').doc()
             //Add the unique ID to the new card object
             cardObject['id'] = ref.id
-            
+
             // add the card to the database
             await ref.set(cardObject);
-            
+
             // we should save the card id here to the card state!!!!!!!
             //Add card to user.savedTemplates[]
             var userRef = db.collection('users').doc(user.uid)
@@ -75,12 +75,12 @@ export const getCard = (id) => {
                 cardData.push(response.data())
             })
             dispatch( {type:'GET_CARD', payload: cardData[0]})
-            
+
         } catch (e){
             alert(e)
         }
     }
-    
+
 }
 
 export const setCard = (card) => {
@@ -162,7 +162,6 @@ export const saveCard = (selectedItems) => {
         }
     }
 }
-
 
 export const sendCard = (recipients) => {
     // Iterate over the card's recipients and populate their recievedCards array
@@ -344,7 +343,7 @@ export const toggleBodytwoModal = ( isCoverModalVisible) => {
 // If the user hits save we will upload the image to the database
 export const uploadCardBackgroundImage = (uri) => {
     return async (dispatch,getState) => {
-        
+
         dispatch({type:'SET_BACKGROUNDIMAGE', payload:uri})
         console.log("Update card image in local state")
 

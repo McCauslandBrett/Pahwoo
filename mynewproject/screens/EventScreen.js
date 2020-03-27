@@ -25,7 +25,6 @@ class EventScreen extends Component{
              <AntDesign name="plussquareo" size={24} style = {styles.mdmore} onPress = {()=> this.props.navigation.navigate('Event')}/>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> EventScreen</Text>
-
              </View>
       </ScrollView>
     </SafeAreaView>

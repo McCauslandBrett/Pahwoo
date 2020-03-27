@@ -18,6 +18,7 @@ import CustomCardScreen from '../screens/CustomCardScreen';
 import ContactScreen from '../screens/ContactScreen';
 import CardScreen from '../screens/CardScreen';
 import InvitationScreen from '../screens/InvitationScreen';
+import InviteScreen from '../screens/InviteScreen';
 import TemplateCardScreen from '../screens/TemplateCardScreen';
 import FreshCardScreen from '../screens/FreshCardScreen';
 import GiftCardScreen from '../screens/GiftCardScreen';
@@ -84,6 +85,7 @@ const ProjStackNavigator = createAppContainer(createStackNavigator(
     Cards:CardScreen,
     Event:EventOwnerScreen,
     Invitations:InvitationScreen,
+    Invite:InviteScreen,
     CardTemplates:TemplateCardScreen,
     FreshCards: FreshCardScreen,
     Search: SearchScreen
