@@ -21,7 +21,6 @@ class InvitationScreen extends Component{
                  <Button
                  onPress={()=> this.props.navigation.navigate('Invite')}
                  title="Invite"
-
                  />
              </View>
       </ScrollView>
