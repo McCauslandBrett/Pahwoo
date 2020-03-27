@@ -260,18 +260,18 @@ headlessAndroidPicker: {
 
   contactsItem: {
     backgroundColor: 'lightgreen',
-    padding: 20,
+    padding: 15,
+    height: 110,
+    width: 110,
     marginVertical: 8,
+    marginRight: 8,
     justifyContent: 'center'
   },
 
   contactsHeader: {
-    fontSize: 32,
+    fontSize: 20,
   },
-
-  contactsTitle: {
-    fontSize: 24,
-  },
+  
   text: {
     fontFamily:"HelveticaNeue",
     color: '#52575D',
@@ -395,12 +395,6 @@ headlessAndroidPicker: {
     marginVertical: 8,
     justifyContent: 'center'
   },
-  contactsItem: {
-    backgroundColor: 'lightgreen',
-    padding: 20,
-    marginVertical: 8,
-    justifyContent: 'center'
-  },
   contactsContainer:{
     flex:1,
     alignItems:'center',
@@ -412,8 +406,9 @@ headlessAndroidPicker: {
     fontSize: 32,
   },
 
-  contactsTitle: {
-    fontSize: 24,
+  cardListContainer: {
+    alignItems: 'center',
+    // width: '100%'
   },
 
   thumbnailBold: {
