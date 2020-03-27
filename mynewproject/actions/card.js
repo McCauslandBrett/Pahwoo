@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
+
 export const createCard = (newName, recipientsList) => {
 	return async (dispatch, getState) => {
 		try {
@@ -81,6 +82,13 @@ export const getCard = (id) => {
     }
 
 }
+
+export const setCard = (card) => {
+    return async (dispatch) =>  {
+        dispatch( {type:'GET_CARD', payload: card})
+    }
+}
+
 //precondition:
 //postcondition: Card data has been added to database
 //Notes:
