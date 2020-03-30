@@ -2,6 +2,9 @@
   "name": "mynewproject",
   "displayName": "ExpoProj2",
   "expo": {
+    "ios": {
+      "userInterfaceStyle": "automatic"
+    },
     "name": "mynewproject",
     "slug": "expo-template-bare",
     "privacy": "unlisted",

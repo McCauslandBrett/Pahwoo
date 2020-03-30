@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 
 import { StyleSheet, Dimensions,  View, Text,
-  Image,TouchableOpacity,
+  Image,TouchableOpacity,Modal,
   ScrollView, Button ,SafeAreaView} from 'react-native';
 
 import { SocialIcon } from 'react-native-elements'
 import { Block, theme } from 'galio-framework';
 import {Cards} from '../components/Card.js'
-// import { Block} from 'galio-framework';
-// import  theme from '../constants/Theme.js';
 import styles from '../styles.js';
 import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
@@ -18,16 +16,78 @@ import {Ionicons} from "@expo/vector-icons";
 import { Images, argonTheme } from "../constants";
 const thumbMeasure = (width - 48 - 32) / 3;
 import { HeaderHeight } from "../constants/utils";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Appearance, useColorScheme } from 'react-native-appearance';
 class EventOwnerScreen extends Component {
+
+
+  state = {
+    isDatePickerVisible:false,
+    date:null,
+    mode:'date',
+    colorMode: Appearance.getColorScheme()
+  };
+
+
+  setDatePickerVisibility = (_bool) =>{
+    this.setState({
+      isDatePickerVisible:_bool
+    })
+  };
+  showDatePicker = () => {
+    this.setState({
+      mode:'date'
+    })
+    this.setDatePickerVisibility(true);
+  };
+  showTimePicker = () => {
+    this.setState({
+      mode:'time'
+    })
+    this.setDatePickerVisibility(true);
+  };
+
+  hideDatePicker = () => {
+    this.setDatePickerVisibility(false);
+  };
+
+  handleConfirm = date => {
+    console.warn("A date has been picked: ", date);
+    this.hideDatePicker();
+
+  };
+  handleConfirmTime = time => {
+    console.warn("A date has been picked: ", time);
+    this.hideDatePicker();
+
+  };
   render() {
+
     const cardContainer = [localstyles.card, localstyles.shadow,localstyles.verticalStyles];
     const statscardContainer = [localstyles.statscard, localstyles.shadow,localstyles.verticalStyles];
     const imgContainer = [localstyles.imageContainer,localstyles.shadow];
     const ovalButton = [localstyles.ButtonGuest,localstyles.shadow];
     const roundButton = [localstyles.addUser,localstyles.shadow];
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      this.setState({
+        colorMode:colorScheme
+      })
+    });
+
+
     return (
 
        <ScrollView>
+       <DateTimePickerModal
+       isVisible={this.state.isDatePickerVisible}
+       mode={this.state.mode}
+       onConfirm={this.handleConfirm}
+       onCancel={this.hideDatePicker}
+       headerTextIOS = {this.state.mode=='time' ? 'Pick A Time':null }
+       isDarkModeEnabled = {this.state.colorMode === 'dark' ? true:false}
+       />
+
       <Block  card style={cardContainer}>
        <Block  style={imgContainer}>
          <Image source={{uri: 'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}} style={localstyles.fullImage} />
@@ -71,9 +131,25 @@ class EventOwnerScreen extends Component {
       </Block>
 
       <Block  card style={statscardContainer}>
-      <Block flex space="between" style={localstyles.cardDescription}>
-      <Text  style={localstyles.cardTitle}>Location</Text>
+
+        <Block flex space="between" style={localstyles.cardDescription}>
+          <Text  style={localstyles.cardTitle}>Location</Text>
+          </Block>
+
       </Block>
+
+      <Block  card style={statscardContainer}>
+      <View style={styles.contactRowStack}>
+      <Block flex space="between" style={localstyles.cardDescription}>
+        <Text  style={localstyles.cardTitle}>DATE</Text>
+        <TouchableOpacity style = {ovalButton} onPress={()=>{this.showDatePicker()}}>
+           <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}} > DATE </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {ovalButton} onPress={()=>{this.showTimePicker()}}>
+           <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}}> Time </Text>
+        </TouchableOpacity>
+      </Block>
+      </View>
       </Block>
 
       <Block style = {{marginBottom:20,marginLeft:5}}>

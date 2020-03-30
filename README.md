@@ -56,6 +56,12 @@ The application should load a barcode that you can scan with your mobile device 
   ```
   npm install react-native-hsv-color-picker --save
   ```
+  ```
+  npm install react-native-add-calendar-event --save
+   ```
+   ```
+  npm install react-native-appearance --save
+   ```
 ## Built With
 
 * [Expo](https://expo.io) - For reliable build infrastructure

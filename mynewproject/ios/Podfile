@@ -5,8 +5,9 @@ require_relative '../node_modules/react-native-unimodules/cocoapods'
 target 'mynewproject' do
 
   rnPrefix = "../node_modules/react-native"
-  
+
   # React Native and its dependencies
+  pod 'react-native-appearance', :path => '../node_modules/react-native-appearance'
   pod 'FBLazyVector', :path => "#{rnPrefix}/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "#{rnPrefix}/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "#{rnPrefix}/Libraries/RCTRequired"

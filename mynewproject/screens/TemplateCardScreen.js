@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { View, Text, FlatList, TouchableOpacity, Modal, SafeAreaView, TextInput} from 'react-native';
+import { View, Text, FlatList, TouchableOpacity,
+        Modal, SafeAreaView, TextInput} from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
@@ -13,7 +14,7 @@ class TemplateCardScreen extends Component{
         <Icon.FontAwesome name= "gift" style = {{fontSize:24, color:tintColor}}/>
     )
   }
-  
+
   state = {
     modalVisible: false,
     selectContactsVisible: false,
@@ -24,18 +25,18 @@ class TemplateCardScreen extends Component{
     savedTemplates: [],
     selected: '',
   }
-  
+
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   }
-  
+
   setSelectContactsModalVisible = (visible) => {
     this.setState({selectContactsVisible: visible});
   }
   setSelectCardModalVisible = (visible) => {
     this.setState({selectCardVisible: visible});
   }
-  
+
   createCard = async () => {
    //   should create a card with just a name for now and add it to the database
     // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
@@ -43,17 +44,17 @@ class TemplateCardScreen extends Component{
     // console.log(this.props.card.cid)
     console.log(this.props.card.id)
   }
-  
+
   sendCard = () => {
     //   should create a card with just a name for now and add it to the database
      this.props.sendCard(this.state.selectedItems)
   }
-   
+
   onSelectedItemsChange = selectedItems => {
     this.setState({selectedItems: selectedItems});
     console.log(this.state.selectedItems)
   };
-  
+
   componentDidMount = async () => {
     let tempData = []
     try{
@@ -68,7 +69,7 @@ class TemplateCardScreen extends Component{
             // add these to fields to every item in tempData
             item.isSelect = false;
             item.selectedClass = styles.list;
-            
+
             return item;
         })
         // at this point I have an array of user objects from the current user's contact array
@@ -95,7 +96,7 @@ class TemplateCardScreen extends Component{
     }
     this.setState({savedTemplates: tempData});
   }
-  
+
   onSelect = async (id) => {
     // const newSelected = new Map(this.state.selected);
     // newSelected.set(id, !this.state.selected.get(id));
@@ -106,7 +107,7 @@ class TemplateCardScreen extends Component{
     this.setSelectCardModalVisible(!this.state.selectCardVisible);
     this.props.navigation.navigate('FreshCards')
   }
-  
+
   render(){
     // const {selected} = this.state
     return(
