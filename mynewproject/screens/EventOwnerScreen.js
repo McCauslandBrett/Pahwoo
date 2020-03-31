@@ -19,6 +19,8 @@ import { HeaderHeight } from "../constants/utils";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Appearance, useColorScheme } from 'react-native-appearance';
+import {updateDate,updateTime} from '../actions/event.js'
+import Date from '../components/Date.js'
 class EventOwnerScreen extends Component {
 
 
@@ -53,12 +55,22 @@ class EventOwnerScreen extends Component {
   };
 
   handleConfirm = date => {
-    console.warn("A date has been picked: ", date);
+    const num = date.getMonth()
+    if(num === 1){
+      console.log("its a number")
+    }
+
+    console.log(JSON.stringify(date));
+    this.setState({
+      date:date
+    });
+    this.props.updateDate(date);
     this.hideDatePicker();
+
 
   };
   handleConfirmTime = time => {
-    console.warn("A date has been picked: ", time);
+    this.props.updateTime(time)
     this.hideDatePicker();
 
   };
@@ -80,6 +92,7 @@ class EventOwnerScreen extends Component {
 
        <ScrollView>
        <DateTimePickerModal
+       format="DD-MM-YYYY"
        isVisible={this.state.isDatePickerVisible}
        mode={this.state.mode}
        onConfirm={this.handleConfirm}
@@ -142,12 +155,22 @@ class EventOwnerScreen extends Component {
       <View style={styles.contactRowStack}>
       <Block flex space="between" style={localstyles.cardDescription}>
         <Text  style={localstyles.cardTitle}>DATE</Text>
+
+        { this.props._event.date != null ?
+          <Date
+            date={this.props._event.date}
+          />
+          :<Text>No Date</Text>}
+
         <TouchableOpacity style = {ovalButton} onPress={()=>{this.showDatePicker()}}>
            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}} > DATE </Text>
         </TouchableOpacity>
+
+
         <TouchableOpacity style = {ovalButton} onPress={()=>{this.showTimePicker()}}>
            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}}> Time </Text>
         </TouchableOpacity>
+
       </Block>
       </View>
       </Block>
@@ -279,12 +302,11 @@ articles: {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({},dispatch)
+    return bindActionCreators({updateDate,updateTime},dispatch)
   }
   const mapStateToProps = (state) => {
     return {
-      user: state.user,
-      card: state.card
+      _event:state._event
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(EventOwnerScreen)

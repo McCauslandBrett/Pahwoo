@@ -38,6 +38,16 @@ const invite = (state = {},action) => {
         return state
       }
 }
+const _event = (state = {},action) => {
+  switch (action.type) {
+    case 'UPDATE_DATE':
+      return {...state, date: action.payload}
+    case 'UPDATE_TIME':
+      return {...state, time: action.payload}
+    default:
+        return state
+      }
+}
 const card = (state = {},action) => {
   switch (action.type) {
     case 'GET_CARD':
@@ -126,7 +136,8 @@ const card = (state = {},action) => {
 const rootReducer = combineReducers({
  user,
  card,
- invite
+ invite,
+ _event
 })
 
 export default rootReducer

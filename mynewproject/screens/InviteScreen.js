@@ -62,17 +62,6 @@ class InviteScreen extends Component {
        <ScrollView>
 
 
-       <DateTimePicker
-         testID="dateTimePicker"
-         timeZoneOffsetInMinutes={0}
-         value={date}
-         mode={mode}
-         is24Hour={true}
-         display="default"
-         onChange={onChange}
-       />
-
-
       <Block  card style={cardContainer}>
        <Block  style={imgContainer}>
          <Image source={{uri: 'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}} style={localstyles.fullImage} />
