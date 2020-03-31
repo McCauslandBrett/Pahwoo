@@ -21,7 +21,7 @@ class TemplateCardScreen extends Component{
     newName: '',
     selectedItems: [],
     contactData: [],
-    savedTemplates: [],
+    userCards: [],
     selected: '',
   }
   
@@ -79,21 +79,21 @@ class TemplateCardScreen extends Component{
         let userObj = {}
         const user =  await db.collection("users").doc(this.props.user.uid).get();
         userObj = user.data()
-        for (var i = 0; i < userObj.savedTemplates.length; i++){
+        for (var i = 0; i < userObj.userCards.length; i++){
             let cardData = []
-            const query = await db.collection('cards').where('id', '==', userObj.savedTemplates[i]).get()
+            const query = await db.collection('cards').where('id', '==', userObj.userCards[i]).get()
             query.forEach((response) => {
                 cardData.push(response.data())
             })
             tempData.push({
-                id: userObj.savedTemplates[i],
+                id: userObj.userCards[i],
                 title: cardData[0].cover_text
             });
         }
     } catch(e){
         alert(e)
     }
-    this.setState({savedTemplates: tempData});
+    this.setState({userCards: tempData});
   }
   
   onSelect = async (id) => {
@@ -189,7 +189,7 @@ class TemplateCardScreen extends Component{
           }}>
             <SafeAreaView style={styles.container}>
                 <FlatList
-                    data={this.state.savedTemplates}
+                    data={this.state.userCards}
                     renderItem={({ item }) => (
                     <Item
                         id={item.id}

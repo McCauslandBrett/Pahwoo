@@ -53,10 +53,10 @@ export const createCard = (newName, recipientsList) => {
             await ref.set(cardObject);
 
             // we should save the card id here to the card state!!!!!!!
-            //Add card to user.savedTemplates[]
+            //Add card to user.userCards[]
             var userRef = db.collection('users').doc(user.uid)
             await userRef.update({
-                savedTemplates: firebase.firestore.FieldValue.arrayUnion(cardObject.id)
+                userCards: firebase.firestore.FieldValue.arrayUnion(cardObject.id)
             });
             dispatch( {type:'GET_CARD', payload: cardObject})
 		} catch (e) {
