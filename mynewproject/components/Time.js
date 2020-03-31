@@ -1,13 +1,15 @@
 import React from 'react';
 import {StyleSheet,View,Text, Button, Platform} from 'react-native';
 import {Month} from '../constants/Month.js'
-const Date = (props) => {
+const Time = (props) => {
 
   return (
     <Text style= {localstyles.cardtext}>{
-            Month[props.date.getMonth()]+
-            ' ' + props.date.getDate() + ', '+
-            props.date.getFullYear()
+            (props.time.getHours() > 12 ? props.time.getHours() - 12:
+            props.time.getHours() == 0 ? 12:props.time.getHours()) + ':'+
+            (props.time.getUTCMinutes() < 10 ? '0'+ props.time.getUTCMinutes(): props.time.getUTCMinutes() )
+            + ' '+ ( props.time.getHours() > 11 ? 'pm':'am')
+
            }
     </Text>
   );
@@ -25,4 +27,4 @@ const localstyles = StyleSheet.create({
   },
 
 });
-export default Date;
+export default Time;

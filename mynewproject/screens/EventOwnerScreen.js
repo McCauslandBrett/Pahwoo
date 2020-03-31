@@ -21,6 +21,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Appearance, useColorScheme } from 'react-native-appearance';
 import {updateDate,updateTime} from '../actions/event.js'
 import Date from '../components/Date.js'
+import Time from '../components/Time.js'
 class EventOwnerScreen extends Component {
 
 
@@ -54,18 +55,22 @@ class EventOwnerScreen extends Component {
     this.setDatePickerVisibility(false);
   };
 
-  handleConfirm = date => {
-    const num = date.getMonth()
-    if(num === 1){
-      console.log("its a number")
-    }
+  handleConfirm = value => {
+   if(this.state.mode == 'date'){
+     this.setState({
+       date:value
+     });
+     this.props.updateDate(value);
+     this.hideDatePicker();
+   }
+   if(this.state.mode == 'time'){
+     this.setState({
+       time:value
+     });
+     this.props.updateTime(value);
+     this.hideDatePicker();
+   }
 
-    console.log(JSON.stringify(date));
-    this.setState({
-      date:date
-    });
-    this.props.updateDate(date);
-    this.hideDatePicker();
 
 
   };
@@ -75,7 +80,8 @@ class EventOwnerScreen extends Component {
 
   };
   render() {
-
+    const daterow = [localstyles.contactRowStack,]
+    const timeovalButton = [localstyles.m]
     const cardContainer = [localstyles.card, localstyles.shadow,localstyles.verticalStyles];
     const statscardContainer = [localstyles.statscard, localstyles.shadow,localstyles.verticalStyles];
     const imgContainer = [localstyles.imageContainer,localstyles.shadow];
@@ -108,6 +114,7 @@ class EventOwnerScreen extends Component {
             <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"   ></Ionicons>
           </TouchableOpacity>
        </Block>
+
        <Block flex space="between" style={localstyles.cardDescription}>
          <Text  style={localstyles.cardTitle}>Guests</Text>
       <SafeAreaView style={styles.contactRowStack}>
@@ -140,7 +147,7 @@ class EventOwnerScreen extends Component {
              <Text style ={styles.statAmount}>3</Text>
              <Text style = {styles.statTitle}>NOT ATTENDING</Text>
           </TouchableOpacity>
-         </View>
+       </View>
       </Block>
 
       <Block  card style={statscardContainer}>
@@ -154,22 +161,29 @@ class EventOwnerScreen extends Component {
       <Block  card style={statscardContainer}>
       <View style={styles.contactRowStack}>
       <Block flex space="between" style={localstyles.cardDescription}>
+
         <Text  style={localstyles.cardTitle}>DATE</Text>
 
-        { this.props._event.date != null ?
-          <Date
-            date={this.props._event.date}
-          />
-          :<Text>No Date</Text>}
+        <Block flex row style = {{marginTop:5,marginLeft:5}}>
+          { this.props._event.date != null ?
+            <Date date={this.props._event.date}/>
+            :<Text style = {localstyles.cardtext}>No Date</Text>
+          }
+          <TouchableOpacity style = {ovalButton} onPress={()=>{this.showDatePicker()}}>
+            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}} > DATE </Text>
+          </TouchableOpacity>
+        </Block>
 
-        <TouchableOpacity style = {ovalButton} onPress={()=>{this.showDatePicker()}}>
-           <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}} > DATE </Text>
-        </TouchableOpacity>
 
-
-        <TouchableOpacity style = {ovalButton} onPress={()=>{this.showTimePicker()}}>
+        <Block flex row style = {{marginTop:5,marginLeft:5}}>
+          { this.props._event.time != null ?
+            <Time time={this.props._event.time}/>
+            :<Text style = {localstyles.cardtext}>No Time</Text>
+          }
+          <TouchableOpacity style = {ovalButton}  onPress={()=>{this.showTimePicker()}}>
            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}}> Time </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </Block>
 
       </Block>
       </View>
@@ -207,6 +221,9 @@ const localstyles = StyleSheet.create({
     marginBottom: 10,
 
   },
+  m:{
+    marginTop:10
+  },
   thumb: {
   borderRadius: 4,
   marginVertical: 4,
@@ -233,6 +250,14 @@ const localstyles = StyleSheet.create({
     justifyContent:'center',
 
 },
+cardtext: {
+  flex: 1,
+  flexWrap: 'wrap',
+  fontSize:20,
+  fontWeight:'bold',
+  alignItems:"center",
+  justifyContent:"center"
+},
 addUser: {
   width: 40,
   height: 40,
@@ -242,6 +267,9 @@ addUser: {
   alignItems:'center',
   marginLeft:4
 
+},
+contactRowStack:{
+  marginTop:15
 },
   statscard: {
     backgroundColor: 'white',
