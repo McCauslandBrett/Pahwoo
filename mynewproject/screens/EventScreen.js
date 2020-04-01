@@ -6,9 +6,6 @@ import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
 import {Ionicons,AntDesign} from "@expo/vector-icons";
 
-import styles from '../styles.js'
-// Alright, flow needs to be established, so we can accomplish the most at once
-// Do we want to force users to select a card before they edit one? this would make it easy
 
 class EventScreen extends Component{
   static navigationOptions = {

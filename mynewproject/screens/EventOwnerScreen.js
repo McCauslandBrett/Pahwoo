@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 
 import { StyleSheet, Dimensions,  View, Text,
-  Image,TouchableOpacity,
+  Image,TouchableOpacity,Modal,
   ScrollView, Button ,SafeAreaView} from 'react-native';
 
 import { SocialIcon } from 'react-native-elements'
 import { Block, theme } from 'galio-framework';
 import {Cards} from '../components/Card.js'
-// import { Block} from 'galio-framework';
-// import  theme from '../constants/Theme.js';
 import styles from '../styles.js';
 import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
@@ -18,16 +16,97 @@ import {Ionicons} from "@expo/vector-icons";
 import { Images, argonTheme } from "../constants";
 const thumbMeasure = (width - 48 - 32) / 3;
 import { HeaderHeight } from "../constants/utils";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Appearance, useColorScheme } from 'react-native-appearance';
+import {updateDate,updateTime} from '../actions/event.js'
+import Date from '../components/Date.js'
+import Time from '../components/Time.js'
 class EventOwnerScreen extends Component {
+
+
+  state = {
+    isDatePickerVisible:false,
+    date:null,
+    mode:'date',
+    colorMode: Appearance.getColorScheme()
+  };
+
+
+  setDatePickerVisibility = (_bool) =>{
+    this.setState({
+      isDatePickerVisible:_bool
+    })
+  };
+  showDatePicker = () => {
+    this.setState({
+      mode:'date'
+    })
+    this.setDatePickerVisibility(true);
+  };
+  showTimePicker = () => {
+    this.setState({
+      mode:'time'
+    })
+    this.setDatePickerVisibility(true);
+  };
+
+  hideDatePicker = () => {
+    this.setDatePickerVisibility(false);
+  };
+
+  handleConfirm = value => {
+   if(this.state.mode == 'date'){
+     this.setState({
+       date:value
+     });
+     this.props.updateDate(value);
+     this.hideDatePicker();
+   }
+   if(this.state.mode == 'time'){
+     this.setState({
+       time:value
+     });
+     this.props.updateTime(value);
+     this.hideDatePicker();
+   }
+
+
+
+  };
+  handleConfirmTime = time => {
+    this.props.updateTime(time)
+    this.hideDatePicker();
+
+  };
   render() {
+    const daterow = [localstyles.contactRowStack,]
+    const timeovalButton = [localstyles.m]
     const cardContainer = [localstyles.card, localstyles.shadow,localstyles.verticalStyles];
     const statscardContainer = [localstyles.statscard, localstyles.shadow,localstyles.verticalStyles];
     const imgContainer = [localstyles.imageContainer,localstyles.shadow];
     const ovalButton = [localstyles.ButtonGuest,localstyles.shadow];
     const roundButton = [localstyles.addUser,localstyles.shadow];
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      this.setState({
+        colorMode:colorScheme
+      })
+    });
+
+
     return (
 
        <ScrollView>
+       <DateTimePickerModal
+       format="DD-MM-YYYY"
+       isVisible={this.state.isDatePickerVisible}
+       mode={this.state.mode}
+       onConfirm={this.handleConfirm}
+       onCancel={this.hideDatePicker}
+       headerTextIOS = {this.state.mode=='time' ? 'Pick A Time':null }
+       isDarkModeEnabled = {this.state.colorMode === 'dark' ? true:false}
+       />
+
       <Block  card style={cardContainer}>
        <Block  style={imgContainer}>
          <Image source={{uri: 'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}} style={localstyles.fullImage} />
@@ -35,6 +114,7 @@ class EventOwnerScreen extends Component {
             <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"   ></Ionicons>
           </TouchableOpacity>
        </Block>
+
        <Block flex space="between" style={localstyles.cardDescription}>
          <Text  style={localstyles.cardTitle}>Guests</Text>
       <SafeAreaView style={styles.contactRowStack}>
@@ -67,13 +147,46 @@ class EventOwnerScreen extends Component {
              <Text style ={styles.statAmount}>3</Text>
              <Text style = {styles.statTitle}>NOT ATTENDING</Text>
           </TouchableOpacity>
-         </View>
+       </View>
       </Block>
 
       <Block  card style={statscardContainer}>
-      <Block flex space="between" style={localstyles.cardDescription}>
-      <Text  style={localstyles.cardTitle}>Location</Text>
+
+        <Block flex space="between" style={localstyles.cardDescription}>
+          <Text  style={localstyles.cardTitle}>Location</Text>
+          </Block>
+
       </Block>
+
+      <Block  card style={statscardContainer}>
+      <View style={styles.contactRowStack}>
+      <Block flex space="between" style={localstyles.cardDescription}>
+
+        <Text  style={localstyles.cardTitle}>DATE</Text>
+
+        <Block flex row style = {{marginTop:5,marginLeft:5}}>
+          { this.props._event.date != null ?
+            <Date date={this.props._event.date}/>
+            :<Text style = {localstyles.cardtext}>No Date</Text>
+          }
+          <TouchableOpacity style = {ovalButton} onPress={()=>{this.showDatePicker()}}>
+            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}} > DATE </Text>
+          </TouchableOpacity>
+        </Block>
+
+
+        <Block flex row style = {{marginTop:5,marginLeft:5}}>
+          { this.props._event.time != null ?
+            <Time time={this.props._event.time}/>
+            :<Text style = {localstyles.cardtext}>No Time</Text>
+          }
+          <TouchableOpacity style = {ovalButton}  onPress={()=>{this.showTimePicker()}}>
+           <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}}> Time </Text>
+          </TouchableOpacity>
+        </Block>
+
+      </Block>
+      </View>
       </Block>
 
       <Block style = {{marginBottom:20,marginLeft:5}}>
@@ -108,6 +221,9 @@ const localstyles = StyleSheet.create({
     marginBottom: 10,
 
   },
+  m:{
+    marginTop:10
+  },
   thumb: {
   borderRadius: 4,
   marginVertical: 4,
@@ -134,6 +250,14 @@ const localstyles = StyleSheet.create({
     justifyContent:'center',
 
 },
+cardtext: {
+  flex: 1,
+  flexWrap: 'wrap',
+  fontSize:20,
+  fontWeight:'bold',
+  alignItems:"center",
+  justifyContent:"center"
+},
 addUser: {
   width: 40,
   height: 40,
@@ -143,6 +267,9 @@ addUser: {
   alignItems:'center',
   marginLeft:4
 
+},
+contactRowStack:{
+  marginTop:15
 },
   statscard: {
     backgroundColor: 'white',
@@ -203,12 +330,11 @@ articles: {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({},dispatch)
+    return bindActionCreators({updateDate,updateTime},dispatch)
   }
   const mapStateToProps = (state) => {
     return {
-      user: state.user,
-      card: state.card
+      _event:state._event
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(EventOwnerScreen)
