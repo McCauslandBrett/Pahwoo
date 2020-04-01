@@ -61,7 +61,7 @@ export const signup = () => {
             contacts: [],
             requests: [],
             receivedCards: [], // new received cards array for CardScreen
-            savedTemplates: [] // saved/sent cards
+            userCards: [] // saved/sent cards
           }
           db.collection("users").doc(id).set(user)
           dispatch({type:'SIGNUP',payload:user})

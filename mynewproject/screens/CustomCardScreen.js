@@ -42,7 +42,7 @@ class CustomCardScreen extends Component{
     newName: '',
     // selectedItems: [],
     // contactData: [],
-    savedTemplates: [],
+    userCards: [],
     selected: '',
     cardObjects: {}
   }
@@ -51,12 +51,12 @@ class CustomCardScreen extends Component{
      // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
      await this.props.createCard(this.state.newName, [])
      // need to add card to this components cards so it can rerender
-     let tempData = this.state.savedTemplates
+     let tempData = this.state.userCards
      let tempObj = this.state.cardObjects
      tempData.push(this.props.card)
      tempObj[this.props.card.id] = this.props.card
      tempData.sort((a, b) => (a.name > b.name) ? 1 : -1)
-     this.setState({savedTemplates: tempData});
+     this.setState({userCards: tempData});
      this.setState({cardObjects: tempObj});
      this.setModalVisible(!this.state.modalVisible)
      this.props.navigation.navigate('FreshCards')
@@ -70,8 +70,8 @@ class CustomCardScreen extends Component{
           let userObj = {}
           const user =  await db.collection("users").doc(this.props.user.uid).get();
           userObj = user.data()
-          for (var i = 0; i < userObj.savedTemplates.length; i++){
-              const query = await db.collection('cards').doc(userObj.savedTemplates[i]).get()
+          for (var i = 0; i < userObj.userCards.length; i++){
+              const query = await db.collection('cards').doc(userObj.userCards[i]).get()
               tempData.push(query.data())
               cardMap[query.data().id] = query.data()
           }
@@ -79,7 +79,7 @@ class CustomCardScreen extends Component{
           alert(e)
       }
       tempData.sort((a, b) => (a.name > b.name) ? 1 : -1)
-      this.setState({savedTemplates: tempData});
+      this.setState({userCards: tempData});
       this.setState({cardObjects: cardMap});
    }
   
@@ -109,7 +109,7 @@ class CustomCardScreen extends Component{
           </ScrollView>
              <SafeAreaView style={styles.cardListContainer}>
                 <FlatList
-                        data={this.state.savedTemplates}
+                        data={this.state.userCards}
                         numColumns={2}
                         renderItem={({ item }) => (
                         <Item
