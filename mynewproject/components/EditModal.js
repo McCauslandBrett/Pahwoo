@@ -30,8 +30,15 @@ class EditModal extends Component{
     isOnBoldToggleSwitch: false,
     isOnItalicToggleSwitch:false,
     defaultTextSize:32,
-    defaultColor:'black'
+    defaultColor:'black',
+    colorVisible:false,
   };
+  toggleColorModal = (bool) => {
+    this.setState({
+      colorVisible:bool
+    })
+
+  }
   render(){
 
   return(
@@ -53,13 +60,13 @@ class EditModal extends Component{
 
                  <ColorPicker
                   name = {this.props.name}
-                  toggleColorModal = {this.props.toggleColorModal}
+                  toggleColorModal = {this.toggleColorModal}
                   updateTextColor = {this.props.updateTextColor}
                   text_color = {this.props.text_color}
-                  isVisible = {this.props.isColorModalVisible}
+                  isVisible = {this.state.colorVisible}
                   />
 
-                 <TouchableOpacity onPress={() => this.props.toggleColorModal(true)} >
+                 <TouchableOpacity onPress={() => this.toggleColorModal(true)} >
                       <View style={localstyles.square}
                        backgroundColor={this.props.text_color == null ? 'black':
                        fromHsv({ h: this.props.text_color.hue, s: this.props.text_color.sat, v:this.props.text_color.val })}
