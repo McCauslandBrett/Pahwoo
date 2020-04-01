@@ -18,7 +18,7 @@ export const createCard = (newName, recipientsList) => {
                 cover_text_color: null,
                 cover_text_bold: false,
                 cover_text_italic: false,
-                isCoverModalVisible: false,
+
 
                 bodyone_text: newName,
                 bodyone_font: null,
@@ -29,7 +29,7 @@ export const createCard = (newName, recipientsList) => {
                 bodyone_text_color: null,
                 bodyone_text_bold: false,
                 bodyone_text_italic: false,
-                isBodyoneModalVisible: false,
+
 
                 bodytwo_text: newName,
                 bodytwo_font: null,
@@ -40,7 +40,7 @@ export const createCard = (newName, recipientsList) => {
                 bodytwo_text_color: null,
                 bodytwo_text_bold: false,
                 bodytwo_text_italic: false,
-                isBodytwoModalVisible: false,
+
 
                 BackgroundImage: ''
             }
@@ -130,7 +130,7 @@ export const saveCard = (selectedItems) => {
                 cover_text_color: card.cover_text_color,
                 cover_text_bold: card.cover_text_bold,
                 cover_text_italic: card.cover_text_italic,
-                isCoverModalVisible: card.isCoverModalVisible,
+
 
                 bodyone_text: card.bodyone_text,
                 bodyone_font: card.bodyone_font,
@@ -141,7 +141,7 @@ export const saveCard = (selectedItems) => {
                 bodyone_text_color: card.bodyone_text_color,
                 bodyone_text_bold: card.bodyone_text_bold,
                 bodyone_text_italic: card.bodyone_text_italic,
-                isBodyoneModalVisible: card.isBodyoneModalVisible,
+
 
                 bodytwo_text: card.bodytwo_text,
                 bodytwo_font: card.bodytwo_font,
@@ -152,7 +152,7 @@ export const saveCard = (selectedItems) => {
                 bodytwo_text_color: card.bodytwo_text_color,
                 bodytwo_text_bold: card.bodytwo_text_bold,
                 bodytwo_text_italic: card.bodytwo_text_italic,
-                isBodytwoModalVisible: card.isBodytwoModalVisible,
+
             });
             // this function is missing the dispaches. We might not have to dispatch every single field.
             // Instead, we could dispatch the entire card object from the database, just like how the
@@ -226,16 +226,9 @@ export const updateCoverTextItalic = (_bool) => {
     dispatch(updateCoverItalic(_bool))
 }
 }
-export const toggleCoverModal = ( isCoverModalVisible) => {
-  return {type:'TOGGLE_MODAL_COVER', payload: isCoverModalVisible}
-}
-export const toggleCoverColorModal = ( isModalVisible) => {
-  return {type:'TOGGLE_MODAL_COVER_COLOR', payload: isModalVisible}
-}
+
 // body One
-export const toggleBodyoneColorModal = ( isModalVisible) => {
-  return {type:'TOGGLE_MODAL_BODY_ONE_COLOR', payload: isModalVisible}
-}
+
 export const updateBodyoneTextColor = (color_obj) => {
   return {type:'UPDATE_BODY_ONE_TEXT_COLOR', payload:color_obj}
 }
@@ -280,9 +273,7 @@ export const updateBodyoneTextItalic = (_bool) => {
     dispatch(updateBodyoneItalic(_bool))
 }
 }
-export const toggleBodyoneModal = ( isBodyoneModalVisible) => {
-  return {type:'TOGGLE_MODAL_BODY_ONE', payload: isBodyoneModalVisible}
-}
+
 // Body Two
 export const updateBodytwoTextColor = (color) => {
   return {type:'UPDATE_BODY_TWO_TEXT_COLOR', payload:color}
@@ -330,9 +321,6 @@ export const updateBodytwoTextItalic = (_bool) => {
     dispatch({type:'UPDATE_BODY_TWO_TEXT_ITALIC', payload:_bool})
     dispatch(updateBodytwoItalic(_bool))
 }
-}
-export const toggleBodytwoModal = ( isCoverModalVisible) => {
-  return {type:'TOGGLE_MODAL_BODY_TWO', payload: isCoverModalVisible}
 }
 
 // precondition: User selected a card from device

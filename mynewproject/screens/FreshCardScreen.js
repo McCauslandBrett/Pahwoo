@@ -14,21 +14,20 @@ import {
         updateCoverText,updateCoverFont,
         updateCoverTextAlignment,updateCoverBold,
         updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
-        toggleCoverColorModal,
+
 
         updateBodyoneText,updateBodyoneFont,
         updateBodyoneTextAlignment,updateBodyoneBold,
         updateBodyoneItalic,updateBodyoneTextSize,updateBodyoneTextColor,
-        toggleBodyoneColorModal,
+
 
         updateBodytwoText,updateBodytwoFont,
         updateBodytwoTextAlignment,updateBodytwoBold,
         updateBodytwoItalic,updateBodytwoTextSize,updateBodytwoTextColor,
-        toggleBodytwoColorModal,
+
 
         createCard,
-        sendCard, saveCard, toggleCoverModal,
-        toggleBodyoneModal, toggleBodytwoModal} from '../actions/card.js'
+        sendCard, saveCard} from '../actions/card.js'
 
 import palette from '../palette.js'
 import { HeaderHeight } from "../constants/utils";
@@ -64,6 +63,9 @@ class FreshCardScreen extends Component{
 
   state = {
       recipients: [],
+      coverVisible:false,
+      bodyoneVisible:false,
+      bodytwoVisible:false,
       selectContactsVisible: false,
       selectedItems: [],
       selected: '',
@@ -72,6 +74,21 @@ class FreshCardScreen extends Component{
       // will be useful to get this mapping during ComponentDidMount() when querying the contacts array
       contactAvatarMapping: [],
       contactData: []
+  }
+  toggleCoverModal = (bool) =>{
+    this.setState({
+      coverVisible:bool
+    })
+  }
+  toggleBodyoneModal = (bool) =>{
+    this.setState({
+      bodyoneVisible:bool
+    })
+  }
+  toggleBodytwoModal = (bool) =>{
+    this.setState({
+      bodytwoVisible:bool
+    })
   }
   setSelectContactsModalVisible = (visible) => {
     this.setState({selectContactsVisible: visible});
@@ -140,9 +157,9 @@ class FreshCardScreen extends Component{
          <ScrollView showsVerticalScrollIndicator={false}>
 
         <EditModal
-          toggle = {this.props.toggleCoverModal}
+          toggle = {this.toggleCoverModal}
           name = "Cover"
-          isModalVisible ={this.props.card.isCoverModalVisible}
+          isModalVisible ={this.state.coverVisible}
           text_color = {this.props.card.cover_text_color}
           updateAlignment= {this.props.updateCoverTextAlignment}
           updateFont= {this.props.updateCoverFont}
@@ -152,15 +169,13 @@ class FreshCardScreen extends Component{
           isItalic= {this.props.card.cover_italic}
           updateItalic = {this.props.updateCoverItalic}
           updateBold = {this.props.updateCoverBold}
-          toggleColorModal = {this.props.toggleCoverColorModal}
-          isColorModalVisible = {this.props.card.isCoverColorModalVisible}
           updateTextColor = {this.props.updateCoverTextColor}
 
           />
         <EditModal
-            toggle = {this.props.toggleBodyoneModal}
+            toggle = {this.toggleBodyoneModal}
             name = "BODY ONE"
-            isModalVisible ={this.props.card.isBodyoneModalVisible}
+            isModalVisible ={this.state.bodyoneVisible}
             text_color = {this.props.card.bodyone_text_color}
             updateAlignment= {this.props.updateBodyoneTextAlignment}
             updateFont= {this.props.updateBodyoneFont}
@@ -170,15 +185,13 @@ class FreshCardScreen extends Component{
             isItalic= {this.props.card.bodyone_italic}
             updateItalic = {this.props.updateBodyoneItalic}
             updateBold = {this.props.updateBodyoneBold}
-            toggleColorModal = {this.props.toggleBodyoneColorModal}
-            isColorModalVisible = {this.props.card.isBodyoneColorModalVisible}
             updateTextColor = {this.props.updateBodyoneTextColor}
 
             />
         <EditModal
-              toggle = {this.props.toggleBodytwoModal}
+              toggle = {this.toggleBodytwoModal}
               name = "BODY TWO"
-              isModalVisible ={this.props.card.isBodytwoModalVisible}
+              isModalVisible ={this.state.bodytwoVisible}
               text_color = {this.props.card.bodytwo_text_color}
               updateAlignment= {this.props.updateBodytwoTextAlignment}
               updateFont= {this.props.updateBodytwoFont}
@@ -188,21 +201,19 @@ class FreshCardScreen extends Component{
               isItalic= {this.props.card.bodytwo_italic}
               updateItalic = {this.props.updateBodytwoItalic}
               updateBold = {this.props.updateBodytwoBold}
-              toggleColorModal = {this.props.toggleBodytwoColorModal}
-              isColorModalVisible = {this.props.card.isBodytwoColorModalVisible}
               updateTextColor = {this.props.updateBodytwoTextColor}
-
               />
            <View >
             <TextinCover/>
-              <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleCoverModal(true)}}>
+              <TouchableOpacity  style = {styles.mdmore}
+              onPress={() => {this.toggleCoverModal(true)}}>
                   <Ionicons  name="md-more" size={28} />
               </TouchableOpacity>
            </View>
 
             <View >
              <TextinBodyone/>
-               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodyoneModal(true)}}>
+               <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.toggleBodyoneModal(true)}}>
                    <Ionicons  name="md-more" size={28} />
                </TouchableOpacity>
             </View>
@@ -233,7 +244,7 @@ class FreshCardScreen extends Component{
                     onChangeText = {input => this.props.updateBodytwoText(input)}
                     placeholder = 'BODY TWO'
             />
-            <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.props.toggleBodytwoModal(true)}}>
+            <TouchableOpacity  style = {styles.mdmore} onPress={() => {this.toggleBodytwoModal(true)}}>
                 <Ionicons  name="md-more" size={28}/>
             </TouchableOpacity>
           </View>
@@ -389,21 +400,21 @@ const mapDispatchToProps = (dispatch) => {
     updateCoverText,updateCoverFont,
     updateCoverTextAlignment,updateCoverBold,
     updateCoverItalic,updateCoverTextSize,updateCoverTextColor,
-    toggleCoverColorModal,
+
 
     updateBodyoneText,updateBodyoneFont,
     updateBodyoneTextAlignment,updateBodyoneBold,
     updateBodyoneItalic,updateBodyoneTextSize,updateBodyoneTextColor,
-    toggleBodyoneColorModal,
+
 
     updateBodytwoText,updateBodytwoFont,
     updateBodytwoTextAlignment,updateBodytwoBold,
     updateBodytwoItalic,updateBodytwoTextSize,updateBodytwoTextColor,
-    toggleBodytwoColorModal,
+
 
     createCard,
-    sendCard, saveCard, toggleCoverModal,
-    toggleBodyoneModal, toggleBodytwoModal},dispatch)
+    sendCard, saveCard,
+    },dispatch)
 }
 const mapStateToProps = (state) => {
   return {

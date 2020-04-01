@@ -79,13 +79,9 @@ const card = (state = {},action) => {
         return {...state, cover_text_bold: action.payload}
     case 'UPDATE_COVER_TEXT_ITALIC':
           return {...state, cover_text_italic: action.payload}
-    case 'TOGGLE_MODAL_COVER':
-          return {...state, isCoverModalVisible: action.payload}
-    case 'TOGGLE_MODAL_COVER_COLOR':
-          return {...state, isCoverColorModalVisible: action.payload}
+
     // BODY ONE
-    case 'TOGGLE_MODAL_BODY_ONE_COLOR':
-          return {...state, isBodyoneColorModalVisible: action.payload}
+
     case 'UPDATE_BODY_ONE_TEXT_COLOR':
         return {...state, bodyone_text_color: action.payload}
     case 'UPDATE_BODY_ONE_TEXT':
@@ -104,11 +100,9 @@ const card = (state = {},action) => {
         return {...state, bodyone_text_bold: action.payload}
     case 'UPDATE_BODY_ONE_TEXT_ITALIC':
         return {...state, bodyone_text_italic: action.payload}
-    case 'TOGGLE_MODAL_BODY_ONE':
-        return {...state, isBodyoneModalVisible: action.payload}
+
     // BODY TWO
-    case 'TOGGLE_MODAL_BODY_TWO_COLOR':
-          return {...state, isBodytwoColorModalVisible: action.payload}
+
     case 'UPDATE_BODY_TWO_TEXT':
         return {...state, bodytwo_text: action.payload}
     case 'UPDATE_BODY_TWO_FONT':
@@ -127,8 +121,6 @@ const card = (state = {},action) => {
         return {...state, bodytwo_text_bold: action.payload}
     case 'UPDATE_BODY_TWO_TEXT_ITALIC':
         return {...state, bodytwo_text_italic: action.payload}
-    case 'TOGGLE_MODAL_BODY_TWO':
-        return {...state, isBodytwoModalVisible: action.payload}
     default:
         return state
   }
