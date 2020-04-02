@@ -10,3 +10,6 @@ export const updateTime = (time) => {
 export const uploadImage = (uri) => {
     return {type:'SET_IMAGE', payload:uri}
     }
+export const updateLocation = (text) => {
+    return {type:'UPDATE_LOCATION', payload:text}
+    }
