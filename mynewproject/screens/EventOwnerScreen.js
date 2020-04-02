@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import { StyleSheet, Dimensions,  View, Text,
   Image,TouchableOpacity,Modal,
-  ScrollView, Button ,SafeAreaView} from 'react-native';
+  ScrollView, Button ,SafeAreaView,TextInput } from 'react-native';
 
 import { SocialIcon } from 'react-native-elements'
 import { Block, theme } from 'galio-framework';
@@ -22,7 +22,7 @@ import { Appearance, useColorScheme } from 'react-native-appearance';
 import {updateDate,updateTime} from '../actions/event.js'
 import Date from '../components/Date.js'
 import Time from '../components/Time.js';
-import {uploadImage} from '../actions/event.js'
+import {uploadImage,updateLocation} from '../actions/event.js'
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 class EventOwnerScreen extends Component {
@@ -173,6 +173,15 @@ class EventOwnerScreen extends Component {
 
         <Block flex space="between" style={localstyles.cardDescription}>
           <Text  style={localstyles.cardTitle}>Location</Text>
+          <TextInput
+              multiline = {true}
+              style = {localstyles.textinput}
+              value = {this.props._event.location}
+              onChangeText =  {input => this.props.updateLocation(input)}
+              placeholder = 'number,street,city,state,zip'
+              placeholderTextColor= 'gray'
+              placeholderTextSize = {30}
+          />
           </Block>
 
       </Block>
@@ -304,6 +313,10 @@ contactRowStack:{
     fontSize:28,
     fontWeight:'bold'
   },
+  textinput:{
+    fontSize:25,
+    color:'black'
+  },
   cardDescription: {
      padding: theme.SIZES.BASE / 2,
   },
@@ -349,7 +362,7 @@ articles: {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({updateDate,updateTime,uploadImage},dispatch)
+    return bindActionCreators({updateDate,updateTime,uploadImage,updateLocation},dispatch)
   }
   const mapStateToProps = (state) => {
     return {
