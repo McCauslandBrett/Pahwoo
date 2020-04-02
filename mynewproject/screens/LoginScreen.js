@@ -13,7 +13,7 @@ class LoginScreen extends Component{
     static navigationOptions = {
     header:null
   }
-  
+
   // Function called when component loads/reloads
   componentDidMount = async () => {
     firebase.auth().onAuthStateChanged( async (user)=>{
@@ -25,8 +25,8 @@ class LoginScreen extends Component{
       }
     })
   }
-  
-  
+
+
   login = () => {
     this.props.login()
   }
@@ -39,12 +39,14 @@ class LoginScreen extends Component{
           value = {this.props.user.email}
           onChangeText = {input => this.props.updateEmail(input)}
           placeholder = 'Email'
+          placeholderTextColor= 'gray'
        />
        <TextInput
           style = {styles.border} // remove when updating global styling if you with
           value = {this.props.user.password}
           onChangeText = {input => this.props.updatePassword(input)}
           placeholder = 'Password'
+          placeholderTextColor= 'gray'
           secureTextEntry={true}
         />
         <Button title ="Login" onPress = {()=> this.login()} />

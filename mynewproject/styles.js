@@ -23,7 +23,7 @@ export default styles = StyleSheet.create({
    color:'blue',
    fontWeight:'bold',
  },
- 
+
  modalStyle:{
    justifyContent:'flex-end',
    height: 500,
@@ -271,7 +271,7 @@ headlessAndroidPicker: {
   contactsHeader: {
     fontSize: 20,
   },
-  
+
   text: {
     fontFamily:"HelveticaNeue",
     color: '#52575D',
@@ -351,7 +351,8 @@ headlessAndroidPicker: {
     fontSize:16,
     borderColor: '#d3d3d3',
     borderBottomWidth: 1,
-    textAlign:'center'
+    textAlign:'center',
+    color:'black'
   },
   button: {
     marginTop:20,
@@ -477,7 +478,7 @@ headlessAndroidPicker: {
     backgroundColor:"rgba(255,255,255,0.5)"
   },
   selected: {backgroundColor: "#FA7B5F"},
-  
+
   topRightBtn:{
     color:palette.ICON_COLOR,
     zIndex:1,
@@ -485,5 +486,5 @@ headlessAndroidPicker: {
     top:10,
     right:20
   }
-  
+
 });
