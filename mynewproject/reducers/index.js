@@ -44,6 +44,8 @@ const _event = (state = {},action) => {
       return {...state, date: action.payload}
     case 'UPDATE_TIME':
       return {...state, time: action.payload}
+    case 'SET_IMAGE':
+      return {...state, image: action.payload}
     default:
         return state
       }

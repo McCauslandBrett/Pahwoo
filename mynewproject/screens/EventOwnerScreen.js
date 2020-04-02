@@ -21,7 +21,10 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Appearance, useColorScheme } from 'react-native-appearance';
 import {updateDate,updateTime} from '../actions/event.js'
 import Date from '../components/Date.js'
-import Time from '../components/Time.js'
+import Time from '../components/Time.js';
+import {uploadImage} from '../actions/event.js'
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 class EventOwnerScreen extends Component {
 
 
@@ -79,6 +82,19 @@ class EventOwnerScreen extends Component {
     this.hideDatePicker();
 
   };
+  _pickImage = async () => {
+    console.log("_pickImage")
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+      else {
+        let result = await ImagePicker.launchImageLibraryAsync();
+        if (!result.cancelled) {
+           this.props.uploadImage(result.uri)
+        }
+      }
+  };
   render() {
     const daterow = [localstyles.contactRowStack,]
     const timeovalButton = [localstyles.m]
@@ -109,9 +125,12 @@ class EventOwnerScreen extends Component {
 
       <Block  card style={cardContainer}>
        <Block  style={imgContainer}>
-         <Image source={{uri: 'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}} style={localstyles.fullImage} />
-         <TouchableOpacity style = {localstyles.add} >
-            <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"   ></Ionicons>
+         <Image source={{uri: this.props._event.image == null ?
+                        'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60':
+                        this.props._event.image
+                      }} style={localstyles.fullImage} />
+         <TouchableOpacity style = {localstyles.add} onPress={()=>{this._pickImage()}} >
+            <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"  ></Ionicons>
           </TouchableOpacity>
        </Block>
 
@@ -330,7 +349,7 @@ articles: {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({updateDate,updateTime},dispatch)
+    return bindActionCreators({updateDate,updateTime,uploadImage},dispatch)
   }
   const mapStateToProps = (state) => {
     return {

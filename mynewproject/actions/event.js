@@ -7,3 +7,6 @@ export const updateDate = (date) => {
 export const updateTime = (time) => {
     return {type:'UPDATE_TIME', payload:time}
 }
+export const uploadImage = (uri) => {
+    return {type:'SET_IMAGE', payload:uri}
+    }
