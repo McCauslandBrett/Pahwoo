@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
 import {Ionicons,AntDesign} from "@expo/vector-icons";
-
+import {uploadImage} from '../actions/event.js'
 
 class EventScreen extends Component{
   static navigationOptions = {
@@ -14,6 +14,19 @@ class EventScreen extends Component{
       <Icon.FontAwesome name= "spoon" style = {{fontSize:24, color:tintColor}}/>
     )
   }
+  _pickImage = async () => {
+    console.log("_pickImage")
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+      else {
+        let result = await ImagePicker.launchImageLibraryAsync();
+        if (!result.cancelled) {
+           this.props.uploadImage(result.uri)
+        }
+      }
+  };
   render(){
     return(
       <SafeAreaView >
@@ -29,11 +42,11 @@ class EventScreen extends Component{
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({},dispatch)
+  return bindActionCreators({uploadImage},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    event: state.event
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(EventScreen)
