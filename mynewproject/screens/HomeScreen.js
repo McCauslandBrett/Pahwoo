@@ -51,7 +51,12 @@ class HomeScreen extends Component{
              <View style = {styles.container}>
               <View style = {{marginTop:60, alignItems:"center"}}>
               <View style = {styles.avatarContainer}>
-                 <Image style = {styles.avatar} source = {{uri:this.props.user.profileImage}}/>
+                 <Image style = {styles.avatar}
+                 source={this.props.user.profileImage === null
+                          ? require('../assets/imgs/image.png')
+                          : {uri:this.props.user.profileImage}
+                        }
+                  />
                  <TouchableOpacity style = {styles.add} onPress = {()=> this._pickImage()}>
                     <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"   ></Ionicons>
                   </TouchableOpacity>

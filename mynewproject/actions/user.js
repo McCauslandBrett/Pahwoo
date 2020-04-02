@@ -71,7 +71,7 @@ export const signup = () => {
       }
     }
   }
-  
+
   // why do we need this, are we using this?
 export const  updateProfileImage = (image_id) => {
  return {type:'UPDATE_PROFILE_IMAGE',payload:image_id}
@@ -102,7 +102,7 @@ export const uploadImage = (uri) => {
             birthday:getState().user.birthday,
             profileImage: downloadUrl
         }
-        
+
         db.collection("users").doc(user.uid).update(user)
         dispatch({type:'UPDATE_PROFILE_IMAGE', payload:user.profileImage})
         console.log("Update user in db")
@@ -139,7 +139,7 @@ export const makeFriends = (accepted, newContactID, newContactUsername) => {
             } catch(e){
                 alert(e)
             }
-                
+
         } else {
             // TODO: friend request denied
             try {
