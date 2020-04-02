@@ -413,7 +413,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
     createCard,
-    sendCard, saveCard,
+    sendCard, saveCard,uploadCardBackgroundImage
     },dispatch)
 }
 const mapStateToProps = (state) => {
