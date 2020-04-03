@@ -57,7 +57,7 @@ export const signup = () => {
             email:email,
             username:username,
             birthday:birthday,
-            profileImage: '',
+            profileImage: null,
             contacts: [],
             requests: [],
             receivedCards: [], // new received cards array for CardScreen
