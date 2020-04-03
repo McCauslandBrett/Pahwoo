@@ -5,7 +5,7 @@ import {Header, Left, Right} from 'native-base';
 import { List, Checkbox } from 'react-native-paper';
 import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
-
+import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {logout} from '../actions/user.js'
@@ -43,6 +43,20 @@ _handlePress = () =>
 
           <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
           <Ionicons name="md-more" size={24} style = {styles.mdmore} />
+          <View style = {{marginBottom:50}} />
+
+          <Collapse>
+            <CollapseHeader>
+              <View>
+                <Text>Click here</Text>
+              </View>
+            </CollapseHeader>
+            <CollapseBody>
+              <Text>Ta daa!</Text>
+              <Text>Ta daa!</Text>
+              <Text>Ta daa!</Text>
+            </CollapseBody>
+          </Collapse>
 
 
       <View style = {{marginTop:60, alignItems:"center"}}>
@@ -51,25 +65,7 @@ _handlePress = () =>
           <View   style = {styles.border}>
             <Button title ="logout" onPress = {()=> this.logout()} />
           </View>
-          <List.Section title="Accordions">
-              <List.Accordion
-                title="Uncontrolled Accordion"
-                left={props => <List.Icon {...props} icon="folder" />}
-              >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-          </List.Accordion>
 
-        <List.Accordion
-          title="Controlled Accordion"
-          left={props => <List.Icon {...props} icon="folder" />}
-          expanded={this.state.expanded}
-          onPress={this._handlePress}
-        >
-          <List.Item title="First item" />
-          <List.Item title="Second item" />
-        </List.Accordion>
-      </List.Section>
 
           <View   style = {styles.border}>
             <Text>Hello</Text>
