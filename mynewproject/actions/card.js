@@ -337,3 +337,8 @@ export const uploadCardBackgroundImage = (uri) => {
 
     }
 }
+export const flushCardState = () => {
+    return async (dispatch) => {
+        dispatch({type:'FLUSH_CARD', payload:[]})
+    }
+}

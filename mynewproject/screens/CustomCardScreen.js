@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
 import {AntDesign} from "@expo/vector-icons";
 import db from '../config/firebase';
-import {createCard, setCard} from '../actions/card.js'
+import {createCard, setCard, flushCardState} from '../actions/card.js'
 
 
 import styles from '../styles.js'
@@ -92,6 +92,11 @@ class CustomCardScreen extends Component{
         await this.props.setCard(this.state.cardObjects[id])
         this.props.navigation.navigate('FreshCards')
     }
+    
+  flushAndNavigate = () => {
+      this.props.flushCardState();
+      this.props.navigation.navigate('FreshCards');
+  }
    
   render(){
     return(
@@ -102,7 +107,7 @@ class CustomCardScreen extends Component{
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
-                 <Button title ="Cards" onPress = {()=> this.props.navigation.navigate('FreshCards')} />
+                 <Button title ="Cards" onPress = {()=> this.flushAndNavigate()} />
                  <Text> Edit Previous Cards</Text>
 
              </View>
@@ -153,7 +158,7 @@ class CustomCardScreen extends Component{
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, setCard},dispatch)
+  return bindActionCreators({createCard, setCard, flushCardState},dispatch)
 }
 const mapStateToProps = (state) => {
   return {

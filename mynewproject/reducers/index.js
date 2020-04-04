@@ -56,6 +56,8 @@ const card = (state = {},action) => {
   switch (action.type) {
     case 'GET_CARD':
         return action.payload
+    case 'FLUSH_CARD':
+        return action.payload
     case 'SET_ID':
         return {...state, id: action.payload}
     case 'SET_NAME':

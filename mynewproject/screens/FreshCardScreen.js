@@ -118,7 +118,10 @@ class FreshCardScreen extends Component{
     let contacts = []
     // for loop with async calls
     // get each recipient
-    for (var i = 0; i < this.props.card.recipients.length; i++){
+    
+    //the following ternary function got rid of the warning about recipients being undefined
+    let recipientsArray = this.props.card.recipients === undefined ? [] : this.props.card.recipients;
+    for (var i = 0; i < recipientsArray.length; i++){
         const query = await db.collection('users').where('uid', '==', this.props.card.recipients[i]).get()
         query.forEach((response) => {
             tempData.push({
@@ -139,7 +142,7 @@ class FreshCardScreen extends Component{
             mapping[this.props.user.contacts[i]] = [response.data().profileImage, response.data().username]
         })
     }
-    console.log(contacts);
+    
     this.setState({contactAvatarMapping: mapping});
     this.setState({recipients: tempData});
     this.setState({contactData: contacts});
