@@ -15,6 +15,7 @@ import {logout} from '../actions/user.js'
 import firebase from 'firebase';
 import styles from '../styles.js'
 import { Chevron } from 'react-native-shapes';
+import Accordian from '../components/Acordian.js'
 class SettingScreen extends Component{
 
   static navigationOptions = {
@@ -45,33 +46,10 @@ _handlePress = () =>
    <ScrollView showsVerticalScrollIndicator={false}>
 
           <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-          
+
           <View style = {{marginBottom:50}} />
 
-          <Collapse>
-            <CollapseHeader>
-              <View style = {localstyles.rowcontainer}>
-                  <MaterialCommunityIcons name= "palette-advanced" style = {localstyles.optionlogo}/>
-                  <Text style = {localstyles.optiontextTitle}>Theme Options </Text>
-                  <Icon.AntDesign style = {localstyles.optiontoggle} size={24} name= "down" color="gray" />
-              </View>
-            </CollapseHeader>
-            <CollapseBody style = {localstyles.container}>
-
-             <View style = {localstyles.optionContainer}>
-              <Text style = {localstyles.option}> light Mode </Text>
-             </View>
-
-             <View style = {localstyles.optionContainer}>
-              <Text style = {localstyles.option}> Dark Mode </Text>
-             </View>
-
-              <View style = {localstyles.optionContainer}>
-                <Text style = {localstyles.option}> Pahwoo </Text>
-              </View>
-
-            </CollapseBody>
-          </Collapse>
+          <Accordian/>
 
           <TouchableOpacity onPress = {()=> this.logout()} style = {localstyles.rowcontainer}>
             <SimpleLineIcons name= "logout" style = {localstyles.optionlogo}/>

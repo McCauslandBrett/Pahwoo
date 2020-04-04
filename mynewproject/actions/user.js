@@ -20,6 +20,9 @@ export const updateUsername = (username) => {
 export const updateBirthday = (birthday) => {
   return {type:'UPDATE_BIRTHDAY', payload:birthday}
 }
+export const setMode = (mode) => {
+  return {type:'SET_MODE', payload:mode}
+}
 export const getUser = (uid) => {
   return async (dispatch,getState) => {
     try {
