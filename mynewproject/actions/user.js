@@ -56,11 +56,12 @@ export const signup = () => {
           const id = response.user.uid
           if(id){
             const user = {
+            theme:0,
             uid:id,
             email:email,
             username:username,
             birthday:birthday,
-            profileImage: '',
+            profileImage: null,
             contacts: [],
             requests: [],
             receivedCards: [], // new received cards array for CardScreen

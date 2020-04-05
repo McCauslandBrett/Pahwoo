@@ -8,7 +8,7 @@ import Icon  from "../components/icons.js";
 import {Ionicons,Entypo,
         MaterialCommunityIcons,
         SimpleLineIcons,AntDesign} from "@expo/vector-icons";
-import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {logout} from '../actions/user.js'
@@ -16,6 +16,19 @@ import firebase from 'firebase';
 import styles from '../styles.js'
 import { Chevron } from 'react-native-shapes';
 import Accordian from '../components/Acordian.js'
+
+const theme = [
+  {
+    BACKGROUND:'white',
+
+  },
+  {
+    BACKGROUND:"#E1BEE7",
+  },
+  {
+    BACKGROUND:'orange',
+  }
+]
 class SettingScreen extends Component{
 
   static navigationOptions = {
@@ -40,9 +53,11 @@ _handlePress = () =>
 
   render(){
 
-    const optionContainer = [localstyles.rowcontainer]
+    const optionContainer = [localstyles.rowcontainer];
+
     return(
-      <SafeAreaView >
+
+      <SafeAreaView style = {localstyles.backdrop} >
    <ScrollView showsVerticalScrollIndicator={false}>
 
           <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
@@ -85,6 +100,7 @@ _handlePress = () =>
 
       </ScrollView>
   </SafeAreaView>
+
     );
   }
 }
@@ -119,6 +135,11 @@ const localstyles = StyleSheet.create({
   },
   option:{
     fontSize:20
+  },
+  backdrop:{
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: theme[1].BACKGROUND
   }
 });
 const mapDispatchToProps = (dispatch) => {

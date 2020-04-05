@@ -14,7 +14,7 @@ import Icon  from "../components/icons.js";
 class Acordian extends Component{
 
    OptionText(text,mode){
-     if(mode == this.props.user.theme || (mode =='light-mode' && this.props.user.theme ==null )){
+     if(mode == this.props.user.theme){
        return <Text style = {localstyles.optionSelected}> {text} </Text>
      }
      else{
@@ -39,22 +39,19 @@ class Acordian extends Component{
 
       <CollapseBody style = {localstyles.container}>
 
-        <TouchableOpacity onPress={()=>this.props.setMode('light-mode')} style = {localstyles.optionContainer}>
-         {this.OptionText('Light Mode','light-mode')}
-         {
-          this.props.user.theme == 'light-mode' ? CHECKMARK:
-          this.props.user.theme == null ? CHECKMARK:null
-         }
+        <TouchableOpacity onPress={()=>this.props.setMode(0)} style = {localstyles.optionContainer}>
+         {this.OptionText('Light Mode',0)}
+         {this.props.user.theme == 0 ? CHECKMARK:null}
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>this.props.setMode('dark-mode')} style = {localstyles.optionContainer}>
-         {this.OptionText('Dark Mode','dark-mode')}
-         { this.props.user.theme == 'dark-mode' ? CHECKMARK:null}
+        <TouchableOpacity onPress={()=>this.props.setMode(1)} style = {localstyles.optionContainer}>
+         {this.OptionText('Dark Mode',1)}
+         { this.props.user.theme == 1 ? CHECKMARK:null}
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>this.props.setMode('pahwoo-mode')} style = {localstyles.optionContainer}>
-         {this.OptionText('Pahwoo Mode','pahwoo-mode')}
-         {this.props.user.theme == 'pahwoo-mode' ? CHECKMARK:null}
+        <TouchableOpacity onPress={()=>this.props.setMode(2)} style = {localstyles.optionContainer}>
+         {this.OptionText('Pahwoo Mode',2)}
+         {this.props.user.theme == 2 ? CHECKMARK:null}
         </TouchableOpacity>
 
       </CollapseBody>
