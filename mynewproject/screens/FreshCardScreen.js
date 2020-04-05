@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity,
         Modal, TextInput,SafeAreaView,ScrollView,
-        FlatList, Image,ImageBackground,StyleSheet,Dimensions
+        FlatList, Image,ImageBackground,StyleSheet,Dimensions, Alert
        } from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -44,6 +44,8 @@ import { fromHsv } from 'react-native-color-picker'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import store from '.././store';
+import { HeaderBackButton } from "react-navigation-stack";
+
 
 store.subscribe(() => {
     console.log("testing when state chANGES")
@@ -51,14 +53,19 @@ store.subscribe(() => {
 });
 
 class FreshCardScreen extends Component{
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) =>{
+    const handleClearPress = navigation.getParam("handleBackPress", () => {});
+    return {    
+    
       headerTintColor: 'black',
       headerBackTitle: null,
       headerStyle: {
         borderBottomColor:'transparent',
         borderBottomWidth: 0,
       },
-    }
+      headerLeft: <HeaderBackButton onPress={handleClearPress} />
+    };
+  }
   sendCard = async () => {
       await this.props.sendCard()
   }
@@ -118,6 +125,12 @@ class FreshCardScreen extends Component{
     console.log(this.state.selectedItems)
   };
   componentDidMount = async () => {
+    // set handler method with setParams
+    this.props.navigation.setParams({
+        handleBackPress: this._handleBackPress.bind(this)
+        });
+    
+    
     let tempData = []
     let recipientKeys = []
     let mapping = {}
@@ -153,6 +166,28 @@ class FreshCardScreen extends Component{
     this.setState({recipients: tempData});
     this.setState({contactData: contacts});
     this.setState({selectedItems: recipientKeys});
+  }
+  
+  
+  _handleBackPress() {
+    // Works on both iOS and Android
+    Alert.alert(
+      "Discard changes?",
+      "Your card will be lost if you confirm.",
+      [
+        {
+          text: "No, continue editing",
+          onPress: () => console.log("No, continue editing")
+        },
+        {
+          text: "Yes, discard changes",
+          onPress: () => {console.log("Yes, discard changes");
+                            this.props.navigation.goBack()},
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
   }
 
   render(){
