@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
-
+import theme from '../constants/themeMode.js'
 export const getContactProfile = (_bool) => {
     return {type:'UPDATE_SELECTED_PROFILE_VIEW', payload:_bool}
 }
@@ -22,6 +22,10 @@ export const updateBirthday = (birthday) => {
 }
 export const setMode = (mode) => {
   return {type:'SET_MODE', payload:mode}
+}
+export const setTheme = (mode) => {
+  console.log(theme[mode])
+  return {type:'SET_THEME', payload:theme[mode]}
 }
 export const getUser = (uid) => {
   return async (dispatch,getState) => {
@@ -56,7 +60,8 @@ export const signup = () => {
           const id = response.user.uid
           if(id){
             const user = {
-            theme:0,
+            mode:0,
+            theme:theme[0],
             uid:id,
             email:email,
             username:username,

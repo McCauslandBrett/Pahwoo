@@ -16,19 +16,8 @@ import firebase from 'firebase';
 import styles from '../styles.js'
 import { Chevron } from 'react-native-shapes';
 import Accordian from '../components/Acordian.js'
+import theme from '../constants/themeMode.js'
 
-const theme = [
-  {
-    BACKGROUND:'white',
-
-  },
-  {
-    BACKGROUND:"#E1BEE7",
-  },
-  {
-    BACKGROUND:'orange',
-  }
-]
 class SettingScreen extends Component{
 
   static navigationOptions = {
@@ -50,6 +39,9 @@ _handlePress = () =>
     this.props.logout()
     this.props.navigation.navigate('Login')
   }
+  colorStyles = ()=>{
+    backgroundColor: this.props.user.theme.BACKGROUND
+  };
 
   render(){
 
@@ -57,7 +49,7 @@ _handlePress = () =>
 
     return(
 
-      <SafeAreaView style = {localstyles.backdrop} >
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND} }>
    <ScrollView showsVerticalScrollIndicator={false}>
 
           <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />

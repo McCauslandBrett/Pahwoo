@@ -9,6 +9,8 @@ const user = (state = {},action) => {
     case 'SIGNUP':
       return action.payload
     case 'SET_MODE':
+      return {...state, mode: action.payload}
+    case 'SET_THEME':
       return {...state, theme: action.payload}
     case 'UPDATE_EMAIL':
       return {...state, email: action.payload}
