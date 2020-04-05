@@ -43,6 +43,12 @@ import MultiSelect from 'react-native-multiple-select';
 import { fromHsv } from 'react-native-color-picker'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import store from '.././store';
+
+store.subscribe(() => {
+    console.log("testing when state chANGES")
+    // the next phase would be to dispacth here some bool that will be used to check when the state changes
+});
 
 class FreshCardScreen extends Component{
   static navigationOptions = {
