@@ -42,50 +42,54 @@ _handlePress = () =>
   colorStyles = ()=>{
     backgroundColor: this.props.user.theme.BACKGROUND
   };
+  colorlogo = ()=> {
+    color: this.props.user.theme.ICON
+  };
 
   render(){
 
     const optionContainer = [localstyles.rowcontainer];
-
+    var icon = [localstyles.optionlogo,this.colorlogo];
     return(
 
-      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND} }>
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} }>
    <ScrollView showsVerticalScrollIndicator={false}>
 
-          <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+          <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
 
           <View style = {{marginBottom:50}} />
 
           <Accordian/>
 
           <TouchableOpacity onPress = {()=> this.logout()} style = {localstyles.rowcontainer}>
-            <SimpleLineIcons name= "logout" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>logout </Text>
+            <SimpleLineIcons name= "logout" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>logout </Text>
           </TouchableOpacity>
 
           <TouchableOpacity  style = {localstyles.rowcontainer}>
-            <AntDesign name= "edit" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>Username </Text>
+            <AntDesign name= "edit" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>Username </Text>
           </TouchableOpacity>
 
           <TouchableOpacity  style = {localstyles.rowcontainer}>
-            <AntDesign name= "edit" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>Email </Text>
+            <AntDesign name= "edit" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>Email </Text>
           </TouchableOpacity>
 
           <TouchableOpacity  style = {localstyles.rowcontainer}>
-            <AntDesign name= "edit" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>Password </Text>
+            <AntDesign name= "edit" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>Password </Text>
           </TouchableOpacity>
 
           <TouchableOpacity  style = {localstyles.rowcontainer}>
-            <MaterialCommunityIcons name= "calendar-edit" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>Birthday </Text>
+            <MaterialCommunityIcons name= "calendar-edit" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>Birthday </Text>
           </TouchableOpacity>
 
           <TouchableOpacity  style = {localstyles.rowcontainer}>
-            <MaterialCommunityIcons name= "credit-card-multiple" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>Payment </Text>
+            <MaterialCommunityIcons name= "credit-card-multiple" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>Payment </Text>
           </TouchableOpacity>
 
 

@@ -32,6 +32,8 @@ export const getUser = (uid) => {
     try {
       const user = await db.collection('users').doc(uid).get()
       dispatch( {type:'LOGIN',payload:user.data()})
+      dispatch( {type:'SET_THEME',payload:theme[0]})
+      dispatch( {type:'SET_MODE',payload:0})
     } catch(e){
       alert(e)
     }

@@ -18,7 +18,7 @@ class Acordian extends Component{
        return <Text style = {localstyles.optionSelected}> {text} </Text>
      }
      else{
-       return <Text style = {localstyles.option}> {text} </Text>
+       return <Text style = {[localstyles.option,{color: this.props.user.theme.TEXT}]}> {text} </Text>
      }
    }
    setmode = (num) => {
@@ -33,8 +33,8 @@ class Acordian extends Component{
       <CollapseHeader>
         <View style = {localstyles.rowcontainer}>
            <View style = {localstyles.pairContainer}>
-            <MaterialCommunityIcons name= "palette-advanced" style = {localstyles.optionlogo}/>
-            <Text style = {localstyles.optiontextTitle}>Theme Option </Text>
+            <MaterialCommunityIcons name= "palette-advanced" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>
+            <Text style = {[localstyles.optiontextTitle,{color: this.props.user.theme.TEXT}]}>Theme Option </Text>
            </View>
             <Icon.AntDesign style = {localstyles.optiontoggle} size={24} name= "down" color="gray" />
         </View>
