@@ -34,7 +34,7 @@ class CustomCardScreen extends Component{
       <Icon.FontAwesome name= "envelope" style = {{fontSize:24, color:tintColor}}/>
     )
   }
-  
+
   state = {
     modalVisible: false,
     // selectContactsVisible: false,
@@ -46,7 +46,7 @@ class CustomCardScreen extends Component{
     selected: '',
     cardObjects: {}
   }
-  
+
   createCard = async () => {
      // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
      await this.props.createCard(this.state.newName, [])
@@ -61,7 +61,7 @@ class CustomCardScreen extends Component{
      this.setModalVisible(!this.state.modalVisible)
      this.props.navigation.navigate('FreshCards')
    }
-   
+
    componentDidMount = async () => {
       let tempData = []
       let cardMap = {}
@@ -82,23 +82,24 @@ class CustomCardScreen extends Component{
       this.setState({userCards: tempData});
       this.setState({cardObjects: cardMap});
    }
-  
+
    setModalVisible = (visible) => {
      this.setState({modalVisible: visible});
    }
-   
+
     onSelect = async (id) => {
         this.setState({selected: id})
         await this.props.setCard(this.state.cardObjects[id])
         this.props.navigation.navigate('FreshCards')
     }
-   
+
   render(){
     return(
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} }>
           <ScrollView>
-             <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <AntDesign name="plussquareo" size={24} style = {styles.topRightBtn} onPress = {()=> this.setModalVisible(true)}/>
+             <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+             <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.setModalVisible(true)}/>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />

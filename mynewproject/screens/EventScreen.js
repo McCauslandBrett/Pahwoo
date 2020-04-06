@@ -29,12 +29,13 @@ class EventScreen extends Component{
   };
   render(){
     return(
-      <SafeAreaView >
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} }>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
-             <AntDesign name="plussquareo" size={24} style = {styles.mdmore} onPress = {()=> this.props.navigation.navigate('Event')}/>
+            <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
+             <AntDesign name="plussquareo" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} onPress = {()=> this.props.navigation.navigate('Event')}/>
              <View style = {{marginTop:60, alignItems:"center"}}>
-                 <Text> EventScreen</Text>
+                 <Text style = {{color: this.props.user.theme.TEXT}}> EventScreen</Text>
              </View>
       </ScrollView>
     </SafeAreaView>
@@ -46,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 const mapStateToProps = (state) => {
   return {
+    user:state.user,
     event: state.event
   }
 }

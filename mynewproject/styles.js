@@ -290,7 +290,7 @@ headlessAndroidPicker: {
     overflow:'hidden'
   },
   avatarContainer:{
-    shadowColor:"#151734",
+
     shadowRadius:30,
     shadowOpacity:0.4
   },
@@ -322,13 +322,13 @@ headlessAndroidPicker: {
     borderRightWidth:1
   },
   statAmount:{
-    color:'#52575D',
+
     fontSize:18,
     fontWeight:"400",
 
   },
   statTitle:{
-    color:"#888a8c",
+    
     fontSize:12,
     fontWeight:"500",
     marginTop:4

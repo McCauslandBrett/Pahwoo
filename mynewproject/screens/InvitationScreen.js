@@ -14,7 +14,8 @@ class InvitationScreen extends Component{
   }
   render(){
     return(
-      <SafeAreaView >
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} }>
           <ScrollView showsVerticalScrollIndicator={false}>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> Invitations Screen</Text>
