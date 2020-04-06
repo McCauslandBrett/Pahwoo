@@ -15,15 +15,16 @@ class GiftCardScreen extends Component{
   }
   render(){
     return(
-      <SafeAreaView >
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} }>
           <ScrollView showsVerticalScrollIndicator={false}>
 
-             <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <Ionicons name="md-more" size={24} style = {styles.mdmore} />
+             <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+             <Ionicons name="md-more" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} />
 
 
              <View style = {{marginTop:60, alignItems:"center"}}>
-                 <Text>GiftCardScreen</Text>
+                 <Text style = {{color: this.props.user.theme.TEXT}}>GiftCardScreen</Text>
               </View>
           </ScrollView>
        </SafeAreaView>

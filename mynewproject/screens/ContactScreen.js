@@ -38,30 +38,26 @@ class ContactScreen extends Component{
         tempData.sort((a, b) => (a.username > b.username) ? 1 : -1)
         this.setState({contactData: tempData})
     }
-    
+
     onSelect = (profileImage, profileName) => {
         this.setState({modalProfileImage: profileImage});
         this.setState({modalProfileName: profileName});
         this.props.getContactProfile(true);
     }
-    
+
     displayModal() {
-        return (this.props.user.selectedProfileView) ? 
-            <FriendModal p={this.state.modalProfileImage} o={true} props={this.props} username={this.state.modalProfileName}/> 
+        return (this.props.user.selectedProfileView) ?
+            <FriendModal p={this.state.modalProfileImage} o={true} props={this.props} username={this.state.modalProfileName}/>
             : <View></View>;
     }
 
     render() {
-        
+
       return (
-        <Container>
-            <View>
-                <Header>
-                    <Left>
-                        <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
-                    </Left>
-                </Header>
-            </View>
+
+              <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                                    flex: 1, justifyContent: "center"} }>
+            <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
             <View>{this.displayModal()}</View>
             <SafeAreaView style={styles.contactsContainer}>
                 <FlatList
@@ -81,7 +77,7 @@ class ContactScreen extends Component{
             <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Search')}>
                 <Text>Search</Text>
             </TouchableOpacity>
-        </Container>
+        </SafeAreaView>
       );
     }
 }
