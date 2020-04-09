@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView, FlatList, TouchableOpacity, Image} from 'react-native';
+import {View, Text, SafeAreaView,ScrollView, FlatList, TouchableOpacity, Image} from 'react-native';
 import Icon  from "../components/icons.js";
 import styles from '../styles.js'
 import {Container,Header, Left} from 'native-base';
@@ -57,6 +57,7 @@ class ContactScreen extends Component{
 
               <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
                                     flex: 1, justifyContent: "center"} }>
+
             <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
             <View>{this.displayModal()}</View>
             <SafeAreaView style={styles.contactsContainer}>
@@ -77,6 +78,7 @@ class ContactScreen extends Component{
             <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Search')}>
                 <Text>Search</Text>
             </TouchableOpacity>
+            
         </SafeAreaView>
       );
     }

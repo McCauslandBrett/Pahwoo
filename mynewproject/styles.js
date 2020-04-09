@@ -109,11 +109,18 @@ modalViewBottom: {
 },
 
   menuIcon:{
-    zIndex:9,
+    zIndex:1,
     position:"absolute",
-    top:10,
-    left:20,
-    color:ICON_COLOR
+    top:25,
+    left:15,
+
+  },
+  topRightBtn:{
+  
+    zIndex:1,
+    position:"absolute",
+    top:25,
+    right:15
   },
 
   placeholder: {
@@ -328,7 +335,7 @@ headlessAndroidPicker: {
 
   },
   statTitle:{
-    
+
     fontSize:12,
     fontWeight:"500",
     marginTop:4
@@ -479,12 +486,6 @@ headlessAndroidPicker: {
   },
   selected: {backgroundColor: "#FA7B5F"},
 
-  topRightBtn:{
-    color:palette.ICON_COLOR,
-    zIndex:1,
-    position:"absolute",
-    top:10,
-    right:20
-  }
+
 
 });

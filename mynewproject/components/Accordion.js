@@ -11,7 +11,7 @@ import {Ionicons,Entypo,
         MaterialCommunityIcons,
         SimpleLineIcons,AntDesign} from "@expo/vector-icons";
 import Icon  from "../components/icons.js";
-class Acordian extends Component{
+class Accordion extends Component{
 
    OptionText(text,mode){
      if(mode == this.props.user.mode){
@@ -113,4 +113,4 @@ class Acordian extends Component{
      user: state.user,
     }
   }
-  export default connect(mapStateToProps,mapDispatchToProps)(Acordian )
+  export default connect(mapStateToProps,mapDispatchToProps)(Accordion )

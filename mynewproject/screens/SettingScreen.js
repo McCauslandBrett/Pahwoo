@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, Button,SafeAreaView,
   ScrollView,TextInput,TouchableOpacity} from 'react-native';
-import {Header, Left, Right} from 'native-base';
-import { List, Checkbox } from 'react-native-paper';
-import Icon  from "../components/icons.js";
-
-import {Ionicons,Entypo,
+import {Ionicons,Entypo,FontAwesome,
         MaterialCommunityIcons,
         SimpleLineIcons,AntDesign} from "@expo/vector-icons";
 
@@ -15,14 +11,14 @@ import {logout} from '../actions/user.js'
 import firebase from 'firebase';
 import styles from '../styles.js'
 import { Chevron } from 'react-native-shapes';
-import Accordian from '../components/Acordian.js'
+import Accordion from '../components/Accordion.js'
 import theme from '../constants/themeMode.js'
 
 class SettingScreen extends Component{
 
   static navigationOptions = {
     drawerIcon : ({tintColor}) => (
-       <Icon.FontAwesome name= "cogs" style = {{fontSize:24, color:tintColor}}/>
+       <FontAwesome name= "cogs" style = {{fontSize:24, color:tintColor}}/>
     )
   }
   state = {
@@ -56,11 +52,11 @@ _handlePress = () =>
                             flex: 1, justifyContent: "center"} }>
    <ScrollView showsVerticalScrollIndicator={false}>
 
-          <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+          <FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
 
           <View style = {{marginBottom:50}} />
 
-          <Accordian/>
+          <Accordion/>
 
           <TouchableOpacity onPress = {()=> this.logout()} style = {localstyles.rowcontainer}>
             <SimpleLineIcons name= "logout" style = {[localstyles.optionlogo,{color: this.props.user.theme.ICON}]}/>

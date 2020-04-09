@@ -31,9 +31,12 @@ class EventScreen extends Component{
     return(
       <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
                             flex: 1, justifyContent: "center"} }>
+
+                            <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
+                             <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.props.navigation.navigate('Event')}/>
+                            
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
-             <AntDesign name="plussquareo" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} onPress = {()=> this.props.navigation.navigate('Event')}/>
+
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text style = {{color: this.props.user.theme.TEXT}}> EventScreen</Text>
              </View>

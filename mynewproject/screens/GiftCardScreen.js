@@ -20,7 +20,7 @@ class GiftCardScreen extends Component{
           <ScrollView showsVerticalScrollIndicator={false}>
 
              <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <Ionicons name="md-more" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} />
+             <Ionicons name="md-more" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} />
 
 
              <View style = {{marginTop:60, alignItems:"center"}}>

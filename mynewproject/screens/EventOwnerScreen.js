@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-
 import { StyleSheet, Dimensions,  View, Text,
   Image,TouchableOpacity,Modal,
   ScrollView, Button ,SafeAreaView,TextInput } from 'react-native';
-
-import { SocialIcon } from 'react-native-elements'
 import { Block, theme } from 'galio-framework';
 import {Cards} from '../components/Card.js'
 import styles from '../styles.js';
@@ -13,14 +10,12 @@ const { width } = Dimensions.get('screen');
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Ionicons} from "@expo/vector-icons";
-import { Images, argonTheme } from "../constants";
+import { Images } from "../constants";
 const thumbMeasure = (width - 48 - 32) / 3;
-import { HeaderHeight } from "../constants/utils";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Appearance, useColorScheme } from 'react-native-appearance';
+import { Appearance } from 'react-native-appearance';
 import {updateDate,updateTime} from '../actions/event.js'
-import Date from '../components/Date.js'
 import Time from '../components/Time.js';
 import {uploadImage,updateLocation} from '../actions/event.js'
 import * as Permissions from 'expo-permissions';
