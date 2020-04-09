@@ -328,7 +328,7 @@ headlessAndroidPicker: {
 
   },
   statTitle:{
-    
+
     fontSize:12,
     fontWeight:"500",
     marginTop:4
@@ -372,6 +372,7 @@ headlessAndroidPicker: {
     padding: 15,
     alignSelf: 'center',
     borderColor: '#d3d3d3',
+    color:'black',
     borderWidth: 1,
     borderRadius: 50,
     fontSize: 16,
