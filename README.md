@@ -1,4 +1,4 @@
-# CS193
+# Pahwoo
 
 React Native mobile application for event planning and virtual greeting cards
 
