@@ -37,11 +37,7 @@ class CustomCardScreen extends Component{
   
   state = {
     modalVisible: false,
-    // selectContactsVisible: false,
-    // selectCardVisible: false,
     newName: '',
-    // selectedItems: [],
-    // contactData: [],
     userCards: [],
     selected: '',
     cardObjects: {}

@@ -50,6 +50,7 @@ import { HeaderBackButton } from "react-navigation-stack";
 store.subscribe(() => {
     console.log("testing when state chANGES")
     // the next phase would be to dispacth here some bool that will be used to check when the state changes
+    // check if current card state it's equal to the previous card state
 });
 
 class FreshCardScreen extends Component{
@@ -67,10 +68,16 @@ class FreshCardScreen extends Component{
     };
   }
   sendCard = async () => {
+      // we should confirm with the user if they really want to send the card here with an alert
       await this.props.sendCard()
   }
 
   saveCard = async () => {
+      // before we save the card,
+      // we should check if the card exists or something similar,
+      // if yes, then save card as usual, if no, then call createCard method
+      
+      // best way to check if the card exists is to see if card.id is defined
       await this.props.saveCard(this.state.selectedItems);
   }
   
@@ -97,6 +104,7 @@ class FreshCardScreen extends Component{
       bodyoneVisible:false,
       bodytwoVisible:false,
       selectContactsVisible: false,
+      modalVisible: false,
       selectedItems: [],
       newName: '',
       selected: '',
@@ -195,6 +203,7 @@ class FreshCardScreen extends Component{
   
   _handleBackPress() {
     // Works on both iOS and Android
+    // disable swipe-to-go-back gesture on this screen
     Alert.alert(
       "Discard changes?",
       "Your card will be lost if you confirm.",
