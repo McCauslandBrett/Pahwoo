@@ -15,7 +15,7 @@ class SearchScreen extends Component{
         search: '',
         query: []
     }
-    
+
     searchUser = async () => {
         let search = []
         const query = await db.collection('users').where('username', '>=', this.state.search).get()
@@ -24,7 +24,7 @@ class SearchScreen extends Component{
         })
         this.setState({query: search})
     }
-    
+
     addBtnOnSelect = async (userID) => {
         console.log("hello from addBtn")
         try {
@@ -40,19 +40,21 @@ class SearchScreen extends Component{
         } catch(e){
             alert(e)
         }
-        
+
     }
-    
+
     render(){
       return(
-        
+
         <SafeAreaView style={styles.thumbnailContainer}>
             <TextInput
             style={styles.thumbnailInput}
             onChangeText={(search)=> this.setState({search})}
             value={this.state.search}
+            textColor={'black'}
             returnKeyType='send'
             placeholder='Search for new friends'
+            placeholderTextColor= 'gray'
             onSubmitEditing={this.searchUser}/>
             <SafeAreaView>
                 <FlatList
@@ -69,7 +71,7 @@ class SearchScreen extends Component{
                 )}/>
             </SafeAreaView>
         </SafeAreaView>
-    
+
       );
     }
   }
@@ -98,8 +100,8 @@ class SearchScreen extends Component{
             </TouchableOpacity>
     );
 }
-  
-  
+
+
   const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({},dispatch)
   }

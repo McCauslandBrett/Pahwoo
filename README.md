@@ -1,4 +1,4 @@
-# CS193
+# Pahwoo
 
 React Native mobile application for event planning and virtual greeting cards
 
@@ -62,13 +62,15 @@ The application should load a barcode that you can scan with your mobile device 
   ```
   npm install @react-native-community/datetimepicker --save
    ```
-   
+
    ```
   npm install react-native-modal-datetime-picker --save
    ```
-   
-    
-   
+  ```
+  npm install react-native-paper --save
+  ```
+
+
 ## Built With
 
 * [Expo](https://expo.io) - For reliable build infrastructure

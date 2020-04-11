@@ -111,8 +111,9 @@ class EventOwnerScreen extends Component {
 
 
     return (
-
-       <ScrollView>
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} }>
+       <ScrollView >
        <DateTimePickerModal
        format="DD-MM-YYYY"
        isVisible={this.state.isDatePickerVisible}
@@ -123,7 +124,7 @@ class EventOwnerScreen extends Component {
        isDarkModeEnabled = {this.state.colorMode === 'dark' ? true:false}
        />
 
-      <Block  card style={cardContainer}>
+      <Block  card style={[cardContainer,{backgroundColor:this.props.user.BACKGROUND}]}>
        <Block  style={imgContainer}>
          <Image source={{uri: this.props._event.image == null ?
                         'https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60':
@@ -135,7 +136,7 @@ class EventOwnerScreen extends Component {
        </Block>
 
        <Block flex space="between" style={localstyles.cardDescription}>
-         <Text  style={localstyles.cardTitle}>Guests</Text>
+         <Text  style={[localstyles.cardTitle,{color: this.props.user.theme.TEXT}]}>Guests</Text>
       <SafeAreaView style={styles.contactRowStack}>
 
        <TouchableOpacity style = {ovalButton} >
@@ -149,33 +150,33 @@ class EventOwnerScreen extends Component {
        </Block>
       </Block>
 
-      <Block  card style={statscardContainer}>
+      <Block  card style={[statscardContainer,{backgroundColor: this.props.user.theme.BACKGROUND}]}>
 
        <View style = {styles.statsContainer}>
            <TouchableOpacity style = {styles.stat}>
-              <Text style ={styles.statAmount}>76</Text>
-              <Text style = {styles.statTitle}>ATTENDING</Text>
+              <Text style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>76</Text>
+              <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>ATTENDING</Text>
            </TouchableOpacity>
 
            <TouchableOpacity style = {styles.statbox} >
-              <Text style ={styles.statAmount}>24</Text>
-              <Text style = {styles.statTitle}>RESPONDED</Text>
+              <Text style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>24</Text>
+              <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>RESPONDED</Text>
            </TouchableOpacity>
 
            <TouchableOpacity style = {styles.stat} >
-             <Text style ={styles.statAmount}>3</Text>
-             <Text style = {styles.statTitle}>NOT ATTENDING</Text>
+             <Text style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>3</Text>
+             <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>NOT ATTENDING</Text>
           </TouchableOpacity>
        </View>
       </Block>
 
-      <Block  card style={statscardContainer}>
+      <Block  card style={[statscardContainer,{backgroundColor: this.props.user.theme.BACKGROUND}]}>
 
-        <Block flex space="between" style={localstyles.cardDescription}>
-          <Text  style={localstyles.cardTitle}>Location</Text>
+        <Block flex space="between" style={[localstyles.cardDescription,{backgroundColor: this.props.user.theme.BACKGROUND}]}>
+          <Text  style={[localstyles.cardTitle,{color: this.props.user.theme.TEXT}]}>Location</Text>
           <TextInput
               multiline = {true}
-              style = {localstyles.textinput}
+              style = {[localstyles.textinput,{color: this.props.user.theme.TEXT}]}
               value = {this.props._event.location}
               onChangeText =  {input => this.props.updateLocation(input)}
               placeholder = 'number,street,city,state,zip'
@@ -186,16 +187,16 @@ class EventOwnerScreen extends Component {
 
       </Block>
 
-      <Block  card style={statscardContainer}>
+      <Block  card style={[statscardContainer,{backgroundColor: this.props.user.theme.BACKGROUND}]}>
       <View style={styles.contactRowStack}>
       <Block flex space="between" style={localstyles.cardDescription}>
 
-        <Text  style={localstyles.cardTitle}>DATE</Text>
+        <Text  style={[localstyles.cardTitle,{color: this.props.user.theme.TEXT}]}>DATE</Text>
 
         <Block flex row style = {{marginTop:5,marginLeft:5}}>
           { this.props._event.date != null ?
             <Date date={this.props._event.date}/>
-            :<Text style = {localstyles.cardtext}>No Date</Text>
+            :<Text style = {[localstyles.cardtext,{color: this.props.user.theme.TEXT}]}>No Date</Text>
           }
           <TouchableOpacity style = {ovalButton} onPress={()=>{this.showDatePicker()}}>
             <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}} > DATE </Text>
@@ -206,7 +207,7 @@ class EventOwnerScreen extends Component {
         <Block flex row style = {{marginTop:5,marginLeft:5}}>
           { this.props._event.time != null ?
             <Time time={this.props._event.time}/>
-            :<Text style = {localstyles.cardtext}>No Time</Text>
+            :<Text style = {[localstyles.cardtext,{color: this.props.user.theme.TEXT}]}>No Time</Text>
           }
           <TouchableOpacity style = {ovalButton}  onPress={()=>{this.showTimePicker()}}>
            <Text style ={{color:'white', textAlign:'center',fontSize:20,fontWeight:'bold'}}> Time </Text>
@@ -218,7 +219,7 @@ class EventOwnerScreen extends Component {
       </Block>
 
       <Block style = {{marginBottom:20,marginLeft:5}}>
-      <Text  style={localstyles.cardTitle}>Photos</Text>
+      <Text  style={[localstyles.cardTitle,{color: this.props.user.theme.TEXT}]}>Photos</Text>
       </Block>
 
       <Block style = {{marginLeft:20,marginRight:20}}>
@@ -235,6 +236,7 @@ class EventOwnerScreen extends Component {
       </Block>
 
       </ScrollView>
+      </SafeAreaView>
 
     );
 }
@@ -242,7 +244,7 @@ class EventOwnerScreen extends Component {
 }
 const localstyles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
+
     marginVertical: 0,
     borderWidth: 0,
     minHeight: 200,
@@ -366,7 +368,8 @@ const mapDispatchToProps = (dispatch) => {
   }
   const mapStateToProps = (state) => {
     return {
-      _event:state._event
+      _event:state._event,
+      user:state.user
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(EventOwnerScreen)

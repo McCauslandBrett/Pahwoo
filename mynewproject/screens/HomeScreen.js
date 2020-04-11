@@ -41,38 +41,39 @@ class HomeScreen extends Component{
   render(){
     //   here is a use of the dollar sign: console.log(`props changed, image uri: ${this.props.user.profileImage}`)
     return(
-      <SafeAreaView >
+      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                            flex: 1, justifyContent: "center"} } >
           <ScrollView showsVerticalScrollIndicator={false}>
 
-             <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <Ionicons name="md-more" size={24} style = {styles.mdmore} />
+             <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
+             <Ionicons name="md-more" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} />
 
 
              <View style = {styles.container}>
               <View style = {{marginTop:60, alignItems:"center"}}>
-              <View style = {styles.avatarContainer}>
+              <View style = {[styles.avatarContainer,{shadowColor:this.props.user.theme.SHADOW}]}>
                  <Image style = {styles.avatar}
                  source={this.props.user.profileImage === null
                           ? require('../assets/imgs/image.png')
                           : {uri:this.props.user.profileImage}
                         }
                   />
-                 <TouchableOpacity style = {styles.add} onPress = {()=> this._pickImage()}>
-                    <Ionicons name = "ios-add" size = {30} color = "#DFD8C8"   ></Ionicons>
+                 <TouchableOpacity style = {[styles.add,{backgroundColor:this.props.user.theme.ICON}]} onPress = {()=> this._pickImage()}>
+                    <Ionicons name = "ios-add" size = {30} style = {{color:this.props.user.theme.PLUS}}   ></Ionicons>
                   </TouchableOpacity>
                 </View>
 
-              <Text style = {styles.name}>{this.props.user.username}</Text>
+              <Text style = {[styles.name,{color: this.props.user.theme.TEXT}]}>{this.props.user.username}</Text>
             </View>
             <View style = {styles.statsContainer}>
                 <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
-                   <Text style ={styles.statAmount}>76</Text>
-                   <Text style = {styles.statTitle}>Invitations</Text>
+                   <Text style = {[styles.statAmount,{color: this.props.user.theme.TEXT}]}>76</Text>
+                   <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>Invitations</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style = {localstyles.statbox} onPress = {()=> this.props.navigation.navigate('Cards')}>
-                   <Text style ={styles.statAmount}>{this.props.user.receivedCards.length}</Text>
-                   <Text style = {styles.statTitle}>Cards</Text>
+                   <Text style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>{this.props.user.receivedCards.length}</Text>
+                   <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>Cards</Text>
                 </TouchableOpacity>
 
               </View>

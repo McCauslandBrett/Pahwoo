@@ -17,7 +17,7 @@ class NotificationScreen extends Component{
         selectedRequestID: '',
         selectedRequestUsername: ''
     }
-    
+
     componentDidMount = async () => {
         let tempData = []
         // for loop with async calls
@@ -32,13 +32,13 @@ class NotificationScreen extends Component{
         this.setState({potentialFriends: tempData})
         console.log(this.state.potentialFriends);
     }
-    
+
     static navigationOptions = {
         drawerIcon : ({tintColor}) => (
         <Icon.FontAwesome name= "bell" style = {{fontSize:24, color:tintColor}}/>
         )
     }
-    
+
     setModalVisible = (visible) => {
         this.setState({friendRequestModal: visible});
     }
@@ -56,24 +56,19 @@ class NotificationScreen extends Component{
         tempData.sort((a, b) => (a.username > b.username) ? 1 : -1)
         this.setState({potentialFriends: tempData})
     }
-    
+
     onSelect = (username, userID) => {
         this.setState({selectedRequestUsername: username});
         this.setState({selectedRequestID: userID});
         this.setState({friendRequestModal: true});
     }
-    
+
     render(){
         return(
-            <Container>
-                    <View>
-                        <Header>
-                            <Left>
-                                <Icon.FontAwesome name = "bars" size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
-                            </Left>
-                        </Header>
-                    </View>
-                    
+          <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
+                                flex: 1, justifyContent: "center"} }>
+
+                  <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
                     <SafeAreaView style={styles.contactsContainer}>
                         <FlatList
                             data={this.state.potentialFriends}
@@ -87,7 +82,7 @@ class NotificationScreen extends Component{
                             )}
                             keyExtractor={item => item.uid}
                         />
-                        
+
                         <Modal
                             animationType="slide"
                             transparent={false}
@@ -112,9 +107,9 @@ class NotificationScreen extends Component{
                                     <Text>Deny</Text>
                                 </TouchableOpacity>
                             </SafeAreaView>
-                        </Modal> 
+                        </Modal>
                     </SafeAreaView>
-            </Container>
+              </SafeAreaView>
         );
     }
 }

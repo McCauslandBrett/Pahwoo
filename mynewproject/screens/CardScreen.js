@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 // global
 import { View, Text, TouchableOpacity,TextInput,
-  SafeAreaView, FlatList, Modal} from 'react-native';
+  SafeAreaView, FlatList, Modal,StyleSheet,Dimensions,ImageBackground} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import Icon  from "../components/icons.js";
-import {Ionicons} from "@expo/vector-icons";
+import {Ionicons,AntDesign} from "@expo/vector-icons";
 import styles from '../styles.js'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import db from '../config/firebase.js';
 import {getCard} from '../actions/card.js'
 import palette from '../palette.js'
-
+const { width, height } = Dimensions.get("screen");
 import TextinCover from '../components/TextinCover.js'
 import TextinBodyone from '../components/TextinBodyone.js'
+import { fromHsv } from 'react-native-color-picker'
 class CardScreen extends Component{
     state = {
         modalVisible: false,
         selectCardVisible: false,
+        defaultAlign:'center',
         selectedItems: [],
         receivedCards: [],
         selected: '',
@@ -93,21 +95,32 @@ class CardScreen extends Component{
                         keyExtractor={item => item.id}
                     />
                 </SafeAreaView>
-                <Modal
-                    animationType="slide"
-                    transparent={false}
-                    visible={this.state.selectCardVisible}
-                    onRequestClose={() => {
+
+
+                <Modal animationType="slide" transparent={false}
+                    visible={this.state.selectCardVisible} onRequestClose={() => {
                     alert('Modal has been closed.');
                     }}>
+                    <AntDesign name="close" style = {styles.menuIcon} size ={24} onPress={() => {
+                              this.setSelectCardModalVisible(!this.state.selectCardVisible);
+                              }}  />
+                              <ImageBackground
+                                  source={{uri:this.state.cardHolder.BackgroundImage}}
+                                  style={Arstyles.profileContainer}
+                                  imageStyle={Arstyles.profileBackground}
+                               >
                     <SafeAreaView>
-                    <View >
+
+                    <View>
                     <TextInput multiline = {true} editable={false}
                     style={[
                          {
                            fontSize: (this.state.cardHolder.cover_font_size == null) ?
                            32 : this.state.cardHolder.cover_font_size
-                           , color:palette.LIGHT_GRAY,
+                           ,  color: (this.state.cardHolder.cover_text_color== null) ? palette.LIGHT_GRAY:
+                              fromHsv({ h: this.state.cardHolder.cover_text_color.hue,
+                                        s: this.state.cardHolder.cover_text_color.sat,
+                                        v:this.state.cardHolder.cover_text_color.val }),
                            fontWeight:this.state.cardHolder.cover_bold,
                            fontStyle:this.state.cardHolder.cover_italic,
                            fontFamily:this.state.cardHolder.cover_font,
@@ -122,7 +135,7 @@ class CardScreen extends Component{
                       value = {this.state.cardHolder.cover_text}
                       />
 
-                     </View>
+                    </View>
 
                      <View >
                      <TextInput multiline = {true} editable={false}
@@ -130,7 +143,10 @@ class CardScreen extends Component{
                           {
                             fontSize: (this.state.cardHolder.bodyone_font_size == null) ?
                             24 : this.state.cardHolder.bodyone_font_size
-                            , color:palette.LIGHT_GRAY,
+                            , color: (this.state.cardHolder.bodyone_text_color== null) ? palette.LIGHT_GRAY:
+                               fromHsv({ h: this.state.cardHolder.bodyone_text_color.hue,
+                                         s: this.state.cardHolder.bodyone_text_color.sat,
+                                         v:this.state.cardHolder.bodyone_text_color.val }),
                             fontWeight:this.state.cardHolder.bodyone_bold,
                             fontStyle:this.state.cardHolder.bodyone_italic,
                             fontFamily:this.state.cardHolder.bodyone_font,
@@ -145,7 +161,7 @@ class CardScreen extends Component{
                        value = {this.state.cardHolder.bodyone_text}
                        />
 
-                      </View>
+                     </View>
 
                 <View>
 
@@ -155,7 +171,10 @@ class CardScreen extends Component{
                     fontSize: (this.state.cardHolder.bodytwo_font_size == null) ?
                     24 : this.state.cardHolder.bodytwo_font_size
                     ,
-                    color:palette.LIGHT_GRAY,
+                    color: (this.state.cardHolder.bodytwo_text_color== null) ? palette.LIGHT_GRAY:
+                       fromHsv({ h: this.state.cardHolder.bodytwo_text_color.hue,
+                                 s: this.state.cardHolder.bodytwo_text_color.sat,
+                                 v:this.state.cardHolder.bodytwo_text_color.val }),
                     fontWeight:this.state.cardHolder.bodytwo_bold,
                     fontStyle:this.state.cardHolder.bodytwo_italic,
                     fontFamily:this.state.cardHolder.bodytwo_font,
@@ -169,7 +188,8 @@ class CardScreen extends Component{
                 ]}
                     value = {this.state.cardHolder.bodytwo_text}
             />
-               </View>
+                </View>
+
                <View style = {styles.cardAttachmentContainer}>
                    <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
                      <Icon.FontAwesome name= "gift" style = {styles.cardAttachment} color = "#DFD8C8"/>
@@ -192,21 +212,20 @@ class CardScreen extends Component{
                </TouchableOpacity>
 
                </View>
+
                <View  style =  {styles.deliveryContainer}>
                  <TouchableOpacity style ={styles.deliveryElement} onPress = {()=> this.props.navigation.navigate('Invitations')}>
                    <Ionicons name= "md-clock" style = {styles.cardAttachment}/>
                  </TouchableOpacity>
                  <Text style= {styles.deliveryTitle}> Deliverd Date June 2, 2020</Text>
                </View>
-                    </SafeAreaView>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => {
-                        this.setSelectCardModalVisible(!this.state.selectCardVisible);
-                        }}>
-                        <Text>Hide Modal</Text>
-                    </TouchableOpacity>
-                </Modal>
-            </View>
+
+
+
+            </SafeAreaView>
+            </ImageBackground>
+          </Modal>
+        </View>
         );
     }
 }
@@ -222,7 +241,20 @@ function Item({ id, title, onSelect }) {
         </TouchableOpacity>
     );
 }
+const Arstyles = StyleSheet.create({
 
+profileContainer: {
+  width: width,
+  height: height,
+  padding: 0,
+  zIndex: 1
+},
+profileBackground: {
+  width: width,
+  height: height
+},
+
+});
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({getCard},dispatch)
 }
