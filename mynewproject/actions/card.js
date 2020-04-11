@@ -104,22 +104,10 @@ export const saveCard = (selectedItems) => {
         try{
             // update card in database
 					  const ref = db.collection('cards').doc(card.id);
-
-						// updating background Image
-						//
-						// if(card.BackgroundImage != null){
-						// 	const blob = await card.BackgroundImage.blob();
-						// 	// Create a root reference
-						// 	const imageRef = firebase.storage().ref();
-						// 	// Create a reference to 'profileImage.jpg'
-						// 	const uploadTask = await storageRef.child("cards/"+ card.id +"/BackgroundImage.jpg").put(blob);
-						// 	downloadUrl = await uploadTask.ref.getDownloadURL();
-						// }
-
-						// end updating background Image
             await ref.update({
 				BackgroundImage: card.BackgroundImage,
                 recipients: card.recipients,
+                name: card.name,
 
                 cover_text: card.cover_text,
                 cover_font: card.cover_font,

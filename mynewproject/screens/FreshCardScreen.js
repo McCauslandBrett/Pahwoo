@@ -73,29 +73,19 @@ class FreshCardScreen extends Component{
   }
 
   saveCard = async () => {
-      // before we save the card,
-      // we should check if the card exists or something similar,
-      // if yes, then save card as usual, if no, then call createCard method
-      
       // best way to check if the card exists is to see if card.id is defined
+      if (this.props.card.id === undefined){
+          await this.createCard();
+      }
       await this.props.saveCard(this.state.selectedItems);
+      this.setModalVisible(!this.state.modalVisible);
   }
   
   
-//   createCard = async () => {
+  createCard = async () => {
     // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
-    // await this.props.createCard(this.state.newName, [])
-    // need to add card to this components cards so it can rerender
-    // let tempData = this.state.userCards
-    // let tempObj = this.state.cardObjects
-    // tempData.push(this.props.card)
-    // tempObj[this.props.card.id] = this.props.card
-    // tempData.sort((a, b) => (a.name > b.name) ? 1 : -1)
-    // this.setState({userCards: tempData});
-    // this.setState({cardObjects: tempObj});
-    // this.setModalVisible(!this.state.modalVisible)
-    // this.props.navigation.navigate('FreshCards')
-//   }
+    await this.props.createCard(this.state.newName, [])
+  }
   
 
   state = {
@@ -115,9 +105,9 @@ class FreshCardScreen extends Component{
       contactData: []
   }
   
-  // setModalVisible = (visible) => {
-  //     this.setState({modalVisible: visible});
-  // }
+  setModalVisible = (visible) => {
+      this.setState({modalVisible: visible});
+  }
 
   
   toggleCoverModal = (bool) =>{
@@ -161,8 +151,6 @@ class FreshCardScreen extends Component{
     this.props.navigation.setParams({
         handleBackPress: this._handleBackPress.bind(this)
         });
-    
-    
     let tempData = []
     let recipientKeys = []
     let mapping = {}
@@ -401,6 +389,33 @@ class FreshCardScreen extends Component{
                 <Text>Hide Modal</Text>
             </TouchableOpacity>
       </Modal>
+      <Modal
+        style={styles.container}
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {}}>
+        <ScrollView>
+            <TextInput
+                style = {styles.border}
+                value = {this.state.newName}
+                onChangeText = {input => this.setState({newName: input})}
+                placeholder = 'New name'
+            />
+            <TouchableOpacity style={styles.button}
+                onPress={async () => {
+                await this.saveCard();
+                }}>
+                <Text>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}
+                onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Modal</Text>
+            </TouchableOpacity>
+        </ScrollView>
+      </Modal>
       <SafeAreaView style={styles.contactRowStack}>
             <FlatList
                 horizontal={true}
@@ -428,12 +443,7 @@ class FreshCardScreen extends Component{
             <Text>Send</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}
-            onPress={async () => {
-                await this.saveCard();
-                // save the recipients (selectedItems) here to state so that state is updated before addint to database
-                // console.log(this.state.selectedItems);
-
-            }}>
+            onPress={() => { this.setModalVisible(true)}}>
             <Text>Save</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}
