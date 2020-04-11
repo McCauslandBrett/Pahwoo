@@ -103,7 +103,7 @@ class CustomCardScreen extends Component{
       <SafeAreaView>
           <ScrollView>
              <Icon.FontAwesome name = "bars" style = {styles.menuIcon} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <AntDesign name="plussquareo" size={24} style = {styles.topRightBtn} onPress = {()=> this.setModalVisible(true)}/>
+             <AntDesign name="plussquareo" size={24} style = {styles.topRightBtn} onPress = {()=> this.flushAndNavigate()}/>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />

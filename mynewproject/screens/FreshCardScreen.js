@@ -73,6 +73,23 @@ class FreshCardScreen extends Component{
   saveCard = async () => {
       await this.props.saveCard(this.state.selectedItems);
   }
+  
+  
+//   createCard = async () => {
+    // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
+    // await this.props.createCard(this.state.newName, [])
+    // need to add card to this components cards so it can rerender
+    // let tempData = this.state.userCards
+    // let tempObj = this.state.cardObjects
+    // tempData.push(this.props.card)
+    // tempObj[this.props.card.id] = this.props.card
+    // tempData.sort((a, b) => (a.name > b.name) ? 1 : -1)
+    // this.setState({userCards: tempData});
+    // this.setState({cardObjects: tempObj});
+    // this.setModalVisible(!this.state.modalVisible)
+    // this.props.navigation.navigate('FreshCards')
+//   }
+  
 
   state = {
       recipients: [],
@@ -81,6 +98,7 @@ class FreshCardScreen extends Component{
       bodytwoVisible:false,
       selectContactsVisible: false,
       selectedItems: [],
+      newName: '',
       selected: '',
       // contactAvatarMapping will be used to store key-value pairs between key: contact's uid, value: contact-profileImage
       // this is crucial for re-rendering the recipient photo array at the bottom of the card
@@ -88,6 +106,12 @@ class FreshCardScreen extends Component{
       contactAvatarMapping: [],
       contactData: []
   }
+  
+  // setModalVisible = (visible) => {
+  //     this.setState({modalVisible: visible});
+  // }
+
+  
   toggleCoverModal = (bool) =>{
     this.setState({
       coverVisible:bool
