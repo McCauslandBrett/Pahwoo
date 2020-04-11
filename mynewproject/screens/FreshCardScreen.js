@@ -161,25 +161,29 @@ class FreshCardScreen extends Component{
     //the following ternary function got rid of the warning about recipients being undefined
     let recipientsArray = this.props.card.recipients === undefined ? [] : this.props.card.recipients;
     for (var i = 0; i < recipientsArray.length; i++){
-        const query = await db.collection('users').where('uid', '==', this.props.card.recipients[i]).get()
-        query.forEach((response) => {
+        try{
+            const query = await db.collection('users').doc(this.props.card.recipients[i]).get()
             tempData.push({
-                id: response.data().uid,
-                thmb: response.data().profileImage,
-                username: response.data().username
+                id: query.data().uid,
+                thmb: query.data().profileImage,
+                username: query.data().username
             })
-            recipientKeys.push(response.data().uid)
-        })
+            recipientKeys.push(query.data().uid)
+        } catch(e){
+            alert(e)
+        }
     }
 
     // get contact data for avatar mapping needed for recipient list rendering
 
     for (var i = 0; i < this.props.user.contacts.length; i++){
-        const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
-        query.forEach((response) => {
-            contacts.push(response.data())
-            mapping[this.props.user.contacts[i]] = [response.data().profileImage, response.data().username]
-        })
+        try{
+            const query = await db.collection('users').doc(this.props.user.contacts[i]).get()
+            contacts.push(query.data())
+            mapping[this.props.user.contacts[i]] = [query.data().profileImage, query.data().username]
+        } catch(e){
+            alert(e)
+        }
     }
     
     this.setState({contactAvatarMapping: mapping});
