@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity,
         Modal, TextInput,SafeAreaView,ScrollView,
-        FlatList, Image,ImageBackground,StyleSheet,Dimensions
+        FlatList, Image,ImageBackground,StyleSheet,Dimensions, Alert
        } from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -43,23 +43,50 @@ import MultiSelect from 'react-native-multiple-select';
 import { fromHsv } from 'react-native-color-picker'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import store from '.././store';
+import { HeaderBackButton } from "react-navigation-stack";
+
+
+store.subscribe(() => {
+    console.log("testing when state chANGES")
+    // the next phase would be to dispacth here some bool that will be used to check when the state changes
+    // check if current card state it's equal to the previous card state
+});
 
 class FreshCardScreen extends Component{
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) =>{
+    const handleClearPress = navigation.getParam("handleBackPress", () => {});
+    return {    
+    
       headerTintColor: 'black',
       headerBackTitle: null,
       headerStyle: {
         borderBottomColor:'transparent',
         borderBottomWidth: 0,
       },
-    }
+      headerLeft: <HeaderBackButton onPress={handleClearPress} />
+    };
+  }
   sendCard = async () => {
+      // we should confirm with the user if they really want to send the card here with an alert
       await this.props.sendCard()
   }
 
   saveCard = async () => {
+      // best way to check if the card exists is to see if card.id is defined
+      if (this.props.card.id === undefined){
+          await this.createCard();
+      }
       await this.props.saveCard(this.state.selectedItems);
+      this.setModalVisible(!this.state.modalVisible);
   }
+  
+  
+  createCard = async () => {
+    // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
+    await this.props.createCard(this.state.newName, [])
+  }
+  
 
   state = {
       recipients: [],
@@ -67,7 +94,9 @@ class FreshCardScreen extends Component{
       bodyoneVisible:false,
       bodytwoVisible:false,
       selectContactsVisible: false,
+      modalVisible: false,
       selectedItems: [],
+      newName: '',
       selected: '',
       // contactAvatarMapping will be used to store key-value pairs between key: contact's uid, value: contact-profileImage
       // this is crucial for re-rendering the recipient photo array at the bottom of the card
@@ -75,6 +104,12 @@ class FreshCardScreen extends Component{
       contactAvatarMapping: [],
       contactData: []
   }
+  
+  setModalVisible = (visible) => {
+      this.setState({modalVisible: visible});
+  }
+
+  
   toggleCoverModal = (bool) =>{
     this.setState({
       coverVisible:bool
@@ -112,38 +147,72 @@ class FreshCardScreen extends Component{
     console.log(this.state.selectedItems)
   };
   componentDidMount = async () => {
+    // set handler method with setParams
+    this.props.navigation.setParams({
+        handleBackPress: this._handleBackPress.bind(this)
+        });
     let tempData = []
     let recipientKeys = []
     let mapping = {}
     let contacts = []
     // for loop with async calls
     // get each recipient
-    for (var i = 0; i < this.props.card.recipients.length; i++){
-        const query = await db.collection('users').where('uid', '==', this.props.card.recipients[i]).get()
-        query.forEach((response) => {
+    
+    //the following ternary function got rid of the warning about recipients being undefined
+    let recipientsArray = this.props.card.recipients === undefined ? [] : this.props.card.recipients;
+    for (var i = 0; i < recipientsArray.length; i++){
+        try{
+            const query = await db.collection('users').doc(this.props.card.recipients[i]).get()
             tempData.push({
-                id: response.data().uid,
-                thmb: response.data().profileImage,
-                username: response.data().username
+                id: query.data().uid,
+                thmb: query.data().profileImage,
+                username: query.data().username
             })
-            recipientKeys.push(response.data().uid)
-        })
+            recipientKeys.push(query.data().uid)
+        } catch(e){
+            alert(e)
+        }
     }
 
     // get contact data for avatar mapping needed for recipient list rendering
 
     for (var i = 0; i < this.props.user.contacts.length; i++){
-        const query = await db.collection('users').where('uid', '==', this.props.user.contacts[i]).get()
-        query.forEach((response) => {
-            contacts.push(response.data())
-            mapping[this.props.user.contacts[i]] = [response.data().profileImage, response.data().username]
-        })
+        try{
+            const query = await db.collection('users').doc(this.props.user.contacts[i]).get()
+            contacts.push(query.data())
+            mapping[this.props.user.contacts[i]] = [query.data().profileImage, query.data().username]
+        } catch(e){
+            alert(e)
+        }
     }
-    console.log(contacts);
+    
     this.setState({contactAvatarMapping: mapping});
     this.setState({recipients: tempData});
     this.setState({contactData: contacts});
     this.setState({selectedItems: recipientKeys});
+  }
+  
+  
+  _handleBackPress() {
+    // Works on both iOS and Android
+    // disable swipe-to-go-back gesture on this screen
+    Alert.alert(
+      "Discard changes?",
+      "Your card will be lost if you confirm.",
+      [
+        {
+          text: "No, continue editing",
+          onPress: () => console.log("No, continue editing")
+        },
+        {
+          text: "Yes, discard changes",
+          onPress: () => {console.log("Yes, discard changes");
+                            this.props.navigation.goBack()},
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
   }
 
   render(){
@@ -324,6 +393,33 @@ class FreshCardScreen extends Component{
                 <Text>Hide Modal</Text>
             </TouchableOpacity>
       </Modal>
+      <Modal
+        style={styles.container}
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {}}>
+        <ScrollView>
+            <TextInput
+                style = {styles.border}
+                value = {this.state.newName}
+                onChangeText = {input => this.setState({newName: input})}
+                placeholder = 'New name'
+            />
+            <TouchableOpacity style={styles.button}
+                onPress={async () => {
+                await this.saveCard();
+                }}>
+                <Text>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}
+                onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Modal</Text>
+            </TouchableOpacity>
+        </ScrollView>
+      </Modal>
       <SafeAreaView style={styles.contactRowStack}>
             <FlatList
                 horizontal={true}
@@ -351,12 +447,7 @@ class FreshCardScreen extends Component{
             <Text>Send</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}
-            onPress={async () => {
-                await this.saveCard();
-                // save the recipients (selectedItems) here to state so that state is updated before addint to database
-                // console.log(this.state.selectedItems);
-
-            }}>
+            onPress={() => { this.setModalVisible(true)}}>
             <Text>Save</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}

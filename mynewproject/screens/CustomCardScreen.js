@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
 import {AntDesign} from "@expo/vector-icons";
 import db from '../config/firebase';
-import {createCard, setCard} from '../actions/card.js'
+import {createCard, setCard, flushCardState} from '../actions/card.js'
 
 
 import styles from '../styles.js'
@@ -37,11 +37,7 @@ class CustomCardScreen extends Component{
 
   state = {
     modalVisible: false,
-    // selectContactsVisible: false,
-    // selectCardVisible: false,
     newName: '',
-    // selectedItems: [],
-    // contactData: [],
     userCards: [],
     selected: '',
     cardObjects: {}
@@ -92,18 +88,23 @@ class CustomCardScreen extends Component{
         await this.props.setCard(this.state.cardObjects[id])
         this.props.navigation.navigate('FreshCards')
     }
-
+    
+  flushAndNavigate = () => {
+      this.props.flushCardState();
+      this.props.navigation.navigate('FreshCards');
+  }
+   
   render(){
     return(
       <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
                             flex: 1, justifyContent: "center"} }>
           <ScrollView>
              <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.setModalVisible(true)}/>
+             <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.flushAndNavigate()}/>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
-                 <Button title ="Cards" onPress = {()=> this.props.navigation.navigate('FreshCards')} />
+                 <Button title ="Cards" onPress = {()=> this.flushAndNavigate()} />
                  <Text> Edit Previous Cards</Text>
 
              </View>
@@ -154,7 +155,7 @@ class CustomCardScreen extends Component{
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createCard, setCard},dispatch)
+  return bindActionCreators({createCard, setCard, flushCardState},dispatch)
 }
 const mapStateToProps = (state) => {
   return {
