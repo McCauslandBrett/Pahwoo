@@ -11,6 +11,7 @@
     "@react-native-community/datetimepicker": "^2.3.1",
     "accordion-collapse-react-native": "^0.2.8",
     "expo": "~36.0.0",
+    "expo-av": "^8.1.0",
     "expo-image-picker": "^8.0.2",
     "firebase": "^7.8.1",
     "galio-framework": "^0.6.3",
