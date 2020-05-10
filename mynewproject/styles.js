@@ -289,25 +289,10 @@ headlessAndroidPicker: {
     borderRadius:100,
     overflow:'hidden'
   },
-  avatarContainer:{
-
-    shadowRadius:30,
-    shadowOpacity:0.4
-  },
   avatar:{
     width:136,
     height:136,
     borderRadius:68
-  },
-  name: {
-    marginTop:20,
-    fontSize:16,
-    fontWeight:"600"
-  },
-  statsContainer:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    margin:20
   },
   stat:{
     alignItems:"center",

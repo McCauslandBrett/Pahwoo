@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { View, Text,SafeAreaView,ScrollView, StyleSheet,Button, Image,TouchableOpacity} from 'react-native';
+import { View,SafeAreaView,ScrollView, StyleSheet,Dimensions, Image,TouchableOpacity} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { Card,Button,Block,theme,Text,Icon,NavBar} from 'galio-framework';
 
-import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
 import {updateProfileImage,uploadImage} from '../actions/user.js'
 import * as firebase from 'firebase';
@@ -13,14 +13,13 @@ import * as Permissions from 'expo-permissions';
 import styles from '../styles.js';
 import uuid from 'uuid';
 import db from '../config/firebase';
+const { height, width } = Dimensions.get('screen');
+import Constants from 'expo-constants';
+const { statusBarHeight } = Constants;
+
 
 class HomeScreen extends Component{
-  static navigationOptions = {
-      headerBackTitle: null,
-    drawerIcon : ({tintColor}) => (
-      <Icon.FontAwesome name= "home" style = {{fontSize:24, color:tintColor}}/>
-    )
-  }
+
 
   _pickImage = async () => {
     console.log("_pickImage")
@@ -41,17 +40,34 @@ class HomeScreen extends Component{
   render(){
     //   here is a use of the dollar sign: console.log(`props changed, image uri: ${this.props.user.profileImage}`)
     return(
-      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
-                            flex: 1, justifyContent: "center"} } >
-          <ScrollView showsVerticalScrollIndicator={false}>
+      <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
 
-             <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
-             <Ionicons name="md-more" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} />
+      <Block style={localstyles.navbar}>
+      <NavBar transparent
+         left={(
+            <TouchableOpacity onPress={ () => this.props.navigation.openDrawer()}>
+              <Icon name="menu" family="feather"
+                size={24}
+                style = {{color: this.props.user.theme.ICON}}
+              />
+            </TouchableOpacity>
+          )}
+
+              />
+      </Block>
 
 
-             <View style = {styles.container}>
-              <View style = {{marginTop:60, alignItems:"center"}}>
-              <View style = {[styles.avatarContainer,{shadowColor:this.props.user.theme.SHADOW}]}>
+
+         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{  width: width - theme.SIZES.BASE * 2,
+          paddingVertical: theme.SIZES.BASE}}>
+
+
+
+             <Block middle>
+
+              <Block middle style = {{marginTop:20}}>
+              <Block style = {{shadowRadius:30,shadowOpacity:0.4,
+                              shadowColor:this.props.user.theme.SHADOW}}>
                  <Image style = {styles.avatar}
                  source={this.props.user.profileImage === null
                           ? require('../assets/imgs/image.png')
@@ -60,26 +76,27 @@ class HomeScreen extends Component{
                   />
                  <TouchableOpacity style = {[styles.add,{backgroundColor:this.props.user.theme.ICON}]} onPress = {()=> this._pickImage()}>
                     <Ionicons name = "ios-add" size = {30} style = {{color:this.props.user.theme.PLUS}}   ></Ionicons>
-                  </TouchableOpacity>
-                </View>
+                 </TouchableOpacity>
+              </Block>
+              <Text bold h5 color={this.props.user.theme.TEXT} style = {{marginTop:20}}>{this.props.user.username}</Text>
+              </Block>
 
-              <Text style = {[styles.name,{color: this.props.user.theme.TEXT}]}>{this.props.user.username}</Text>
-            </View>
-            <View style = {styles.statsContainer}>
+            <Block row middle space={'between'} style = {{margin:20}}>
                 <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
-                   <Text style = {[styles.statAmount,{color: this.props.user.theme.TEXT}]}>76</Text>
+                   <Text size={18} style = {[styles.statAmount,{color: this.props.user.theme.TEXT}]}>76</Text>
                    <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>Invitations</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style = {localstyles.statbox} onPress = {()=> this.props.navigation.navigate('Cards')}>
-                   <Text style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>{this.props.user.receivedCards.length}</Text>
+                   <Text size={18} style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>{this.props.user.receivedCards.length}</Text>
                    <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>Cards</Text>
                 </TouchableOpacity>
 
-              </View>
-            </View>
+            </Block>
+
+            </Block>
       </ScrollView>
-      </SafeAreaView>
+      </Block>
     );
   }
 }
@@ -90,7 +107,17 @@ const localstyles = StyleSheet.create({
     borderColor:"#DfD8C8",
     borderLeftWidth:1,
     borderRightWidth:0
-  }
+  },
+  navbar: {
+  top: 10,
+  left: 0,
+  right: 0,
+  zIndex: 9999,
+  position: 'absolute',
+
+  justifyContent: "space-between"
+
+}
 });
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({updateProfileImage,uploadImage},dispatch)
