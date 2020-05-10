@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   optiontextTitle: {
     fontSize: 20,
-    // marginLeft: 25,
+    marginLeft: 25,
   },
   pairContainer: {
     flexDirection: "row",
