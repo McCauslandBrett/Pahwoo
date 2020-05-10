@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
-import { View, Text,SafeAreaView,ScrollView, StyleSheet,Button} from 'react-native';
+import { View,SafeAreaView,ScrollView,
+  StyleSheet,Button,Dimensions} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Icon  from "../components/icons.js";
+// import Icon  from "../components/icons.js";
 import {Ionicons,AntDesign} from "@expo/vector-icons";
 import {uploadImage} from '../actions/event.js'
+import { Card,Block,theme,Text,NavBar,Icon} from 'galio-framework';
+const { height, width } = Dimensions.get('screen');
+import Constants from 'expo-constants';
 
 class EventScreen extends Component{
   static navigationOptions = {
       headerBackTitle: null,
     drawerIcon : ({tintColor}) => (
-      <Icon.FontAwesome name= "spoon" style = {{fontSize:24, color:tintColor}}/>
+      <Icon family="MaterialIcons" name= "event" style = {{fontSize:24, color:tintColor}}/>
     )
   }
   _pickImage = async () => {
@@ -29,19 +33,19 @@ class EventScreen extends Component{
   };
   render(){
     return(
-      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
-                            flex: 1, justifyContent: "center"} }>
+    <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
 
-                             <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
-                             <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.props.navigation.navigate('Event')}/>
+
+        <Icon name="menu" family="feather"  style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
+        <Icon family="AntDesign" name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.props.navigation.navigate('Event')}/>
 
           <ScrollView showsVerticalScrollIndicator={false}>
 
-             <View style = {{marginTop:60, alignItems:"center"}}>
+             <Block middle style = {{marginTop:60}}>
                  <Text style = {{color: this.props.user.theme.TEXT}}> EventScreen</Text>
-             </View>
+             </Block>
       </ScrollView>
-    </SafeAreaView>
+    </Block>
     );
   }
 }

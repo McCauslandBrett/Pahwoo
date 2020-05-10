@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet,SafeAreaView,ScrollView} from 'react-native';
+import { View, StyleSheet,
+  SafeAreaView,ScrollView,Dimensions} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Icon  from "../components/icons.js";
 import {Ionicons} from "@expo/vector-icons";
 import styles from '../styles.js'
-
+import { Block,theme,Text} from 'galio-framework';
+const { height, width } = Dimensions.get('screen');
+import Constants from 'expo-constants';
+const { statusBarHeight } = Constants;
 class GiftCardScreen extends Component{
   static navigationOptions = {
     drawerIcon : ({tintColor}) => (
@@ -15,19 +19,16 @@ class GiftCardScreen extends Component{
   }
   render(){
     return(
-      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
-                            flex: 1, justifyContent: "center"} }>
-          <ScrollView showsVerticalScrollIndicator={false}>
-
+        <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
              <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
              <Ionicons name="md-more" size={24} style = {[styles.mdmore,{color: this.props.user.theme.ICON}]} />
+             <ScrollView showsVerticalScrollIndicator={false}>
 
-
-             <View style = {{marginTop:60, alignItems:"center"}}>
-                 <Text style = {{color: this.props.user.theme.TEXT}}>GiftCardScreen</Text>
-              </View>
+             <Block middle style = {{marginTop:60, alignItems:"center"}}>
+                 <Text color= {this.props.user.theme.TEXT}>GiftCardScreen</Text>
+              </Block>
           </ScrollView>
-       </SafeAreaView>
+       </Block>
     );
   }
 }

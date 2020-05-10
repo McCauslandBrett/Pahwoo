@@ -19,7 +19,12 @@ const { statusBarHeight } = Constants;
 
 
 class HomeScreen extends Component{
-
+  static navigationOptions = {
+      headerBackTitle: null,
+    drawerIcon : ({tintColor}) => (
+      <Icon family="FontAwesome" name= "home" style = {{fontSize:24, color:tintColor}}/>
+    )
+  }
 
   _pickImage = async () => {
     console.log("_pickImage")
@@ -41,7 +46,6 @@ class HomeScreen extends Component{
     //   here is a use of the dollar sign: console.log(`props changed, image uri: ${this.props.user.profileImage}`)
     return(
       <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
-
       <Block style={localstyles.navbar}>
       <NavBar transparent
          left={(
@@ -53,7 +57,7 @@ class HomeScreen extends Component{
             </TouchableOpacity>
           )}
 
-              />
+      />
       </Block>
 
 
@@ -83,13 +87,13 @@ class HomeScreen extends Component{
 
             <Block row middle space={'between'} style = {{margin:20}}>
                 <TouchableOpacity style = {styles.stat} onPress = {()=> this.props.navigation.navigate('Invitations')}>
-                   <Text size={18} style = {[styles.statAmount,{color: this.props.user.theme.TEXT}]}>76</Text>
-                   <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>Invitations</Text>
+                   <Text color={this.props.user.theme.TEXT} size={18}>76</Text>
+                   <Text color={this.props.user.theme.TEXT} size={12} style = {{marginTop:4}}>Invitations</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style = {localstyles.statbox} onPress = {()=> this.props.navigation.navigate('Cards')}>
-                   <Text size={18} style ={[styles.statAmount,{color: this.props.user.theme.TEXT}]}>{this.props.user.receivedCards.length}</Text>
-                   <Text style = {[styles.statTitle,{color: this.props.user.theme.TEXT}]}>Cards</Text>
+                   <Text color={this.props.user.theme.TEXT} size={18}>{this.props.user.receivedCards.length}</Text>
+                   <Text color={this.props.user.theme.TEXT} size={14} style = {{marginTop:4}}>Cards</Text>
                 </TouchableOpacity>
 
             </Block>

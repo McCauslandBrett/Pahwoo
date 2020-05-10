@@ -99,11 +99,11 @@ class CustomCardScreen extends Component{
   render(){
     return(
       <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
-            <Block space={'between'} row>
+
              <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
              <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.flushAndNavigate()}/>
-            </Block>
-             <ScrollView>
+
+             <ScrollView style= {{marginTop: 30}}>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
