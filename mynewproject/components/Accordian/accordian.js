@@ -14,7 +14,7 @@ export default class Acordian extends Component {
     collapse: false,
   };
   OptionText(text, mode) {
-    if (mode == this.props.user.mode) {
+    if (mode === this.props.user.mode) {
       return <Text style={styles.optionSelected}> {text} </Text>;
     } else {
       return (
@@ -91,13 +91,14 @@ export default class Acordian extends Component {
               { mode: "Light Mode", modeIndex: 0 },
               { mode: "Dark Mode", modeIndex: 1 },
               { mode: "Pahwoo Mode", modeIndex: 2 },
-            ].map((val) => {
+            ].map((val, index) => {
               return (
                 <TouchableOpacity
                   onPress={() => this.setmode(val.modeIndex)}
                   style={styles.optionContainer}
+                  key={`themeMode${index}`}
                 >
-                  {this.OptionText(val.mode, 0)}
+                  {this.OptionText(val.mode, val.modeIndex)}
                   {this.props.user.mode == val.modeIndex ? CHECKMARK : null}
                 </TouchableOpacity>
               );

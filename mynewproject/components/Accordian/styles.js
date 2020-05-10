@@ -26,17 +26,19 @@ export const styles = StyleSheet.create({
   },
   optiontextTitle: {
     fontSize: 20,
-    marginLeft: 25,
+    // marginLeft: 25,
   },
   pairContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   option: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "300",
   },
   optionSelected: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "700",
     color: "green",
   },
 });
