@@ -35,7 +35,7 @@ class EventScreen extends Component{
     return(
     <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
 
-
+        
         <Icon name="menu" family="feather"  style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}/>
         <Icon family="AntDesign" name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.props.navigation.navigate('Event')}/>
 

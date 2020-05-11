@@ -56,8 +56,8 @@ store.subscribe(() => {
 class FreshCardScreen extends Component{
   static navigationOptions = ({navigation}) =>{
     const handleClearPress = navigation.getParam("handleBackPress", () => {});
-    return {    
-    
+    return {
+
       headerTintColor: 'black',
       headerBackTitle: null,
       headerStyle: {
@@ -80,13 +80,13 @@ class FreshCardScreen extends Component{
       await this.props.saveCard(this.state.selectedItems);
       this.setModalVisible(!this.state.modalVisible);
   }
-  
-  
+
+
   createCard = async () => {
     // why should the next line have `await`? Bcus we log props.card.cid right after and want that to be set
     await this.props.createCard(this.state.newName, [])
   }
-  
+
 
   state = {
       recipients: [],
@@ -104,12 +104,12 @@ class FreshCardScreen extends Component{
       contactAvatarMapping: [],
       contactData: []
   }
-  
+
   setModalVisible = (visible) => {
       this.setState({modalVisible: visible});
   }
 
-  
+
   toggleCoverModal = (bool) =>{
     this.setState({
       coverVisible:bool
@@ -157,7 +157,7 @@ class FreshCardScreen extends Component{
     let contacts = []
     // for loop with async calls
     // get each recipient
-    
+
     //the following ternary function got rid of the warning about recipients being undefined
     let recipientsArray = this.props.card.recipients === undefined ? [] : this.props.card.recipients;
     for (var i = 0; i < recipientsArray.length; i++){
@@ -185,14 +185,14 @@ class FreshCardScreen extends Component{
             alert(e)
         }
     }
-    
+
     this.setState({contactAvatarMapping: mapping});
     this.setState({recipients: tempData});
     this.setState({contactData: contacts});
     this.setState({selectedItems: recipientKeys});
   }
-  
-  
+
+
   _handleBackPress() {
     // Works on both iOS and Android
     // disable swipe-to-go-back gesture on this screen
@@ -446,14 +446,17 @@ class FreshCardScreen extends Component{
             }}>
             <Text>Send</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.button}
             onPress={() => { this.setModalVisible(true)}}>
             <Text>Save</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.button}
             onPress={()=> this._pickImage()}>
             <Text>Background</Text>
       </TouchableOpacity>
+
       </SafeAreaView>
 
          </ScrollView>
