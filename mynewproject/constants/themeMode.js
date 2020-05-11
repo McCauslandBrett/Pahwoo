@@ -9,7 +9,7 @@ const theme = [
 
   },
   {
-    BACKGROUND:"#3a2449",
+    BACKGROUND:"#2B2D2F",
     ICON:'white',
     TEXT:'#f4ac45',
     SHADOW:"white",

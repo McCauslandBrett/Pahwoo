@@ -108,13 +108,6 @@ modalViewBottom: {
   backgroundColor: '#D0D4DB',
 },
 
-  menuIcon:{
-    zIndex:9,
-    position:"absolute",
-    top:10,
-    left:20,
-    color:ICON_COLOR
-  },
 
   placeholder: {
     color: '#C7C7CD',
@@ -178,7 +171,7 @@ headlessAndroidPicker: {
   menuIcon:{
     zIndex:9,
     position:"absolute",
-    top:10,
+    top:25,
     left:20,
     color:palette.ICON_COLOR
   },
@@ -289,25 +282,10 @@ headlessAndroidPicker: {
     borderRadius:100,
     overflow:'hidden'
   },
-  avatarContainer:{
-
-    shadowRadius:30,
-    shadowOpacity:0.4
-  },
   avatar:{
     width:136,
     height:136,
     borderRadius:68
-  },
-  name: {
-    marginTop:20,
-    fontSize:16,
-    fontWeight:"600"
-  },
-  statsContainer:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    margin:20
   },
   stat:{
     alignItems:"center",
@@ -484,7 +462,7 @@ headlessAndroidPicker: {
     color:palette.ICON_COLOR,
     zIndex:1,
     position:"absolute",
-    top:10,
+    top:25,
     right:20
   }
 

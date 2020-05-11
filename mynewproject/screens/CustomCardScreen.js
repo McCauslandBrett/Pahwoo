@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text,SafeAreaView,FlatList, TouchableOpacity, Modal, ScrollView, Button, TextInput} from 'react-native';
+import { View,SafeAreaView,FlatList, TouchableOpacity, Modal, ScrollView,Dimensions, Button,TextInput} from 'react-native';
 import {Header, Left, Right} from 'native-base';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,8 +7,10 @@ import Icon  from "../components/icons.js";
 import {AntDesign} from "@expo/vector-icons";
 import db from '../config/firebase';
 import {createCard, setCard, flushCardState} from '../actions/card.js'
-
-
+import { Card,Block,theme,Text,NavBar} from 'galio-framework';
+const { height, width } = Dimensions.get('screen');
+import Constants from 'expo-constants';
+const { statusBarHeight } = Constants;
 import styles from '../styles.js'
 // Alright, flow needs to be established, so we can accomplish the most at once
 // Do we want to force users to select a card before they edit one? this would make it easy
@@ -88,19 +90,20 @@ class CustomCardScreen extends Component{
         await this.props.setCard(this.state.cardObjects[id])
         this.props.navigation.navigate('FreshCards')
     }
-    
+
   flushAndNavigate = () => {
       this.props.flushCardState();
       this.props.navigation.navigate('FreshCards');
   }
-   
+
   render(){
     return(
-      <SafeAreaView style={{backgroundColor: this.props.user.theme.BACKGROUND,
-                            flex: 1, justifyContent: "center"} }>
-          <ScrollView>
+      <Block flex center safe style={{width: width,backgroundColor: this.props.user.theme.BACKGROUND}}>
+
              <Icon.FontAwesome name = "bars" style = {[styles.menuIcon,{color: this.props.user.theme.ICON}]} size ={24} onPress={ () => this.props.navigation.openDrawer()}   />
              <AntDesign name="plussquareo" size={24} style = {[styles.topRightBtn,{color: this.props.user.theme.ICON}]} onPress = {()=> this.flushAndNavigate()}/>
+
+             <ScrollView style= {{marginTop: 30}}>
              <View style = {{marginTop:60, alignItems:"center"}}>
                  <Text> CustomCardScreen</Text>
                  <Button title ="Template Cards" onPress = {()=> this.props.navigation.navigate('CardTemplates')} />
@@ -150,7 +153,7 @@ class CustomCardScreen extends Component{
                     </ScrollView>
                 </Modal>
             </SafeAreaView>
-    </SafeAreaView>
+    </Block>
     );
   }
 }
